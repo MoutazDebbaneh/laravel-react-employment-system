@@ -36,7 +36,7 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
-
+        info('The command was successful!');
         return Redirect::route('profile.edit');
     }
 

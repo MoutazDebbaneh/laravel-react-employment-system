@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e170146e956b79d54aafa398ab2c3251",
+    "content-hash": "6c622557437a962457f1460435d42060",
     "packages": [
         {
             "name": "brick/math",
@@ -6026,7 +6026,6 @@
                 "brianium/paratest": "^7.1.0",
                 "laravel/framework": "^10.2.0",
                 "laravel/pint": "^1.6.0",
-                "laravel/sail": "^1.21.1",
                 "laravel/sanctum": "^3.2.1",
                 "laravel/tinker": "^2.8.1",
                 "nunomaduro/larastan": "^2.4.1",
