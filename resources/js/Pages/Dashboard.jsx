@@ -7,6 +7,7 @@ export default function Dashboard(props) {
             auth={props.auth}
             errors={props.errors}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
+            locale={props.locale}
         >
             <Head title="Dashboard" />
 

@@ -5,7 +5,9 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 
-export default function Authenticated({ auth, header, children }) {
+
+
+export default function Authenticated({ auth, header, children, locale }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -56,6 +58,12 @@ export default function Authenticated({ auth, header, children }) {
 
                                     <Dropdown.Content>
                                         <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                                        {
+                                            locale === 'en' ?
+                                                <Dropdown.Link href={route('language.set', ['ar'])}>Arabic</Dropdown.Link>
+                                                :
+                                                <Dropdown.Link href={route('language.set', ['en'])}>English</Dropdown.Link>
+                                        }
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Log Out
                                         </Dropdown.Link>
@@ -90,6 +98,7 @@ export default function Authenticated({ auth, header, children }) {
                     </div>
                 </div>
 
+
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
@@ -100,13 +109,25 @@ export default function Authenticated({ auth, header, children }) {
                     <div className="pt-4 pb-1 border-t border-gray-200">
                         <div className="px-4">
                             <div className="font-medium text-base text-gray-800">
-                                {auth.user.name}
+                                {auth.user.first_name + " " + auth.user.last_name}
                             </div>
                             <div className="font-medium text-sm text-gray-500">{auth.user.email}</div>
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
+                            <ResponsiveNavLink href={route('profile.edit')}>
+                                Profile
+                            </ResponsiveNavLink>
+                            {
+                                locale === 'en' ?
+                                    <ResponsiveNavLink href={route('language.set', ['ar'])}>
+                                        Arabic
+                                    </ResponsiveNavLink>
+                                    :
+                                    <ResponsiveNavLink href={route('language.set', ['en'])}>
+                                        English
+                                    </ResponsiveNavLink>
+                            }
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 Log Out
                             </ResponsiveNavLink>

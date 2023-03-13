@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Lang;
 
 class RegisteredUserController extends Controller
 {
@@ -21,7 +23,12 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        $locale = App::getLocale();
+        $translations = Lang::get('register', [], $locale);
+
+        return Inertia::render('Auth/Register', [
+            'translations' => $translations,
+        ]);
     }
 
     /**
