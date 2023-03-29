@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', Session::get('locale')) }}" dir="{{ Session::get('locale') == 'en' ? 'ltr' : 'rtl' }}">
+<html lang="{{ Session::get('locale') ?? 'en' }}" dir="{{ Session::get('locale') == 'en' || Session::get('locale') == null ? 'ltr' : 'rtl' }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +13,7 @@
         <!-- Scripts -->
         @routes
         @viteReactRefresh
-        @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
+        @vite(['resources/ts/app.tsx', "resources/ts/Pages/{$page['component']}.tsx"])
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
