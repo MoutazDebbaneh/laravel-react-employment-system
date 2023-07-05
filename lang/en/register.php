@@ -2,6 +2,8 @@
 
 return [
     'title' => 'Register',
+    'heading' => 'Sign Up For Free',
+    'subheading' => 'Create a free account to access all features.',
     'first' => 'First Name',
     'last' => 'Lirst Name',
     'email' => 'Email',
@@ -10,6 +12,9 @@ return [
     'type' => 'Account Type',
     'seeker' => 'Job Seeker',
     'company' => 'Company',
-    'already' => 'Already Registered?',
+    'agree1' => 'Agree to our ',
+    'agree2' => 'terms and policies',
+    'already' => 'Already Registered? ',
     'register' => 'Register',
+    'login' => 'Login',
 ];

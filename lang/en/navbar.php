@@ -8,4 +8,5 @@ return [
     'about' => 'About Us',
     'login' => 'Log In',
     'register' => 'Register',
+    'terms' => 'Terms',
 ];

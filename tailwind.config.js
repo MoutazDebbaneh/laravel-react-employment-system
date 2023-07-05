@@ -15,7 +15,19 @@ module.exports = {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'primary-blue': '#3C65F5',
+                'dark-blue': '#05264E',
+                'muted': '#4F5E64',
+            }
         },
+        screens: { // Using Bootstrap breakpoints
+            'sm': '576px',
+            'md': '768px',
+            'lg': '992px',
+            'xl': '1200px',
+            '2xl': '1400px',
+        }
     },
 
     plugins: [require('@tailwindcss/forms'), require('tailwindcss-rtl'),],

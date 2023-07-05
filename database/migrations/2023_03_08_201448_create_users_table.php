@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,12 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->enum('role', [1, 2, 3, 4]);
+            $table->enum('role', [
+                Role::Root_Admin->value,
+                Role::Admin->value,
+                Role::User->value,
+                Role::Company->value
+            ]);
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();

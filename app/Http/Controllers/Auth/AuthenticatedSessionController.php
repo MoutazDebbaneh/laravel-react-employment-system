@@ -22,10 +22,29 @@ class AuthenticatedSessionController extends Controller
     public function create(): Response
     {
         $locale = App::getLocale();
-        $translations = Lang::get('login', [], $locale);
+
+        $translations = array_merge(
+            Lang::get('login', [], $locale),
+            ['navbar' => Lang::get('navbar', [], $locale)]
+        );
 
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
+            'status' => session('status'),
+            'translations' => $translations,
+        ]);
+    }
+    public function create_new(): Response
+    {
+        $locale = App::getLocale();
+
+        $translations = array_merge(
+            Lang::get('login', [], $locale),
+            ['navbar' => Lang::get('navbar', [], $locale)]
+        );
+
+        return Inertia::render('Auth/NewLogin', [
+            // 'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
             'translations' => $translations,
         ]);

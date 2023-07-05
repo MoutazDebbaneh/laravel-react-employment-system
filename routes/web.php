@@ -18,7 +18,8 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'test'])->name('test');
 
 
 Route::get('/dashboard', function () {

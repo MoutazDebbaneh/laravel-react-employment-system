@@ -12,9 +12,18 @@ class HomeController extends Controller
     public function index()
     {
         $locale = App::getLocale();
-        $translations = Lang::get('navbar', [], $locale);
+        $translations = ['navbar' => Lang::get('navbar', [], $locale)];
 
         return Inertia::render('Home/Home', [
+            'translations' => $translations,
+        ]);
+    }
+    public function test()
+    {
+        $locale = App::getLocale();
+        $translations = ['navbar' => Lang::get('navbar', [], $locale)];
+
+        return Inertia::render('Test/Test', [
             'translations' => $translations,
         ]);
     }
