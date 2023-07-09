@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Pages\JobsController;
 use App\Http\Controllers\Utils\LanguageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -19,7 +20,9 @@ use Inertia\Inertia;
 */
 
 // Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/', [HomeController::class, 'test'])->name('test');
+Route::get('/', [HomeController::class, 'test'])->name('new-home');
+
+Route::get('/jobs', [JobsController::class, 'index'])->name('jobs');
 
 
 Route::get('/dashboard', function () {

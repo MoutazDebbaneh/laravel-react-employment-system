@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('scrape_sources', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('logo')->unique();
             $table->timestamps();
         });
     }

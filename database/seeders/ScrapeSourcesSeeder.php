@@ -13,6 +13,9 @@ class ScrapeSourcesSeeder extends Seeder
      */
     public function run(): void
     {
-        ScrapeSource::firstOrCreate(['name' => 'Career.sy']);
+        ScrapeSource::firstOrCreate([
+            'name' => 'Career.sy',
+            'logo' => 'career.sy.png'
+        ]);
     }
 }

@@ -5,7 +5,7 @@ return [
     'heading' => 'Sign Up For Free',
     'subheading' => 'Create a free account to access all features.',
     'first' => 'First Name',
-    'last' => 'Lirst Name',
+    'last' => 'Last Name',
     'email' => 'Email',
     'password' => 'Password',
     'confirm' => 'Confirm Password',

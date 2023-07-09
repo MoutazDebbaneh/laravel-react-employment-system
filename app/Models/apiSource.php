@@ -13,6 +13,7 @@ class apiSource extends Model
 
     protected $fillable = [
         'name',
+        'logo'
     ];
 
     protected $hidden = [];

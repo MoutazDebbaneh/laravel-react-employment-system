@@ -75,7 +75,7 @@ class ScrapeSourcesCommand extends Command
     ) {
         // Handle title and company name
         if (!empty($results['title']) && !empty($results['company']) && $results['title'] != $results['company']) {
-            $results['title'] .= (' - ' . $results['company']);
+            $results['title'] .= (' --- ' . $results['company']);
         }
         unset($results['company']);
 
@@ -238,7 +238,7 @@ class ScrapeSourcesCommand extends Command
                 =>
                 str_word_count(
                     preg_replace(
-                        '/[^a-z]/',
+                        '/[^a-z\s]/',
                         '',
                         strtolower($category['name_en'])
                     ),
@@ -253,7 +253,7 @@ class ScrapeSourcesCommand extends Command
                 =>
                 str_word_count(
                     preg_replace(
-                        '/[^a-z]/',
+                        '/[^a-z\s]/',
                         '',
                         strtolower($type['name_en'])
                     ),
@@ -337,7 +337,7 @@ class ScrapeSourcesCommand extends Command
                 $job = new Job($job_details);
 
                 if (isset($job_details['category']))
-                    $job->forceFill(['category_id' => $job_details['category']]);
+                    $job->forceFill(['job_category_id' => $job_details['category']]);
 
                 $source->jobs()->save($job);
 

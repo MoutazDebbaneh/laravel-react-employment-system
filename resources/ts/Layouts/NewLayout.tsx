@@ -7,10 +7,12 @@ import { faBars, faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from '@inertiajs/react';
 import { PropsWithChildren } from 'react';
+import UserLayout from './UserLayout';
 
-export default function NewLayout({ children, translations, locale }: PropsWithChildren<{
+export default function NewLayout({ children, translations, locale, auth }: PropsWithChildren<{
     translations: Translations;
     locale: Locale;
+    auth: any;
 }>) {
 
     function toggleMenu(): void {
@@ -35,8 +37,8 @@ export default function NewLayout({ children, translations, locale }: PropsWithC
                         <div className="header-main hidden 2xl:flex 2xl:items-center">
                             <nav>
                                 <ul className='font-medium'>
-                                    <li className='inline-block mx-6 h-full text-primary-blue after:block after:w-15 after:h-[1.78px] after:bg-primary-blue'><a href="#">{translations.home.toString()}</a></li>
-                                    <li className='inline-block mx-6 h-full hover:text-primary-blue transition hover:after:block hover:after:w-15 hover:after:h-[1.78px] hover:after:bg-primary-blue'><a href="#">{translations.jobs.toString()}</a></li>
+                                    <li className='inline-block mx-6 h-full text-primary-blue after:block after:w-15 after:h-[1.78px] after:bg-primary-blue'><a href={route('new-home')}>{translations.home.toString()}</a></li>
+                                    <li className='inline-block mx-6 h-full hover:text-primary-blue transition hover:after:block hover:after:w-15 hover:after:h-[1.78px] hover:after:bg-primary-blue'><a href={route('jobs')}>{translations.jobs.toString()}</a></li>
                                     <li className='inline-block mx-6 h-full hover:text-primary-blue transition hover:after:block hover:after:w-15 hover:after:h-[1.78px] hover:after:bg-primary-blue'><a href="#">{translations.companies.toString()}</a></li>
                                     <li className='inline-block mx-6 h-full hover:text-primary-blue transition hover:after:block hover:after:w-15 hover:after:h-[1.78px] hover:after:bg-primary-blue'><a href="#">{translations.about.toString()}</a></li>
                                     <li className='inline-block mx-6 h-full hover:text-primary-blue transition hover:after:block hover:after:w-15 hover:after:h-[1.78px] hover:after:bg-primary-blue'><a href="#">{translations.terms.toString()}</a></li>
@@ -44,30 +46,43 @@ export default function NewLayout({ children, translations, locale }: PropsWithC
                             </nav>
                         </div>
                         <div className="header-right flex justify-center items-center">
-                            <div className='hidden 2xl:flex w-fit h-fit'>
-                                {locale == Locale.English ?
-                                    <>
-                                        <a href="#" className='bg-primary-blue px-[25px] py-[10px] rounded-lg me-2 text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all'>{translations.login.toString()}</a>
-                                        <a href="#" className='bg-primary-blue px-[25px] py-[10px] rounded-lg text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all'>{translations.register.toString()}</a>
-                                    </>
-                                    :
-                                    <>
-                                        <a href="#" className='bg-primary-blue px-[10px] py-[10px] rounded-lg me-2 text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all'>{translations.login.toString()}</a>
-                                        <a href="#" className='bg-primary-blue px-[10px] py-[10px] rounded-lg text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all'>{translations.register.toString()}</a>
-                                    </>
-                                }
 
-                            </div>
                             {
-                                locale == Locale.English ?
-                                    <Link href={route('language.set', [Locale.Arabic])} className='ms-3 w-6 rounded'>
-                                        <ArabicFlag />
-                                    </Link>
+                                auth.user ?
+                                    <UserLayout locale={locale} translations={translations} user={null} />
                                     :
-                                    <Link href={route('language.set', [Locale.English])} className='ms-3 w-6 rounded'>
-                                        <EnglishFlag />
-                                    </Link>
+                                    <>
+                                        <div className='hidden 2xl:flex w-fit h-fit'>
+                                            {locale == Locale.English ?
+                                                <>
+                                                    <a href={route('new-login')} className='bg-primary-blue px-[25px] py-[10px] rounded-lg me-2 text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all'>{translations.login.toString()}</a>
+                                                    <a href={route('new-register')} className='bg-primary-blue px-[25px] py-[10px] rounded-lg text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all'>{translations.register.toString()}</a>
+                                                </>
+                                                :
+                                                <>
+                                                    <a href={route('new-login')} className='bg-primary-blue px-[10px] py-[10px] rounded-lg me-2 text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all'>{translations.login.toString()}</a>
+                                                    <a href={route('new-register')} className='bg-primary-blue px-[10px] py-[10px] rounded-lg text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all'>{translations.register.toString()}</a>
+                                                </>
+                                            }
+
+                                        </div>
+                                        {
+                                            locale == Locale.English ?
+                                                <Link href={route('language.set', [Locale.Arabic])} className='ms-3 w-6 rounded'>
+                                                    <ArabicFlag />
+                                                </Link>
+                                                :
+                                                <Link href={route('language.set', [Locale.English])} className='ms-3 w-6 rounded'>
+                                                    <EnglishFlag />
+                                                </Link>
+                                        }
+                                    </>
+
                             }
+
+
+
+
                             <div className='2xl:hidden'>
                                 <FontAwesomeIcon icon={faBars} className='text-[1.6rem] color-muted cursor-pointer' onClick={toggleMenu} />
                             </div>
@@ -85,10 +100,9 @@ export default function NewLayout({ children, translations, locale }: PropsWithC
                     <div className="mobile-nav ">
                         <nav>
                             <ul className='text-dark-blue text-[1.13rem] leading-none font-medium'>
-                                <li className='py-4 transition-all hover:ml-1'><a href="#">Home</a></li>
-                                <li className='py-4 transition-all hover:ml-1'><a href="#">Find a Job</a></li>
+                                <li className='py-4 transition-all hover:ml-1'><a href={route('new-home')}>Home</a></li>
+                                <li className='py-4 transition-all hover:ml-1'><a href={route('jobs')}>Jobs</a></li>
                                 <li className='py-4 transition-all hover:ml-1'><a href="#">Companies</a></li>
-                                <li className='py-4 transition-all hover:ml-1'><a href="#">Canditates</a></li>
                                 <li className='py-4 transition-all hover:ml-1'><a href="#">About Us</a></li>
                                 <li className='py-4 transition-all hover:ml-1'><a href="#">Terms</a></li>
                             </ul>

@@ -13,7 +13,7 @@ import bgRegister from '/resources/images/bg-register.svg'
 import Checkbox from '@/Components/Checkbox';
 import PageLocalizer from '@/Components/PageLocalizer';
 
-export default function NewRegister({ locale, translations }: { locale: Locale, translations: Translations }) {
+export default function NewRegister({ locale, translations, auth }: { locale: Locale, translations: Translations, auth: any }) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         first_name: '',
@@ -41,7 +41,7 @@ export default function NewRegister({ locale, translations }: { locale: Locale, 
 
 
     return (
-        <NewLayout locale={locale} translations={translations.navbar as Translations}>
+        <NewLayout locale={locale} translations={translations.navbar as Translations} auth={auth}>
 
             <PageLocalizer locale={locale} />
             <Head title={translations.title.toString()} />

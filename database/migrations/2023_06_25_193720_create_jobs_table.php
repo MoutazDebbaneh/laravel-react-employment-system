@@ -24,15 +24,15 @@ return new class extends Migration
             $table->tinyInteger('min_age')->unsigned()->nullable();
             $table->tinyInteger('max_age')->unsigned()->nullable();
             $table->boolean('gender')->nullable();
-            $table->string('display_image')->nullable();
+            $table->string('display_image')->default('default-logo.png');
             $table->date('post_date')->nullable();
             $table->date('expiration_date')->nullable();
             $table->tinyInteger('source_type')->unsigned()->nullable();
             $table->string('source_url')->nullable();
             $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->foreign('category_id')->references('id')->on('job_categories');
+            $table->unsignedBigInteger('job_category_id');
+            $table->foreign('job_category_id')->references('id')->on('job_categories');
             $table->unsignedBigInteger('scrape_source_id')->nullable();
             $table->foreign('scrape_source_id')->references('id')->on('scrape_sources');
             $table->unsignedBigInteger('api_source_id')->nullable();

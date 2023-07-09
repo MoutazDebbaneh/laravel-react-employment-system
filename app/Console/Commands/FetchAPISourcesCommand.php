@@ -290,7 +290,7 @@ class FetchapiSourcesCommand extends Command
                     =>
                     str_word_count(
                         preg_replace(
-                            '/[^a-z]/',
+                            '/[^a-z\s]/',
                             '',
                             strtolower($category['name_en'])
                         ),
@@ -305,7 +305,7 @@ class FetchapiSourcesCommand extends Command
                     =>
                     str_word_count(
                         preg_replace(
-                            '/[^a-z]/',
+                            '/[^a-z\s]/',
                             '',
                             strtolower($type['name_en'])
                         ),
@@ -340,10 +340,10 @@ class FetchapiSourcesCommand extends Command
 
                 if (isset($job_details['category'])) {
                     if (is_int($job_details['category'])) {
-                        $job->forceFill(['category_id' => $job_details['category']]);
+                        $job->forceFill(['job_category_id' => $job_details['category']]);
                     } else {
                         $job->forceFill(
-                            ['category_id' => reset($job_details['category'])]
+                            ['job_category_id' => reset($job_details['category'])]
                         );
                     }
                 }

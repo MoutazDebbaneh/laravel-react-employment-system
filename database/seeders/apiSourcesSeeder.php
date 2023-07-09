@@ -13,6 +13,9 @@ class apiSourcesSeeder extends Seeder
      */
     public function run(): void
     {
-        apiSource::firstOrCreate(['name' => 'Forsa.sy']);
+        apiSource::firstOrCreate([
+            'name' => 'Forsa.sy',
+            'logo' => 'forsa.sy.png'
+        ]);
     }
 }

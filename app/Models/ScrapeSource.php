@@ -13,6 +13,7 @@ class ScrapeSource extends Model
 
     protected $fillable = [
         'name',
+        'logo'
     ];
 
     protected $hidden = [];

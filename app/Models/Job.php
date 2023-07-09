@@ -52,4 +52,9 @@ class Job extends Model
     {
         return $this->belongsTo(ScrapeSource::class);
     }
+
+    public function apiSource(): BelongsTo
+    {
+        return $this->belongsTo(apiSource::class);
+    }
 }

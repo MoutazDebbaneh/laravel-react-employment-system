@@ -80,10 +80,9 @@ class CommandHelpers
             }
         }
 
-
         // Handle title and company name
         if (!empty($results['title']) && !empty($results['company']) && $results['title'] != $results['company']) {
-            $results['title'] .= (' - ' . $results['company']);
+            $results['title'] .= (' --- ' . $results['company']);
         }
         unset($results['company']);
 
@@ -165,51 +164,88 @@ class CommandHelpers
         }
 
         // Handle category
+        if (empty($results['category'])) $results['category'] = 'Other';
         if (!empty($results['category'])) {
-            $category = is_string($results['category']) ? $results['category'] : $results['category'][0];
-
-            $category = str_word_count(
-                preg_replace('/[^a-z]/', '', strtolower($category)),
-                1
-            );
-            foreach ($normalized_categories as $index => $normalized_category) {
-                $match = false;
-                if (!empty(array_intersect($normalized_category, $category))) {
-                    $results['category'] = $job_categories[$index]->id;
-                    $match = true;
-                    break;
-                }
-                if (!$match) {
-                    $results['category'] = $job_categories->where('name_en', 'Other')->first()->id;
+            $categories = [];
+            if (is_string($results['category'])) {
+                if (str_contains($results['category'], '/')) $categories = [explode('/', $results['category'])];
+                else if (str_contains($results['category'], '-')) $categories = [explode('-', $results['category'])];
+                else if (str_contains($results['category'], ',')) $categories = [explode(',', $results['category'])];
+                else $categories[] = [$results['category']];
+            } else {
+                foreach ($results['category'] as $category) {
+                    if (str_contains($category, '/')) $categories[] = explode('/', $category);
+                    else if (str_contains($category, '-')) $categories[] = explode('-', $category);
+                    else if (str_contains($category, ',')) $categories[] = explode(',', $category);
+                    else $categories[] = [$category];
                 }
             }
+
+            $match = false;
+
+            foreach ($categories as $subcategories) {
+
+                foreach ($subcategories as $index => $category) {
+                    $category = str_word_count(
+                        preg_replace('/[^a-z\s]/', '', strtolower(trim($category))),
+                        1
+                    );
+                    foreach ($normalized_categories as $index => $normalized_category) {
+                        if (!empty(array_intersect($normalized_category, $category))) {
+                            $results['category'] = $job_categories[$index]->id;
+                            $match = true;
+                            break;
+                        }
+                    }
+                    if ($match) break;
+                }
+            }
+
+            if (!$match) {
+                $results['category'] = $job_categories->where('name_en', 'Other')->first()->id;
+            }
+
+            // dd($results['category']);
         }
 
         // Handle job types
+        if (empty($results['type'])) $results['type'] = 'Full Time';
         $matched_types_ids = [];
         if (!empty($results['type'])) {
-            $type = $results['type'];
+
             $types = [];
-            if (is_string($type)) {
-                $sep = '';
-                if (str_contains($type, '-')) $sep = '-';
-                else if (str_contains($type, ',')) $sep = ',';
-                else if (str_contains($type, '/')) $sep = '/';
-                if ($sep == '') {
-                    $types[] = $type;
-                } else {
-                    $types = explode($sep, $type);
-                }
+            if (is_string($results['type'])) {
+                if (str_contains($results['type'], '/')) $types = explode('/', $results['type']);
+                else if (str_contains($results['type'], '-')) $types = explode('-', $results['type']);
+                else if (str_contains($results['type'], ',')) $types = explode(',', $results['type']);
+                else $types[] = $results['type'];
             } else {
-                $types = $type;
+                $types = $results['type'];
             }
+
+
+            // $type = $results['type'];
+            // $types = [];
+            // if (is_string($type)) {
+            //     $sep = '';
+            //     if (str_contains($type, '-')) $sep = '-';
+            //     else if (str_contains($type, ',')) $sep = ',';
+            //     else if (str_contains($type, '/')) $sep = '/';
+            //     if ($sep == '') {
+            //         $types[] = $type;
+            //     } else {
+            //         $types = explode($sep, $type);
+            //     }
+            // } else {
+            //     $types = $type;
+            // }
 
             foreach ($normalized_types as $index => $normalized_type) {
 
                 foreach ($types as $job_type) {
                     $nt =
                         str_word_count(
-                            preg_replace('/[^a-z]/', '', strtolower($job_type)),
+                            preg_replace('/[^a-z\s]/', '', strtolower(trim($job_type))),
                             1
                         );
 
@@ -222,12 +258,21 @@ class CommandHelpers
         }
         $results['matched_types_ids'] = array_map(fn ($index) => $job_types[$index]->id, $matched_types_ids);
 
+        $full_time_id = $job_types->where('name_en', 'Full Time')->first()->id;
+        $part_time_id = $job_types->where('name_en', 'Part Time')->first()->id;
+
+        if (in_array($full_time_id, $results['matched_types_ids']) && in_array($part_time_id, $results['matched_types_ids'])) {
+            $key = array_search($part_time_id, $results['matched_types_ids']);
+            unset($results['matched_types_ids'][$key]);
+        }
+
+
         // Handle company logo
         if (!empty($results['display_image'])) {
             $url = $results['display_image'];
             $image = file_get_contents($url);
             $filename = basename($url);
-            Storage::put("storage/images/$filename", $image);
+            Storage::put("public/images/$filename", $image);
             $results['display_image'] = $filename;
         }
 

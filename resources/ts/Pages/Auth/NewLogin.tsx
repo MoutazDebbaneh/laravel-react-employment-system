@@ -12,7 +12,7 @@ import Checkbox from '@/Components/Checkbox';
 import PageLocalizer from '@/Components/PageLocalizer';
 
 
-export default function NewLogin({ status, locale, translations }: { status?: string, locale: Locale, translations: Translations }) {
+export default function NewLogin({ status, locale, translations, auth }: { status?: string, locale: Locale, translations: Translations, auth: any }) {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
@@ -35,7 +35,7 @@ export default function NewLogin({ status, locale, translations }: { status?: st
 
 
     return (
-        <NewLayout translations={translations.navbar as Translations} locale={locale} >
+        <NewLayout translations={translations.navbar as Translations} locale={locale} auth={auth} >
             <PageLocalizer locale={locale} />
             <Head title={translations.title.toString()} />
 
