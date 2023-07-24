@@ -23,4 +23,9 @@ class JobCategory extends Model
     {
         return $this->hasMany(Job::class);
     }
+
+    public function userProfiles()
+    {
+        return $this->belongsToMany(JobCategory::class, 'job_category_user_profile', 'job_category_id', 'user_profile_id');
+    }
 }

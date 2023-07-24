@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ScrapeSourceConfigurationsSeeder::class);
         $this->call(apiSourcesSeeder::class);
         $this->call(apiSourceConfigurationsSeeder::class);
+        $this->call(LanguageSeeder::class);
     }
 }

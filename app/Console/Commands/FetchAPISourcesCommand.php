@@ -359,5 +359,7 @@ class FetchapiSourcesCommand extends Command
 
             Log::channel('apifetchlog')->info("Scraping $name ended\n");
         }
+
+        return;
     }
 }

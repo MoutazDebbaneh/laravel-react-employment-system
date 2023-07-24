@@ -164,8 +164,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'agree' => [
+            'required' => 'يجب عليك الموافقة على شروط وسياسات الاستخدام',
+            'accepted' => 'يجب عليك الموافقة على شروط وسياسات الاستخدام',
         ],
     ],
 

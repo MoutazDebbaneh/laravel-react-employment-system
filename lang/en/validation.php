@@ -163,8 +163,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'agree' => [
+            'required' => 'You must agree to our terms and policies',
+            'accepted' => 'You must agree to our terms and policies',
         ],
     ],
 

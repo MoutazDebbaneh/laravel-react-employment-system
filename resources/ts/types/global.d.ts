@@ -1,6 +1,7 @@
 import { Locale } from '@/enums/app_enums';
 import { AxiosInstance } from 'axios';
 import ziggyRoute, { Config as ZiggyConfig } from 'ziggy-js';
+import { User } from '.';
 
 declare global {
 
@@ -14,6 +15,10 @@ declare global {
 
     type Translations = {
         [key: string]: Translations | string
+    }
+
+    type Auth = {
+        user: User
     }
 
     var route: typeof ziggyRoute;

@@ -11,8 +11,12 @@ class Company extends Model
 {
     use HasFactory;
 
+    protected $table = 'companies';
+    protected $singular = 'company';
+
     protected $fillable = [
         'name',
+        'email',
         'logo',
         'website',
         'phone',
@@ -21,7 +25,9 @@ class Company extends Model
 
     protected $hidden = [];
 
-    protected $casts = [];
+    protected $casts = [
+        'company_verified_at' => 'datetime',
+    ];
 
     public function user(): BelongsTo
     {
@@ -31,5 +37,10 @@ class Company extends Model
     public function jobs(): HasMany
     {
         return $this->hasMany(Job::class);
+    }
+
+    public function companyVerificationRequest()
+    {
+        return $this->hasOne(CompanyVerificationRequest::class);
     }
 }

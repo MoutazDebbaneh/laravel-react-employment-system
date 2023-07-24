@@ -82,6 +82,9 @@ class CommandHelpers
 
         // Handle title and company name
         if (!empty($results['title']) && !empty($results['company']) && $results['title'] != $results['company']) {
+            if (count(explode('-', $results['title'])) > 1) {
+                $results['title'] = explode('-', $results['title'])[0];
+            }
             $results['title'] .= (' --- ' . $results['company']);
         }
         unset($results['company']);

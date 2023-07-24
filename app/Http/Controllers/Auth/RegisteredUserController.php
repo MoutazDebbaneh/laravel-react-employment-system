@@ -56,7 +56,8 @@ class RegisteredUserController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => 'required|integer|between:3,4'
+            'role' => 'required|integer|between:3,4',
+            'agree' => 'required|accepted'
         ]);
 
         $user = User::create([
@@ -71,8 +72,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        // return redirect(RouteServiceProvider::HOME);
-        // TODO
-        return redirect('/');
+        return redirect(RouteServiceProvider::HOME);
     }
 }

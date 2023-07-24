@@ -2,11 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    font-family: 'Plus Jakarta Sans';
+body {
+    font-family: "Plus Jakarta Sans";
 }
 
-.open{
+.open {
     right: 0;
     display: block;
+}
+
+.react-select *:focus {
+    --tw-ring-offset-shadow: none;
+    --tw-ring-shadow: none;
+}
+
+.no-border *,
+.no-border *:focus,
+.no-border *:active {
+    --tw-ring-offset-shadow: none !important;
+    --tw-ring-shadow: none !important;
+    border: none !important;
+    box-shadow: none !important;
 }

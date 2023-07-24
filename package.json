@@ -26,8 +26,11 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@fortawesome/free-brands-svg-icons": "^6.4.0",
         "@fortawesome/free-solid-svg-icons": "^6.4.0",
         "@fortawesome/react-fontawesome": "^0.2.0",
-        "flag-icons": "^6.6.6"
+        "countries-list": "^2.6.1",
+        "flag-icons": "^6.6.6",
+        "react-select": "^5.7.3"
     }
 }

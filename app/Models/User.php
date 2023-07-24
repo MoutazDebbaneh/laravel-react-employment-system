@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Events\UserCreated;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -30,8 +31,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $dispatchesEvents = [
+        'created' => UserCreated::class,
+    ];
+
     public function company(): HasOne
     {
         return $this->hasOne(Company::class);
+    }
+    public function userProfile(): HasOne
+    {
+        return $this->hasOne(UserProfile::class);
     }
 }

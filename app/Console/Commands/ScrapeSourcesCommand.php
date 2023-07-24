@@ -66,161 +66,6 @@ class ScrapeSourcesCommand extends Command
         'benefits_selector',
     ];
 
-    static function normalizedJobData(
-        array &$results,
-        Collection &$job_categories,
-        array &$normalized_categories,
-        Collection &$job_types,
-        array &$normalized_types
-    ) {
-        // Handle title and company name
-        if (!empty($results['title']) && !empty($results['company']) && $results['title'] != $results['company']) {
-            $results['title'] .= (' --- ' . $results['company']);
-        }
-        unset($results['company']);
-
-        // Handle Gender
-        if (!empty($results['gender'])) {
-            $gender = strtolower($results['gender']);
-            $casted_gender = null;
-            if ($gender == 'male') $casted_gender = (bool)Gender::Male->value;
-            if ($gender == 'female') $casted_gender = (bool)Gender::Female->value;
-            if ($gender == 'woman') $casted_gender = (bool)Gender::Female->value;
-            $results['gender'] = $casted_gender;
-        }
-
-        // Handle Salaries
-        if (!empty($results['min_salary'])) {
-            $min_salary = $results['min_salary'];
-            if (str_contains($min_salary, '-')) {
-
-                //Get first part of the salary
-                $min_salary = explode('-', $min_salary)[0];
-            }
-            // Remove non-digit and non-comma characters
-            $min_salary = preg_replace('/[^0-9,]/', '', $min_salary);
-
-            // Remove commas from the salary string
-            $min_salary = str_replace(',', '', $min_salary);
-
-            $results['min_salary'] = trim($min_salary);
-        }
-
-        if (!empty($results['max_salary'])) {
-            $max_salary = $results['max_salary'];
-            if (str_contains($max_salary, '-')) {
-
-                //Get first part of the salary
-                $max_salary = explode('-', $max_salary)[1];
-            }
-            // Remove non-digit and non-comma characters using preg_replace()
-            $max_salary = preg_replace('/[^0-9,]/', '', $max_salary);
-
-            // Remove commas from the salary string using str_replace()
-            $max_salary = str_replace(',', '', $max_salary);
-            $results['max_salary'] = trim($max_salary);
-        }
-
-        // Handle experience
-        if (!empty($results['experience'])) {
-            $results['experience'] = preg_replace('/[^0-9]/', '', $results['experience']);
-        }
-
-        // Log::channel('scraplog')->info('post_date / expiration_date Before Handling');
-        // Log::channel('scraplog')->info($results['post_date']);
-        // Log::channel('scraplog')->info($results['expiration_date']);
-
-        // Handle Dates
-        if (!empty($results['post_date'])) {
-            $results['post_date'] = str_replace('/', '-', $results['post_date']);
-
-            $timestamp = strtotime($results['post_date']);
-            if ($timestamp != false) {
-                $date = new DateTime('@' . $timestamp);
-                $results['post_date'] = $date->format('Y-m-d');
-            } else {
-                Log::channel('scraplog')->info("Can't handle post_date");
-            }
-        }
-        if (!empty($results['expiration_date'])) {
-            $results['expiration_date'] = str_replace('/', '-', $results['expiration_date']);
-
-            $timestamp = strtotime($results['expiration_date']);
-            if ($timestamp != false) {
-                $date = new DateTime('@' . $timestamp);
-                $results['expiration_date'] = $date->format('Y-m-d');
-            } else {
-                Log::channel('scraplog')->info("Can't handle expiration_date");
-            }
-        }
-
-        // Log::channel('scraplog')->info('post_date / expiration_date After Handling');
-        // Log::channel('scraplog')->info($results['post_date']);
-        // Log::channel('scraplog')->info($results['expiration_date']);
-
-
-        // Handle category
-        if (!empty($results['category'])) {
-            $category = str_word_count(
-                preg_replace('/[^a-z]/', '', strtolower($results['category'])),
-                1
-            );
-            foreach ($normalized_categories as $index => $normalized_category) {
-                $match = false;
-                if (!empty(array_intersect($normalized_category, $category))) {
-                    $results['category'] = $job_categories[$index]->id;
-                    $match = true;
-                    break;
-                }
-                if (!$match) {
-                    $results['category'] = $job_categories->where('name_en', 'Other')->first()->id;
-                }
-            }
-        }
-
-        // Handle job types
-        $matched_types_ids = [];
-        if (!empty($results['type'])) {
-            $type = $results['type'];
-            $types = [];
-            $sep = '';
-            if (str_contains($type, '-')) $sep = '-';
-            else if (str_contains($type, ',')) $sep = ',';
-            else if (str_contains($type, '/')) $sep = '/';
-            if ($sep == '') {
-                $types[] = $type;
-            } else {
-                $types = explode($sep, $type);
-            }
-
-            foreach ($normalized_types as $index => $normalized_type) {
-
-                foreach ($types as $job_type) {
-                    $nt =
-                        str_word_count(
-                            preg_replace('/[^a-z]/', '', strtolower($job_type)),
-                            1
-                        );
-
-                    if (!empty(array_intersect($nt, $normalized_type))) {
-                        $matched_types_ids[] = $index;
-                        break;
-                    }
-                }
-            }
-        }
-        $results['matched_types_ids'] = array_map(fn ($index) => $job_types[$index]->id, $matched_types_ids);
-
-        // Handle company logo
-        if (!empty($results['display_image'])) {
-            $url = $results['display_image'];
-            $image = file_get_contents($url);
-            $filename = basename($url);
-            Storage::put("storage/images/$filename", $image);
-            $results['display_image'] = $filename;
-        }
-    }
-
 
     static function scrapeDetails(
         RemoteWebDriver &$driver,
@@ -273,6 +118,7 @@ class ScrapeSourcesCommand extends Command
 
                 foreach (self::$signle_text_selectors as $selector_key) {
                     $selector = $config->getAttribute($selector_key);
+
                     if (empty($selector)) continue;
 
                     try {
@@ -306,13 +152,6 @@ class ScrapeSourcesCommand extends Command
                 Log::channel('scraplog')->info("$url raw results:");
                 Log::channel('scraplog')->info(json_encode($results));
 
-                // self::normalizedJobData(
-                //     $results,
-                //     $job_categories,
-                //     $normalized_categories,
-                //     $job_types,
-                //     $normalized_types
-                // );
 
                 CommandHelpers::normalizeJobData(
                     $results,

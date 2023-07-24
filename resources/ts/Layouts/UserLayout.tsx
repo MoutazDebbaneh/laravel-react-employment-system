@@ -1,8 +1,8 @@
+import Dropdown from "@/Components/Dropdown";
 import { Locale } from "@/enums/app_enums";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
-
 
 interface Notification {
     id: number;
@@ -127,24 +127,15 @@ export default function UserLayout({ locale, translations, user }: UserLayoutPro
                     </button>
                     {isDropDownOpen && (
                         <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                            <a
-                                href="#"
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                            >
-                                Profile
-                            </a>
-                            <a
-                                href="#"
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                            >
-                                Settings
-                            </a>
-                            <a
-                                href="#"
-                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                            >
-                                Sign out
-                            </a>
+                            <Dropdown.Link href={route('user.dashboard')} as="button">
+                                Dashboard
+                            </Dropdown.Link>
+                            <Dropdown.Link href={route('logout')} method="post" as="button">
+                                Change Password
+                            </Dropdown.Link>
+                            <Dropdown.Link href={route('logout')} method="post" as="button">
+                                Log Out
+                            </Dropdown.Link>
                         </div>
                     )}
                 </div>

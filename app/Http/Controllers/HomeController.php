@@ -22,12 +22,18 @@ class HomeController extends Controller
     public function test()
     {
         $locale = App::getLocale();
-        $translations = ['navbar' => Lang::get('navbar', [], $locale)];
+
+        $translations = array_merge(
+            Lang::get('home', [], $locale),
+            ['navbar' => Lang::get('navbar', [], $locale)]
+        );
+
         $categories = JobCategory::all();
 
-        return Inertia::render('Test/Test', [
+        return Inertia::render('Home/UserHome', [
             'translations' => $translations,
-            'categories' => $categories
+            'categories' => $categories,
+            'activeLink' => 'Home'
         ]);
     }
 }

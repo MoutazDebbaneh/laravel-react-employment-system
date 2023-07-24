@@ -88,7 +88,8 @@ class JobsController extends Controller
             'category' => $request->category,
             'internal' => $request->internal,
             'current_order' => $order,
-            'types' => $request->type
+            'types' => $request->type,
+            'activeLink' => 'Jobs'
         ]);
     }
 }
