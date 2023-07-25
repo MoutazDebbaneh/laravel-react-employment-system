@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CompanyDashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Pages\JobsController;
@@ -52,9 +53,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/user/courses/update', [UserProfileController::class, 'updateCourses'])->name('user.updateCourses');
 
     Route::middleware('company')->prefix('company')->group(function () {
-        Route::get('/info', [CompanyDashboardController::class, 'info'])->name('company.info');
-        Route::patch('/info/update', [CompanyDashboardController::class, 'updateCompanyInformation'])->name('company.info.update');
-        Route::post('/verify', [CompanyDashboardController::class, 'sendVerificationRequest'])->name('company.verify');
+        Route::middleware('verified')->get('/info', [CompanyDashboardController::class, 'info'])->name('company.info');
+        Route::middleware('verified')->post('/info/update', [CompanyDashboardController::class, 'updateCompanyInformation'])->name('company.info.update');
+        Route::middleware('verified')->post('/verify', [CompanyDashboardController::class, 'sendVerificationRequest'])->name('company.verify');
+    });
+
+    Route::prefix('admin')->group(function () {
+        Route::get('/requests', [AdminDashboardController::class, 'requests'])->name('admin.requests');
+        Route::post('/request/handle', [AdminDashboardController::class, 'requestAction'])->name('admin.request.action');
     });
 });
 

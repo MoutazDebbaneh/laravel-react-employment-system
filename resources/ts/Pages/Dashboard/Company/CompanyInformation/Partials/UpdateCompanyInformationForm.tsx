@@ -2,22 +2,18 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Link, useForm, usePage } from "@inertiajs/react";
-import { Transition } from "@headlessui/react";
-import { FormEventHandler } from "react";
-import { Company, PageProps } from "@/types";
-import { countries } from "countries-list";
-import Select from "react-select";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Company } from "@/types";
 import {
     faCheckCircle,
-    faCross,
-    faCrosshairs,
-    faInfo,
     faInfoCircle,
     faWarning,
-    faXmarkCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Transition } from "@headlessui/react";
+import { Link, useForm } from "@inertiajs/react";
+import { countries } from "countries-list";
+import { FormEventHandler } from "react";
+import Select from "react-select";
 
 export default function UpdateCompanyInformationForm({
     status,
@@ -31,7 +27,7 @@ export default function UpdateCompanyInformationForm({
     company: Company;
 }) {
     if (company.logo !== null) company.logo = null;
-    const { data, setData, patch, errors, processing, recentlySuccessful } =
+    const { data, setData, post, errors, processing, recentlySuccessful } =
         useForm<{
             name: string | null | undefined;
             email: string | null | undefined;
@@ -51,7 +47,7 @@ export default function UpdateCompanyInformationForm({
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        patch(route("company.info.update"));
+        post(route("company.info.update"));
     };
 
     console.log(status);

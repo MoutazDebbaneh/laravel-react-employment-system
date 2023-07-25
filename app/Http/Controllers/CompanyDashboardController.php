@@ -52,7 +52,7 @@ class CompanyDashboardController extends Controller
             unset($data['logo']);
         } else {
             $file = $request->file('logo');
-            $savedFile = $file->store('public/images');
+            $savedFile = $file->store('public/images/companies');
             $data['logo'] = basename($savedFile);
         }
 

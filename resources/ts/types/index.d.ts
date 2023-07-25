@@ -22,3 +22,9 @@ export interface Company {
     headquarters: string | null | undefined;
     company_verified_at: string | Date | null | undefined
 }
+export interface CompanyVerificationRequest {
+    id: number;
+    is_accepted: boolean | null | undefined;
+    company_id: number;
+    company?: Company 
+}

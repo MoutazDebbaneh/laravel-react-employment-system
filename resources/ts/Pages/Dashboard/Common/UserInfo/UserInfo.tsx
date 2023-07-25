@@ -4,6 +4,7 @@ import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
 import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm";
 import UserDashboardLayout from "../../User/Partials/UserDashboardLayout";
 import CompanyDashboardLayout from "../../Company/Partials/CompanyDashboardLayout";
+import AdminDashboardLayout from "../../Admin/Partials/AdminDashboardLayout";
 
 export default function UserInfo({
     status,
@@ -20,7 +21,7 @@ export default function UserInfo({
 }) {
     return (
         <>
-            {auth.user.role == Role.User ? (
+            {auth.user.role == Role.User && (
                 <UserDashboardLayout
                     locale={locale}
                     translations={translations}
@@ -45,7 +46,8 @@ export default function UserInfo({
                         </div>
                     </div>
                 </UserDashboardLayout>
-            ) : (
+            )}
+            {auth.user.role == Role.Company && (
                 <CompanyDashboardLayout
                     locale={locale}
                     translations={translations}
@@ -70,6 +72,32 @@ export default function UserInfo({
                         </div>
                     </div>
                 </CompanyDashboardLayout>
+            )}
+            {auth.user.role == Role.Admin && (
+                <AdminDashboardLayout
+                    locale={locale}
+                    translations={translations}
+                    auth={auth}
+                    activeLink={activeLink}
+                >
+                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                        <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                            <UpdateProfileInformationForm
+                                mustVerifyEmail={false}
+                                status={status}
+                                className="max-w-xl"
+                            />
+                        </div>
+
+                        <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                            <UpdatePasswordForm className="max-w-xl" />
+                        </div>
+
+                        <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                            <DeleteUserForm className="max-w-xl" />
+                        </div>
+                    </div>
+                </AdminDashboardLayout>
             )}
         </>
     );

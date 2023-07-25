@@ -18,7 +18,6 @@ class RootAdminUserSeeder extends Seeder
     public function run(): void
     {
         if (config('root_admin.admin_email')) {
-
             User::firstOrCreate(
                 ['email' => config('root_admin.admin_email')],
                 [

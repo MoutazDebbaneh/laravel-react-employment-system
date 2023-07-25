@@ -1,5 +1,5 @@
 import { Link, Head } from "@inertiajs/react";
-import { Locale } from "@/enums/app_enums";
+import { Locale, Role } from "@/enums/app_enums";
 import Container from "@/Utils/Container";
 import "../../../css/animation.css";
 import bannerImg1 from "/resources/images/banner1.png";
@@ -60,7 +60,7 @@ export default function UserHome({
                                 {translations.heading_blue_text.toString()}
                             </span>
                             <br />
-                            {!auth.user || auth.user.role_id == 3
+                            {!auth.user || auth.user.role == Role.User
                                 ? translations.heading_rest_user.toString()
                                 : translations.heading_rest_company.toString()}
                         </h1>

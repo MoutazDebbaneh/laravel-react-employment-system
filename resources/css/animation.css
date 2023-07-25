@@ -37,7 +37,7 @@
     }
 }
 
-.shape-1{
+.shape-1 {
     animation: hero-thumb-animation 2s linear infinite alternate;
 }
 
