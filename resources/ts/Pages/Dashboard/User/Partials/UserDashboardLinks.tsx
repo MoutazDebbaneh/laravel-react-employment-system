@@ -31,7 +31,7 @@ export default function UserDashboardLinks({
                 title="Profile"
             />
             <DashboardLink
-                routeName="user.profile"
+                routeName="user.applications"
                 activeLink={activeLink}
                 linkTitle="AppliedJobs"
                 icon={faBriefcase}

@@ -1,12 +1,11 @@
-import ApplicationLogo from "@/Components/ApplicationLogo";
 import ArabicFlag from "@/Components/ArabicFlag";
 import EnglishFlag from "@/Components/EnglishFlag";
 import FluidContainer from "@/Utils/FluidContainer";
 import { Locale, Role } from "@/enums/app_enums";
-import { faBars, faTimes, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "@inertiajs/react";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useState } from "react";
 import UserLayout from "./UserLayout";
 
 export default function NewLayout({
@@ -23,6 +22,10 @@ export default function NewLayout({
     activeLink?: string | null;
     className?: string | null;
 }>) {
+    // console.log(locale);
+
+    const [mobileSearchText, setMobileSearchText] = useState("");
+
     function toggleMenu(): void {
         document.getElementById("sidebar")!.classList.toggle("open");
     }
@@ -186,13 +189,29 @@ export default function NewLayout({
                         />
                         <div className="mobile-search mb-10 mt-3">
                             <form
-                                action=""
+                                onSubmit={(_) => {
+                                    document
+                                        .getElementById("mobile-search-btn")
+                                        ?.click();
+                                }}
                                 className="bg-[#f2f3f4] rounded-lg	h-12 relative pt-0 pl-4 pb-0 pr-11"
                             >
                                 <input
                                     type="search"
                                     placeholder="Search..."
                                     className="border-0 bg-transparent w-full h-12 pl-10 pr-[2px] focus:ring-0"
+                                    value={mobileSearchText}
+                                    onChange={(e) =>
+                                        setMobileSearchText(e.target.value)
+                                    }
+                                />
+                                <Link
+                                    id="mobile-search-btn"
+                                    as="button"
+                                    className="hidden"
+                                    href={route("jobs", {
+                                        search: mobileSearchText,
+                                    })}
                                 />
                                 <FontAwesomeIcon
                                     icon={faSearch}

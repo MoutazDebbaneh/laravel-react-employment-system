@@ -35,7 +35,7 @@ Route::middleware(['auth', 'user', 'verified'])->get('/jobs/{id}/apply', [JobCon
 
 Route::middleware(['auth'])->post('/notifications/read', [NotificationController::class, 'markRead'])->name('notifications.markRead');
 
-Route::get('/language/set/{locale}', [LanguageController::class, 'set'])->name('language.set');
+Route::get('/language/set/{locale}', [LanguageController::class, 'set'])->name('language.set')->whereAlpha('locale');
 
 Route::middleware('auth')->group(function () {
 
@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('user')->group(function () {
         Route::get('/user/profile', [UserDashboardController::class, 'profile'])->name('user.profile');
+        Route::get('/user/applications', [UserDashboardController::class, 'applications'])->name('user.applications');
         Route::post('/user/personal-info/update', [UserProfileController::class, 'updatePersonalInformation'])->name('user.updatePersonalInformation');
         Route::patch('/user/about/update', [UserProfileController::class, 'updateAbout'])->name('user.updateAbout');
         Route::patch('/user/experiences/update', [UserProfileController::class, 'updateExperiences'])->name('user.updateExperiences');

@@ -186,6 +186,26 @@ export default function UserLayout({ locale, translations }: UserLayoutProps) {
                             >
                                 Change Password
                             </Dropdown.Link>
+
+                            {locale == Locale.English ? (
+                                <Dropdown.Link
+                                    href={route("language.set", [
+                                        Locale.Arabic,
+                                    ])}
+                                    as="button"
+                                >
+                                    العربية
+                                </Dropdown.Link>
+                            ) : (
+                                <Dropdown.Link
+                                    href={route("language.set", [
+                                        Locale.English,
+                                    ])}
+                                    as="button"
+                                >
+                                    English
+                                </Dropdown.Link>
+                            )}
                             <Dropdown.Link
                                 href={route("logout")}
                                 method="post"

@@ -148,6 +148,7 @@ export interface JobApplication {
         job_id: number;
         created_at: string;
         updated_at: string;
-        job?: Job
-        user?: User
+        accepted: number | null | undefined;
+        job?: Job;
+        user?: User;
 }

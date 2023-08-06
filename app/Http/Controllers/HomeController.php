@@ -26,12 +26,12 @@ class HomeController extends Controller
         $translations = array_merge(
             Lang::get('home', [], $locale),
             ['navbar' => Lang::get('navbar', [], $locale)],
-            // ['notifications' => Lang::get('notifications', [], $locale)],
         );
 
         $categories = JobCategory::all();
 
         return Inertia::render('Home/UserHome', [
+            // 'locale' => $locale,
             'translations' => $translations,
             'categories' => $categories,
             'activeLink' => 'Home'

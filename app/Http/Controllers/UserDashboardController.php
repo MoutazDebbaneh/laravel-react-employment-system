@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App;
+use App\Models\JobApplication;
 use App\Models\Language;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
@@ -18,7 +19,6 @@ class UserDashboardController extends Controller
     public function info(Request $request)
     {
         $locale = App::getLocale();
-
         $translations = Lang::get('navbar', [], $locale);
 
         return Inertia::render('Dashboard/Common/UserInfo/UserInfo', [
@@ -52,6 +52,21 @@ class UserDashboardController extends Controller
             'experiences' => $experiences,
             'educations' => $educations,
             'courses' => $courses
+        ]);
+    }
+    public function applications()
+    {
+        $locale = App::getLocale();
+
+        $translations = Lang::get('navbar', [], $locale);
+
+        $applications = JobApplication::where(['user_id' => auth()->user()->id])->with(['job', 'job.company'])->get();
+
+        return Inertia::render('Dashboard/User/AppliedJobs/AppliedJobs', [
+            'status' => session('status'),
+            'activeLink' => 'AppliedJobs',
+            'translations' => $translations,
+            'applications' => $applications,
         ]);
     }
 }
