@@ -39,7 +39,7 @@ export default function CompanyDashboardLinks({
                 title="Job Opportunites"
             />
             <DashboardLink
-                routeName="user.profile"
+                routeName="user.notifications"
                 activeLink={activeLink}
                 linkTitle="Notifications"
                 icon={faBell}

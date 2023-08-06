@@ -3,24 +3,22 @@
 namespace App\Http\Controllers\Pages;
 
 use App;
+use App\Enums\NotificationType;
 use App\Enums\SourceType;
 use App\Http\Controllers\Controller;
-use App\Models\apiSource;
 use App\Models\Job;
+use App\Models\JobApplication;
 use App\Models\JobCategory;
 use App\Models\JobType;
-use App\Models\ScrapeSource;
 use Illuminate\Http\Request;
 use Lang;
-use Log;
 use Storage;
 
-class JobsController extends Controller
+class JobsPageController extends Controller
 {
     public function index(?Request $request)
     {
         $locale = App::getLocale();
-        Log::info($locale);
 
         $translations = array_merge(
             Lang::get('jobs', [], $locale),
@@ -29,7 +27,7 @@ class JobsController extends Controller
 
         $perPage = 10; // number of jobs to display per page
         $page = $request->query('page', 1);
-        $query = Job::query()->with(['jobCategory', 'jobTypes']);
+        $query = Job::query()->with(['jobCategory', 'jobTypes', 'company']);
 
         // apply filters based on request parameters
         if ($request->has('category') && $request->category != 0) {
@@ -59,15 +57,15 @@ class JobsController extends Controller
 
         foreach ($jobs as $job) {
             if (!empty($job->display_image)) {
-                $job->display_image = Storage::url('images/' . $job->display_image);
+                $job->display_image = (empty($job->source_url) ? Storage::url('images/companies/' . $job->display_image) : Storage::url('images/external/' . $job->display_image));
             }
             if (!empty($job->source_url)) {
                 $logo = '#';
                 if ($job->source_type == SourceType::API->value) {
-                    $logo = Storage::url('images/' . $job->apiSource->logo);
+                    $logo = Storage::url('images/sources/' . $job->apiSource->logo);
                     $job->source = $job->apiSource;
                 } else {
-                    $logo = Storage::url('images/' . $job->scrapeSource->logo);
+                    $logo = Storage::url('images/sources/' . $job->scrapeSource->logo);
                     $job->source = $job->scrapeSource;
                 }
                 $job->source_logo = $logo;
@@ -79,8 +77,9 @@ class JobsController extends Controller
             'types' => JobType::all(),
         ];
 
-        return inertia('Jobs/Jobs', [
+        return inertia('Jobs/JobsPage', [
             'translations' => $translations,
+            'locale' => $locale,
             'jobs' => $jobs,
             'filters' => $filters,
             'perPage' => $perPage,
@@ -90,6 +89,38 @@ class JobsController extends Controller
             'current_order' => $order,
             'types' => $request->type,
             'activeLink' => 'Jobs'
+        ]);
+    }
+    public function details(string $id)
+    {
+        $locale = App::getLocale();
+
+        $translations = array_merge(
+            Lang::get('jobs', [], $locale),
+            ['navbar' => Lang::get('navbar', [], $locale)]
+        );
+
+        $job = Job::where(['id' => $id])->with(['jobCategory', 'jobTypes', 'company'])->first();
+
+        if (empty($job)) abort(404);
+
+        $job->display_image = empty($job->source_url) ? Storage::url('images/companies/' . $job->display_image) : Storage::url('images/external/' . $job->display_image);
+        $similars = Job::latest()->where(['job_category_id' => $job->job_category_id])->whereNot('id', $id)->limit(6)->get();
+
+        foreach ($similars as $similar) {
+            $similar->display_image = empty($similar->source_url) ? Storage::url('images/companies/' . $similar->display_image) : Storage::url('images/external/' . $similar->display_image);
+        }
+
+        $alreadyApplied = JobApplication::where(['user_id' => auth()->user()->id, 'job_id' => $id])->count() > 0;
+
+        return inertia('Jobs/JobDetails', [
+            'status' => session('status'),
+            'translations' => $translations,
+            'job' => $job,
+            'locale' => $locale,
+            'activeLink' => 'Jobs',
+            'similars' => $similars,
+            'alreadyApplied' => $alreadyApplied,
         ]);
     }
 }

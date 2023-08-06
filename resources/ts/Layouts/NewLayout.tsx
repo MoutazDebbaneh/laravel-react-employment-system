@@ -104,7 +104,6 @@ export default function NewLayout({
                                 <UserLayout
                                     locale={locale}
                                     translations={translations}
-                                    user={null}
                                 />
                             ) : (
                                 <>

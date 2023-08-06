@@ -3,6 +3,7 @@ import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
+import { Experience } from "@/types";
 import {
     faEdit,
     faPlusCircle,
@@ -12,14 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Transition } from "@headlessui/react";
 import { useForm } from "@inertiajs/react";
 import React, { FormEventHandler, useState } from "react";
-
-type Experience = {
-    company: string;
-    position: string;
-    description: string;
-    from: string;
-    to: string;
-};
 
 const Experiecnces: React.FC<{ initialData: Experience[] }> = ({
     initialData,
@@ -102,6 +95,11 @@ const Experiecnces: React.FC<{ initialData: Experience[] }> = ({
         e.preventDefault();
         patch(route("user.updateExperiences"));
     };
+
+    var maxDay = new Date();
+    var maxDayStr = new Date(maxDay.setDate(maxDay.getDate() + 1))
+        .toISOString()
+        .split("T")[0];
 
     return (
         <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg w-full lg:w-[40rem] md:mx-auto ">
@@ -196,6 +194,7 @@ const Experiecnces: React.FC<{ initialData: Experience[] }> = ({
                                         }
                                         value={editableExperience.from}
                                         className="mt-1 block w-full"
+                                        max={maxDayStr}
                                         required
                                     />
                                 </div>
@@ -214,6 +213,7 @@ const Experiecnces: React.FC<{ initialData: Experience[] }> = ({
                                         }
                                         value={editableExperience.to}
                                         className="mt-1 block w-full"
+                                        max={maxDayStr}
                                         required
                                     />
                                 </div>

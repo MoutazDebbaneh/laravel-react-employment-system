@@ -39,6 +39,7 @@ export default function PersonalInformation({
             gender: boolean | undefined | null;
             website: string | undefined;
             profile_picture: any;
+            cv_file: any;
             skills: string[] | undefined;
         }>({
             country: profile.country,
@@ -50,6 +51,7 @@ export default function PersonalInformation({
             gender: profile.gender,
             website: profile.website,
             profile_picture: null,
+            cv_file: null,
             skills: profile_skills,
         });
 
@@ -380,6 +382,26 @@ export default function PersonalInformation({
                             className="mt-2"
                             message={errors.profile_picture}
                         />
+                    </div>
+
+                    <div className="w-full">
+                        <InputLabel
+                            htmlFor="cv_file"
+                            value="Curriculum Vitae (CV) File"
+                        />
+
+                        <input
+                            className="mt-1 relative block shadow-sm w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.12rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
+                            type="file"
+                            id="cv-file"
+                            name="cv-file"
+                            accept="application/msword, application/pdf, .docx"
+                            onChange={(e) =>
+                                setData("cv_file", e.target!.files![0])
+                            }
+                        />
+
+                        <InputError className="mt-2" message={errors.cv_file} />
                     </div>
 
                     <div className="flex items-center gap-4">

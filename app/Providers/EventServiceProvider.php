@@ -2,12 +2,22 @@
 
 namespace App\Providers;
 
+use App\Events\CompanyVerificationRequestAccepted;
+use App\Events\CompanyVerificationRequestSent;
+use App\Events\JobApplicationAccepted;
+use App\Events\JobApplicationCreated;
+use App\Events\JobApplicationDeclined;
 use App\Listeners\HandleUserCreation;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use App\Events\UserCreated;
+use App\Listeners\HandleCompanyVerificationRequestSent;
+use App\Listeners\HandleCompanyVerificationRequestAccepted;
+use App\Listeners\HandleJobApplicationAccepted;
+use App\Listeners\HandleJobApplicationCreated;
+use App\Listeners\HandleJobApplicationDeclined;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -22,6 +32,21 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserCreated::class => [
             HandleUserCreation::class,
+        ],
+        CompanyVerificationRequestSent::class => [
+            HandleCompanyVerificationRequestSent::class,
+        ],
+        CompanyVerificationRequestAccepted::class => [
+            HandleCompanyVerificationRequestAccepted::class,
+        ],
+        JobApplicationCreated::class => [
+            HandleJobApplicationCreated::class,
+        ],
+        JobApplicationAccepted::class => [
+            HandleJobApplicationAccepted::class,
+        ],
+        JobApplicationDeclined::class => [
+            HandleJobApplicationDeclined::class,
         ],
     ];
 

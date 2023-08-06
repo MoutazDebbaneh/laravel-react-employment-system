@@ -9,3 +9,9 @@ export enum Role {
     User = 3,
     Company = 4,
 };
+
+export enum SourceType {
+    Internal = 1,
+    Scrape = 2,
+    API = 3,
+};

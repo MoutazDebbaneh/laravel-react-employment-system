@@ -3,6 +3,7 @@ import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
+import { Course } from "@/types";
 import {
     faEdit,
     faPlusCircle,
@@ -12,13 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Transition } from "@headlessui/react";
 import { useForm } from "@inertiajs/react";
 import React, { FormEventHandler, useState } from "react";
-
-type Course = {
-    institute: string;
-    certificate_name: string;
-    from: string;
-    to: string;
-};
 
 const Courses: React.FC<{ initialData: Course[] }> = ({ initialData }) => {
     const [showEditableCourseModal, setShowEditableCourseModal] =
@@ -31,6 +25,11 @@ const Courses: React.FC<{ initialData: Course[] }> = ({ initialData }) => {
         from: "",
         to: "",
     });
+
+    var maxDay = new Date();
+    var maxDayStr = new Date(maxDay.setDate(maxDay.getDate() + 1))
+        .toISOString()
+        .split("T")[0];
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -185,6 +184,7 @@ const Courses: React.FC<{ initialData: Course[] }> = ({ initialData }) => {
                                         }
                                         value={editableCourse.from}
                                         className="mt-1 block w-full"
+                                        max={maxDayStr}
                                         required
                                     />
                                 </div>
@@ -195,6 +195,7 @@ const Courses: React.FC<{ initialData: Course[] }> = ({ initialData }) => {
                                         id="end_date"
                                         type="date"
                                         name="end_date"
+                                        max={maxDayStr}
                                         onChange={(e) =>
                                             setEditableCourse({
                                                 ...editableCourse,

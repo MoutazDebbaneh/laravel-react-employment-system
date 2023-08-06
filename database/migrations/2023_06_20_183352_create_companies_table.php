@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
-            $table->string('logo')->default('logo.png');
+            $table->string('logo')->default('default-logo.png');
             $table->string('website')->nullable();
             $table->string('phone')->nullable();
             $table->string('headquarters')->nullable();

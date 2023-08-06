@@ -282,6 +282,7 @@ class PersonalInformationUpdateRequest extends FormRequest
             "current_position" => ['nullable', 'string'],
             "website" => ['nullable', 'url'],
             "profile_picture" => ['nullable', 'image', 'max:2048'],
+            "cv_file" => ['nullable', 'file', 'max:5120'],
             "education_level" => ['nullable', new Enum(EducationDegree::class)],
             "gender" => ['nullable', new Enum(Gender::class)],
             "languages" => ['nullable', 'array'],

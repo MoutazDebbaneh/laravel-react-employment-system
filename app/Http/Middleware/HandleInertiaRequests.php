@@ -2,10 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\App;
 use Inertia\Middleware;
+use Storage;
 use Tightenco\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
@@ -32,9 +34,19 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = $request->user();
+        $role = empty($user) ? null : $request->user()->role;
+        $user_notifications = empty($user) ? [] : $user->notifications()->where('is_read', 0)->get();
+        $profile_picture = empty($user) ? '' : ($role == Role::Company->value ?
+            Storage::url('images/companies/' . $user->company->logo) :
+            Storage::url('images/users/' . $user->userProfile->profile_picture)
+        );
+
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user,
+                'notifications' => $user_notifications,
+                'profile_picture' => $profile_picture
             ],
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [

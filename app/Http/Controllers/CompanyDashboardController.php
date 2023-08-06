@@ -92,4 +92,18 @@ class CompanyDashboardController extends Controller
 
         return back();
     }
+
+    public function jobs()
+    {
+        $locale = App::getLocale();
+        $translations = Lang::get('navbar', [], $locale);
+        $jobs = auth()->user()->company->jobs;
+
+        return Inertia::render('Dashboard/Company/Jobs/Jobs', [
+            'status' => session('status'),
+            'translations' => $translations,
+            'activeLink' => 'Jobs',
+            'jobs' => $jobs,
+        ]);
+    }
 }

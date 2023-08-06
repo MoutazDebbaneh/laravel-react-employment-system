@@ -1,7 +1,7 @@
 import { Locale } from '@/enums/app_enums';
 import { AxiosInstance } from 'axios';
 import ziggyRoute, { Config as ZiggyConfig } from 'ziggy-js';
-import { User } from '.';
+import { User, UserNotification } from '.';
 
 declare global {
 
@@ -19,6 +19,8 @@ declare global {
 
     type Auth = {
         user: User
+        notifications: UserNotification[]
+        profile_picture: string
     }
 
     var route: typeof ziggyRoute;

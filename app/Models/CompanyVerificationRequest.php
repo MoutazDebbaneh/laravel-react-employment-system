@@ -22,4 +22,14 @@ class CompanyVerificationRequest extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($model) {
+            // Trigger the event when a new record is created
+            event(new \App\Events\CompanyVerificationRequestSent($model));
+        });
+    }
 }

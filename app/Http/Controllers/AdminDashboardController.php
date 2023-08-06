@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App;
+use App\Events\CompanyVerificationRequestAccepted;
 use App\Models\CompanyVerificationRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -39,10 +40,21 @@ class AdminDashboardController extends Controller
         if ($id === null || $action === null) return abort(400);
         $verification_request = CompanyVerificationRequest::where(['id' => $id])->with('company')->get()->first();
         if (empty($verification_request)) return abort(404);
-        $verification_request->is_accepted = intval($action);
-        $verification_request->save();
-        $verification_request->company->company_verified_at = now();
-        $verification_request->company->save();
+        $action_value = intval($action);
+        if ($action_value == 0) {
+            $company = $verification_request->company;
+            $user = $company->user;
+            $verification_request->delete();
+            $company->delete();
+            $user->delete();
+        } else {
+            $verification_request->is_accepted = intval($action);
+            $verification_request->save();
+            $verification_request->company->company_verified_at = now();
+            $verification_request->company->save();
+            event(new CompanyVerificationRequestAccepted($verification_request));
+        }
+
         return back();
     }
 }

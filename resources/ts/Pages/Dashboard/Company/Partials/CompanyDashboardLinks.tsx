@@ -31,14 +31,14 @@ export default function CompanyDashboardLinks({
                 title="Company Information"
             />
             <DashboardLink
-                routeName="user.profile"
+                routeName="company.jobs"
                 activeLink={activeLink}
-                linkTitle="JobOpportunites"
+                linkTitle="Jobs"
                 icon={faBriefcase}
-                title="Job Opportunites"
+                title="Jobs"
             />
             <DashboardLink
-                routeName="user.profile"
+                routeName="user.notifications"
                 activeLink={activeLink}
                 linkTitle="Notifications"
                 icon={faBell}

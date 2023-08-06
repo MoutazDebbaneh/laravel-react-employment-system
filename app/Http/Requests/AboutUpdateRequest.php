@@ -12,7 +12,7 @@ class AboutUpdateRequest extends FormRequest
         return [
             "bio" => ['nullable', 'string'],
             "linkedin" => ['nullable', 'url', 'regex:/^https:\/\/www\.linkedin\.com\/in\/[a-zA-Z0-9_-]+\/?$/'],
-            "facebook" => ['nullable', 'url', 'regex:/^https?:\/\/(www\.)?facebook\.com\/(?:\w+\/)*(?:profile\.php\?id=(?=\d.+)|\w+)$/'],
+            "facebook" => ['nullable', 'url', 'regex:/(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]*)/'],
             "instagram" => ['nullable', 'url', 'regex:/^https?:\/\/(?:www\.)?instagram\.com\/([a-zA-Z0-9._]+)\/?$/'],
             "twitter" => ['nullable', 'url', 'regex:/^https?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]{1,15})\/?$/'],
             "telegram" => ['nullable', 'url', 'regex:/^https?:\/\/(?:www\.)?t\.me\/([a-zA-Z0-9_]{5,32})\/?$/'],

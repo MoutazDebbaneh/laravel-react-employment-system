@@ -10,6 +10,9 @@ class JobCategory extends Model
 {
     use HasFactory;
 
+    protected $table = 'job_categories';
+    protected $singular = 'job_category';
+
     protected $fillable = [
         'name_en',
         'name_ar',

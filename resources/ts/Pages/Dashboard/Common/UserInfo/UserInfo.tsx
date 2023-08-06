@@ -73,32 +73,33 @@ export default function UserInfo({
                     </div>
                 </CompanyDashboardLayout>
             )}
-            {auth.user.role == Role.Admin && (
-                <AdminDashboardLayout
-                    locale={locale}
-                    translations={translations}
-                    auth={auth}
-                    activeLink={activeLink}
-                >
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                        <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                            <UpdateProfileInformationForm
-                                mustVerifyEmail={false}
-                                status={status}
-                                className="max-w-xl"
-                            />
-                        </div>
+            {auth.user.role == Role.Admin ||
+                (auth.user.role == Role.RootAdmin && (
+                    <AdminDashboardLayout
+                        locale={locale}
+                        translations={translations}
+                        auth={auth}
+                        activeLink={activeLink}
+                    >
+                        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                            <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                                <UpdateProfileInformationForm
+                                    mustVerifyEmail={false}
+                                    status={status}
+                                    className="max-w-xl"
+                                />
+                            </div>
 
-                        <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                            <UpdatePasswordForm className="max-w-xl" />
-                        </div>
+                            <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                                <UpdatePasswordForm className="max-w-xl" />
+                            </div>
 
-                        <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                            <DeleteUserForm className="max-w-xl" />
+                            <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                                <DeleteUserForm className="max-w-xl" />
+                            </div>
                         </div>
-                    </div>
-                </AdminDashboardLayout>
-            )}
+                    </AdminDashboardLayout>
+                ))}
         </>
     );
 }

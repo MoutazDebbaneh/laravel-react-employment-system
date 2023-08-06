@@ -27,6 +27,15 @@ class UserProfileController extends Controller
             $data['profile_picture'] = basename($savedFile);
         }
 
+        // Handle CV
+        if (empty($data['cv_file'])) {
+            unset($data['cv_file']);
+        } else {
+            $file = $request->file('cv_file');
+            $savedFile = $file->store('public/cv_files');
+            $data['cv_file'] = basename($savedFile);
+        }
+
         $user_profile = $request->user()->userProfile;
         $user_profile->fill($data);
 

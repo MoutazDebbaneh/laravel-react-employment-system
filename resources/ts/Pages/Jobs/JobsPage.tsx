@@ -5,6 +5,7 @@ import Pagination from "@/Components/Pagination";
 import NewLayout from "@/Layouts/NewLayout";
 import FluidContainer from "@/Utils/FluidContainer";
 import { Locale } from "@/enums/app_enums";
+import { Job } from "@/types";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Head } from "@inertiajs/react";
@@ -13,7 +14,27 @@ import Select, { SingleValue } from "react-select";
 import "../../../css/animation.css";
 import JobCard from "./JobCard";
 
-export default function Jobs({
+interface jobsProp {
+    current_page: number;
+    data: Job[];
+    first_page_url: string;
+    last_page_url: string;
+    next_page_url: string;
+    prev_page_url: string;
+    last_page: number;
+    path: string;
+    from: number;
+    to: number;
+    total: number;
+    per_page: number;
+    links: {
+        active: boolean;
+        label: string;
+        url: string;
+    }[];
+}
+
+export default function JobsPage({
     locale,
     translations,
     jobs,
@@ -29,7 +50,7 @@ export default function Jobs({
 }: {
     locale: Locale;
     translations: Translations;
-    jobs: any;
+    jobs: jobsProp;
     filters: any;
     perPage: number;
     search: string | null;
@@ -75,15 +96,6 @@ export default function Jobs({
     const [selectedCategory, setSelectedCategory] = useState<number>(
         category != null ? parseInt(category) : 0
     );
-
-    const handleCategoryChange = (
-        event: SingleValue<{
-            value: number;
-            label: string;
-        }>
-    ) => {
-        setSelectedCategory(event!.value);
-    };
 
     const [selectedInternal, setSelectedInternal] = useState<boolean>(
         internal ?? false

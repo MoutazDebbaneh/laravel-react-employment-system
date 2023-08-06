@@ -38,7 +38,7 @@ export default function UserDashboardLinks({
                 title="Applied Jobs"
             />
             <DashboardLink
-                routeName="user.profile"
+                routeName="user.notifications"
                 activeLink={activeLink}
                 linkTitle="Notifications"
                 icon={faBell}

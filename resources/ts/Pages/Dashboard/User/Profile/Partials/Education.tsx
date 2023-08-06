@@ -13,14 +13,7 @@ import Select from "react-select";
 import { Transition } from "@headlessui/react";
 import { useForm } from "@inertiajs/react";
 import React, { FormEventHandler, useState } from "react";
-
-type Education = {
-    institute: string;
-    degree: string;
-    field: string;
-    from: string;
-    to: string;
-};
+import { Education } from "@/types";
 
 const Educations: React.FC<{ initialData: Education[] }> = ({
     initialData,
@@ -38,6 +31,11 @@ const Educations: React.FC<{ initialData: Education[] }> = ({
     });
 
     const educationLevels = ["Highschool", "Bachelor", "Master", "PhD"];
+
+    var maxDay = new Date();
+    var maxDayStr = new Date(maxDay.setDate(maxDay.getDate() + 1))
+        .toISOString()
+        .split("T")[0];
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -193,6 +191,7 @@ const Educations: React.FC<{ initialData: Education[] }> = ({
                                         }
                                         value={editableEducation.from}
                                         className="mt-1 block w-full"
+                                        max={maxDayStr}
                                         required
                                     />
                                 </div>
@@ -209,6 +208,7 @@ const Educations: React.FC<{ initialData: Education[] }> = ({
                                                 to: e.target.value,
                                             })
                                         }
+                                        max={maxDayStr}
                                         value={editableEducation.to}
                                         className="mt-1 block w-full"
                                         required

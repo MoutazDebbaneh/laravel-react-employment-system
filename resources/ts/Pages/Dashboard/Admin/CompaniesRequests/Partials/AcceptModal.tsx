@@ -1,4 +1,3 @@
-import DangerButton from "@/Components/DangerButton";
 import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";

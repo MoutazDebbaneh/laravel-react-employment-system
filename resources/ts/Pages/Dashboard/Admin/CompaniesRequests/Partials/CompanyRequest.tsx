@@ -20,7 +20,7 @@ interface CompanyData {
     requestId: number;
 }
 
-const ExpandableRow: React.FC<CompanyData> = ({
+const CompanyRequest: React.FC<CompanyData> = ({
     logo,
     name,
     website,
@@ -119,4 +119,4 @@ const ExpandableRow: React.FC<CompanyData> = ({
     );
 };
 
-export default ExpandableRow;
+export default CompanyRequest;
