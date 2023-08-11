@@ -28,10 +28,10 @@ class NotificationController extends Controller
                     $related_url = route('company.application.show', $notification->related_id);
                     break;
                 case NotificationType::ApplicationAccepted->value:
-                    // TODO after applied jobs implementation
+                    $related_url = route('user.applications', $notification->related_id);
                     break;
                 case NotificationType::ApplicationDeclined->value:
-                    // TODO after applied jobs implementation
+                    $related_url = route('user.applications', $notification->related_id);
                     break;
                 case NotificationType::NewJob->value:
                     $related_url = route('jobs.details', $notification->related_id);
