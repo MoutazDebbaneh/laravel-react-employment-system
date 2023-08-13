@@ -5,10 +5,12 @@ import {
     faBell,
     faSignOutAlt,
     faIdCard,
+    faBlog,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "@inertiajs/react";
 import DashboardLink from "../../Common/DashboardLink";
+import { faConnectdevelop } from "@fortawesome/free-brands-svg-icons";
 
 export default function CompanyDashboardLinks({
     activeLink,
@@ -32,11 +34,18 @@ export default function CompanyDashboardLinks({
                 title="Companies Requests"
             />
             <DashboardLink
-                routeName="user.profile"
+                routeName="admin.scrapeSources"
                 activeLink={activeLink}
-                linkTitle="JobOpportunites"
-                icon={faBriefcase}
-                title="Job Opportunites"
+                linkTitle="ScrapeSources"
+                icon={faConnectdevelop}
+                title="Scrape Sources"
+            />
+            <DashboardLink
+                routeName="admin.apiSources"
+                activeLink={activeLink}
+                linkTitle="APISources"
+                icon={faBlog}
+                title="API Sources"
             />
             <DashboardLink
                 routeName="user.notifications"

@@ -17,6 +17,7 @@ test('new users can register', function () {
         'role' => Role::User->value,
         'password' => 'password',
         'password_confirmation' => 'password',
+        'agree' => true
     ]);
 
     $this->assertAuthenticated();

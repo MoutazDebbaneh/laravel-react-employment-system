@@ -26,7 +26,7 @@ class UserProfileController extends Controller
             unset($data['profile_picture']);
         } else {
             $file = $request->file('profile_picture');
-            $savedFile = $file->store('public/images');
+            $savedFile = $file->store('public/images/users');
             $data['profile_picture'] = basename($savedFile);
         }
 

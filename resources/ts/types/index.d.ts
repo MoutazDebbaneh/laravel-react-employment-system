@@ -97,31 +97,31 @@ export interface Source {
 }
 
 export interface Job {
-        id?: number | undefined
-        title: string | null | undefined;
-        location: string | null | undefined;
-        description: string | null | undefined;
-        requirements: string | null | undefined;
-        benefits: string | null | undefined;
-        experience: number | null | undefined;
-        min_salary: number | null | undefined;
-        max_salary: number | null | undefined;
-        min_age: number | null | undefined;
-        max_age: number | null | undefined;
-        gender: boolean | number | string | null | undefined;
-        display_image?: string | File | null | undefined;
-        post_date?: string | null | undefined;
-        expiration_date: string | null | undefined;
-        source_type?: number | null | undefined;
-        source_url?: string | null | undefined;
-        source_logo?: string | null | undefined;
-        job_category_id? : number;
-        job_category? : JobCategory
-        job_types? : JobType[]
-        company?: Company 
-        source?: Source
-        created_at: string | null | undefined
-        updated_at: string | null | undefined
+    id?: number | undefined
+    title: string | null | undefined;
+    location: string | null | undefined;
+    description: string | null | undefined;
+    requirements: string | null | undefined;
+    benefits: string | null | undefined;
+    experience: number | null | undefined;
+    min_salary: number | null | undefined;
+    max_salary: number | null | undefined;
+    min_age: number | null | undefined;
+    max_age: number | null | undefined;
+    gender: boolean | number | string | null | undefined;
+    display_image?: string | File | null | undefined;
+    post_date?: string | null | undefined;
+    expiration_date: string | null | undefined;
+    source_type?: number | null | undefined;
+    source_url?: string | null | undefined;
+    source_logo?: string | null | undefined;
+    job_category_id? : number;
+    job_category? : JobCategory
+    job_types? : JobType[]
+    company?: Company 
+    source?: Source
+    created_at: string | null | undefined
+    updated_at: string | null | undefined
 }
 export interface JobCategory {
         id: number;
@@ -134,21 +134,99 @@ export interface JobType {
         name_ar: string;
 }
 export interface UserNotification {
-        id: number;
-        user_id: number;
-        type: number;
-        related_id: number;
-        created_at: string;
-        updated_at: string;
-        related_url?: string;
+    id: number;
+    user_id: number;
+    type: number;
+    related_id: number;
+    created_at: string;
+    updated_at: string;
+    related_url?: string;
 }
 export interface JobApplication {
-        id: number;
-        user_id: number;
-        job_id: number;
-        created_at: string;
-        updated_at: string;
-        accepted: number | null | undefined;
-        job?: Job;
-        user?: User;
+    id: number;
+    user_id: number;
+    job_id: number;
+    created_at: string;
+    updated_at: string;
+    accepted: number | null | undefined;
+    job?: Job;
+    user?: User;
+}
+
+export interface ScrapeSource {
+    id: number;
+    name: string;
+    logo: string | File | null;
+    scrape_source_configuration?: ScrapeSourceConfiguration;
+}
+
+export interface ScrapeSourceConfiguration {
+    id: number;
+    scrape_source_id: number;
+    jobs_list_url: string;
+    pagination_variable: string;
+    jobs_link_selector: string;
+    title_selector: string;
+    company_selector: string | null | undefined;
+    location_selector: string | null | undefined;
+    description_selector: string | null | undefined;
+    requirements_selector: string | null | undefined;
+    benefits_selector: string | null | undefined;
+    experience_selector: string | null | undefined;
+    min_salary_selector: string | null | undefined;
+    max_salary_selector: string | null | undefined;
+    min_age_selector: string | null | undefined;
+    max_age_selector: string | null | undefined;
+    gender_selector: string | null | undefined;
+    display_image_selector: string | null | undefined;
+    post_date_selector: string | null | undefined;
+    expiration_date_selector: string | null | undefined;
+    type_selector: string | null | undefined;
+    category_selector: string | null | undefined;
+    created_at?: string;
+    updated_at?: string;
+}
+
+export interface APISource {
+    id: number;
+    name: string;
+    logo: string | File | null;
+    api_source_configuration?: APISourceConfiguration;
+}
+
+export interface APISourceConfiguration {
+    id: number;
+    api_source_id: number;
+    jobs_list_endpoint: string;
+    jobs_list_method: string;
+    pagination_pass_type: string;
+    pagination_variable: string;
+    search_variable: string;
+    jobs_array_path: string;
+    job_id_path: string;
+    jobs_link_endpoint: string;
+    jobs_link_method: string;
+    job_id_pass_type: string;
+    title_path: string;
+    company_path: string | null | undefined;
+    location_path: string | null | undefined;
+    description_path: string | null | undefined;
+    requirements_path: string | null | undefined;
+    benefits_path: string | null | undefined;
+    experience_path: string | null | undefined;
+    min_salary_path: string | null | undefined;
+    max_salary_path: string | null | undefined;
+    min_age_path: string | null | undefined;
+    max_age_path: string | null | undefined;
+    gender_path: string | null | undefined;
+    display_image_path: string | null | undefined;
+    post_date_path: string | null | undefined;
+    expiration_date_path: string | null | undefined;
+    type_path: string | null | undefined;
+    category_path: string | null | undefined;
+    gender_map: any;
+    type_map: any;
+    category_map: any;
+    created_at?: string;
+    updated_at?: string;
 }

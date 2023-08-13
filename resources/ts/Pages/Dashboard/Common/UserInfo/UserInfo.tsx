@@ -81,7 +81,7 @@ export default function UserInfo({
                         auth={auth}
                         activeLink={activeLink}
                     >
-                        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 lg:min-w-[44rem]">
                             <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                                 <UpdateProfileInformationForm
                                     mustVerifyEmail={false}
@@ -92,10 +92,6 @@ export default function UserInfo({
 
                             <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                                 <UpdatePasswordForm className="max-w-xl" />
-                            </div>
-
-                            <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                                <DeleteUserForm className="max-w-xl" />
                             </div>
                         </div>
                     </AdminDashboardLayout>

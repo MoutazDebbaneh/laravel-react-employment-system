@@ -42,6 +42,15 @@ class UserProfile extends Model
 
     protected $casts = [];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($profile) {
+            $profile->socialLink->delete();
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

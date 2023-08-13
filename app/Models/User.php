@@ -36,6 +36,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'created' => UserCreated::class,
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            $user->userProfile->delete();
+        });
+    }
+
     public function company(): HasOne
     {
         return $this->hasOne(Company::class);

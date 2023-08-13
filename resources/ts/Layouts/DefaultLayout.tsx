@@ -52,7 +52,9 @@ export default function DefaultLayout({
                                 />
                             </a>
                         </div>
-                        {(!auth.user || auth.user.role != Role.Admin) && (
+                        {(!auth.user ||
+                            auth.user.role == Role.User ||
+                            auth.user.role == Role.Company) && (
                             <div className="header-main hidden 2xl:flex 2xl:items-center">
                                 <nav>
                                     <ul className="font-medium">

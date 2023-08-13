@@ -9,6 +9,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\Pages\JobsPageController;
 use App\Http\Controllers\Utils\LanguageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SourcesController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\Utils\NotificationController;
@@ -86,6 +87,19 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/requests', [AdminDashboardController::class, 'requests'])->name('admin.requests');
         Route::post('/request/handle', [AdminDashboardController::class, 'requestAction'])->name('admin.request.action');
+        Route::get('/scrapeSources', [AdminDashboardController::class, 'scrapeSources'])->name('admin.scrapeSources');
+        Route::delete('/scrapeSources/{id}/delete', [AdminDashboardController::class, 'deleteScrapeSource'])->name('admin.scrapeSources.delete');
+        Route::get('/scrapeSources/add', [AdminDashboardController::class, 'addScrapeSource'])->name('admin.scrapeSources.add');
+        Route::post('/scrapeSources/add', [SourcesController::class, 'scrapeSourceAdd'])->name('admin.scrapeSources.addSource');
+        Route::get('/scrapeSources/{id}/edit', [AdminDashboardController::class, 'editScrapeSource'])->name('admin.scrapeSources.edit');
+        Route::post('/scrapeSources/{id}/edit', [SourcesController::class, 'scrapeSourceEdit'])->name('admin.scrapeSources.editSource');
+
+        Route::get('/apiSources', [AdminDashboardController::class, 'apiSources'])->name('admin.apiSources');
+        Route::delete('/apiSources/{id}/delete', [AdminDashboardController::class, 'deleteAPISource'])->name('admin.apiSources.delete');
+        Route::get('/apiSources/add', [AdminDashboardController::class, 'addAPISource'])->name('admin.apiSources.add');
+        Route::post('/apiSources/add', [SourcesController::class, 'apiSourceAdd'])->name('admin.apiSources.addSource');
+        Route::get('/apiSources/{id}/edit', [AdminDashboardController::class, 'editAPISource'])->name('admin.apiSources.edit');
+        Route::post('/apiSources/{id}/edit', [SourcesController::class, 'apiSourceEdit'])->name('admin.apiSources.editSource');
     });
 });
 
