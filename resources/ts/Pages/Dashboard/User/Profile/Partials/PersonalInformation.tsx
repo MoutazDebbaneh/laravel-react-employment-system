@@ -1,3 +1,4 @@
+import Checkbox from "@/Components/Checkbox";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
@@ -41,6 +42,7 @@ export default function PersonalInformation({
             profile_picture: any;
             cv_file: any;
             skills: string[] | undefined;
+            parse_cv: boolean;
         }>({
             country: profile.country,
             city: profile.city,
@@ -53,6 +55,7 @@ export default function PersonalInformation({
             profile_picture: null,
             cv_file: null,
             skills: profile_skills,
+            parse_cv: false,
         });
 
     const submit: FormEventHandler = (e) => {
@@ -403,6 +406,19 @@ export default function PersonalInformation({
 
                         <InputError className="mt-2" message={errors.cv_file} />
                     </div>
+
+                    {data.cv_file != null && (
+                        <div className="parse flex items-center gap-2">
+                            <Checkbox
+                                checked={data.parse_cv}
+                                onChange={(e) =>
+                                    setData("parse_cv", e.target.checked)
+                                }
+                                value="hi"
+                            />
+                            <span>Parse CV Info</span>
+                        </div>
+                    )}
 
                     <div className="flex items-center gap-4">
                         <PrimaryButton disabled={processing}>

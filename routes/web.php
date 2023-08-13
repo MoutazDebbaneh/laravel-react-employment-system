@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminsController;
 use App\Http\Controllers\Pages\CompaniesPageController;
 use App\Http\Controllers\CompanyDashboardController;
 use App\Http\Controllers\HomeController;
@@ -57,7 +58,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/user/courses/update', [UserProfileController::class, 'updateCourses'])->name('user.updateCourses');
     });
 
-    Route::middleware('user')->group(function () {
+    Route::middleware(['user', 'verified'])->group(function () {
         Route::get('/user/profile', [UserDashboardController::class, 'profile'])->name('user.profile');
         Route::get('/user/applications', [UserDashboardController::class, 'applications'])->name('user.applications');
         Route::post('/user/personal-info/update', [UserProfileController::class, 'updatePersonalInformation'])->name('user.updatePersonalInformation');
@@ -65,7 +66,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/user/experiences/update', [UserProfileController::class, 'updateExperiences'])->name('user.updateExperiences');
         Route::patch('/user/educations/update', [UserProfileController::class, 'updateEducations'])->name('user.updateEducations');
         Route::patch('/user/courses/update', [UserProfileController::class, 'updateCourses'])->name('user.updateCourses');
-        Route::middleware('verified')->get('/jobs/{id}/apply', [JobController::class, 'apply'])->name('jobs.apply');
+        Route::get('/jobs/{id}/apply', [JobController::class, 'apply'])->name('jobs.apply');
     });
 
     Route::middleware('company')->prefix('company')->group(function () {
@@ -100,6 +101,15 @@ Route::middleware('auth')->group(function () {
         Route::post('/apiSources/add', [SourcesController::class, 'apiSourceAdd'])->name('admin.apiSources.addSource');
         Route::get('/apiSources/{id}/edit', [AdminDashboardController::class, 'editAPISource'])->name('admin.apiSources.edit');
         Route::post('/apiSources/{id}/edit', [SourcesController::class, 'apiSourceEdit'])->name('admin.apiSources.editSource');
+
+        Route::middleware('rootadmin')->group(function () {
+            Route::get('/admins', [AdminDashboardController::class, 'adminsList'])->name('admin.adminsList');
+            Route::get('/admins/add', [AdminDashboardController::class, 'addAdmin'])->name('admin.add');
+            Route::post('/admins/add', [AdminsController::class, 'store'])->name('admin.addAdmin');
+            Route::get('/admins/{id}/edit', [AdminDashboardController::class, 'editAdmin'])->name('admin.edit');
+            Route::post('/admins/{id}/edit', [AdminsController::class, 'update'])->name('admin.editAdmin');
+            Route::delete('/admins/{id}/delete', [AdminsController::class, 'destroy'])->name('admin.deleteAdmin');
+        });
     });
 });
 

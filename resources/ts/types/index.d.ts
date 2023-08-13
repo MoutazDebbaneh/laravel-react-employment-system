@@ -11,6 +11,7 @@ export interface User {
     email: string;
     email_verified_at: string;
     user_profile?: UserProfile
+    password?: string;
 }
 export interface UserProfile {
     id: number;

@@ -6,6 +6,7 @@ import {
     faSignOutAlt,
     faIdCard,
     faBlog,
+    faShield,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "@inertiajs/react";
@@ -46,6 +47,13 @@ export default function CompanyDashboardLinks({
                 linkTitle="APISources"
                 icon={faBlog}
                 title="API Sources"
+            />
+            <DashboardLink
+                routeName="admin.adminsList"
+                activeLink={activeLink}
+                linkTitle="Admins"
+                icon={faShield}
+                title="Admins"
             />
             <DashboardLink
                 routeName="user.notifications"

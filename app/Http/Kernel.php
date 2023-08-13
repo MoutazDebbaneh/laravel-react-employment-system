@@ -70,6 +70,7 @@ class Kernel extends HttpKernel
         'company' => \App\Http\Middleware\IsCompany::class,
         'user' => \App\Http\Middleware\IsUser::class,
         'notadmin' => \App\Http\Middleware\NotAdmin::class,
+        'rootadmin' => \App\Http\Middleware\IsRootAdmin::class,
         'company.verified' => \App\Http\Middleware\VerifiedCompany::class,
     ];
 }

@@ -50,9 +50,9 @@ class UserProfileController extends Controller
 
         $user_profile->save();
 
-        // if (!empty($data['cv_file'])) {
-        //     $user_profile->parseCV();
-        // }
+        if (!empty($data['cv_file']) && $data['parse_cv']) {
+            $user_profile->parseCV();
+        }
 
         // Synchronize Skills
 

@@ -7,6 +7,7 @@ namespace App\Models;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use CURLFile;
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 // use Aws\Common\Credentials\Credentials;
 // use Aws\Common\Signature\SignatureV4;
 // use Aws\S3\Exception\S3Exception;
+use Log;
 use Storage;
 // use Symfony\Component\EventDispatcher\Event;
 
@@ -91,7 +93,7 @@ class UserProfile extends Model
     public function parseCV()
     {
         $filename = $this->getAttribute('cv_file');
-        $path = storage_path('app/public/cv_files/0g4jqXR0i7aVLamXjQo7QONZV28COgOpXLSuQD4v.pdf');
+        $path = storage_path("app/public/cv_files/$filename");
         $apiKey = env('API_LAYER_API_KEY');
 
         $uploadUrl = 'https://api.apilayer.com/resume_parser/upload';
@@ -117,6 +119,78 @@ class UserProfile extends Model
 
         curl_close($ch);
 
-        dd(json_decode($response));
+        $result = json_decode($response);
+
+        if (empty($result)) return;
+
+        try {
+            if (property_exists($result, 'skills') && !empty($result->skills)) {
+                try {
+                    $skills = $result->skills;
+                    $skills = array_map('strtolower', $skills);
+                    $existing_skills = $this->skills->pluck('name')->map(fn ($name) => strtolower($name))->toArray();
+                    $new_skills = array_diff($skills, $existing_skills);
+                    foreach ($new_skills as $skill) {
+                        $skill = new Skill(['name' => ucwords($skill)]);
+                        $this->skills()->save($skill);
+                    }
+                } catch (\Throwable $th) {
+                    Log::error($th->getMessage());
+                }
+            }
+
+            function parseDates($date) // April-yyyy
+            {
+                $dateTime = new DateTime($date);
+                $formattedDate = $dateTime->format('Y-m-01');
+                return $formattedDate;
+            }
+
+            if (property_exists($result, 'education') && !empty($result->education)) {
+                $educations = $result->education;
+                foreach ($educations as $education) {
+                    try {
+                        $dates = $education->dates;
+                        $from = $dates[0] ? parseDates($dates[0]) : 'NA';
+                        $to = count($dates) == 2 ? parseDates($dates[1]) : 'NA';
+                        $edu = new Education([
+                            'from' => $from,
+                            'to' => $to,
+                            'institute' => $education->name ?? 'NA',
+                            'field' => 'NA',
+                            'degree' => 'Bachelor',
+                        ]);
+                        $this->educations()->save($edu);
+                    } catch (\Throwable $th) {
+                        Log::error($th->getMessage());
+                    }
+                }
+            }
+
+            if (property_exists($result, 'experience') && !empty($result->experience)) {
+                $experiences = $result->experience;
+                foreach ($experiences as $experience) {
+                    try {
+                        $dates = $experience->dates;
+                        $from = $dates[0] ? parseDates($dates[0]) : 'NA';
+                        $to = count($dates) == 2 ? parseDates($dates[1]) : 'NA';
+                        $exp = new Experience([
+                            'from' => $from,
+                            'to' => $to,
+                            'position' => $experience->title ?? "NA",
+                            'company' => $experience->organization ?? "NA",
+                            'description' => '-',
+                        ]);
+
+                        $this->experiences()->save($exp);
+                    } catch (\Throwable $th) {
+                        Log::error($th->getMessage());
+                    }
+                }
+            }
+            $this->save();
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+        }
     }
 }

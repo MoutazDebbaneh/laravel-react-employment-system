@@ -289,6 +289,7 @@ class PersonalInformationUpdateRequest extends FormRequest
             "languages.*" => [Rule::in($valid_languages)],
             "skills" => ['nullable', 'array'],
             "skills.*" => ['string'],
+            "parse_cv" => ['nullable', 'boolean']
         ];
     }
 }

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App;
+use App\Enums\Role;
 use App\Events\CompanyVerificationRequestAccepted;
 use App\Models\apiSource;
 use App\Models\CompanyVerificationRequest;
 use App\Models\ScrapeSource;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Lang;
@@ -170,6 +172,46 @@ class AdminDashboardController extends Controller
             'status' => session('status'),
             'translations' => $translations,
             'activeLink' => 'APISources',
+        ]);
+    }
+    public function adminsList()
+    {
+        $locale = App::getLocale();
+        $translations = Lang::get('navbar', [], $locale);
+
+        $admins = User::where(['role' => Role::Admin->value])->get();
+
+        return Inertia::render('Dashboard/Admin/Admins/AdminsList', [
+            'status' => session('status'),
+            'translations' => $translations,
+            'activeLink' => 'Admins',
+            'admins' => $admins
+        ]);
+    }
+    public function addAdmin()
+    {
+        $locale = App::getLocale();
+        $translations = Lang::get('navbar', [], $locale);
+
+        return Inertia::render('Dashboard/Admin/Admins/AdminForm', [
+            'status' => session('status'),
+            'translations' => $translations,
+            'activeLink' => 'Admins',
+        ]);
+    }
+    public function editAdmin(string $id)
+    {
+        $locale = App::getLocale();
+        $translations = Lang::get('navbar', [], $locale);
+
+        $admin = User::where(['id' => $id])->first();
+        if (empty($admin)) return abort(404);
+
+        return Inertia::render('Dashboard/Admin/Admins/AdminForm', [
+            'status' => session('status'),
+            'translations' => $translations,
+            'activeLink' => 'Admins',
+            'admin' => $admin
         ]);
     }
 }
