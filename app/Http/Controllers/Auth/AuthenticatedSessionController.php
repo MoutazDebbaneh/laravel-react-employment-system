@@ -29,22 +29,7 @@ class AuthenticatedSessionController extends Controller
         );
 
         return Inertia::render('Auth/Login', [
-            'canResetPassword' => Route::has('password.request'),
-            'status' => session('status'),
-            'translations' => $translations,
-        ]);
-    }
-    public function create_new(): Response
-    {
-        $locale = App::getLocale();
-
-        $translations = array_merge(
-            Lang::get('login', [], $locale),
-            ['navbar' => Lang::get('navbar', [], $locale)]
-        );
-
-        return Inertia::render('Auth/NewLogin', [
-            // 'canResetPassword' => Route::has('password.request'),
+            'canResetPassword' => true,
             'status' => session('status'),
             'translations' => $translations,
         ]);

@@ -13,15 +13,6 @@ class HomeController extends Controller
     public function index()
     {
         $locale = App::getLocale();
-        $translations = ['navbar' => Lang::get('navbar', [], $locale)];
-
-        return Inertia::render('Home/Home', [
-            'translations' => $translations
-        ]);
-    }
-    public function test()
-    {
-        $locale = App::getLocale();
 
         $translations = array_merge(
             Lang::get('home', [], $locale),
@@ -30,7 +21,7 @@ class HomeController extends Controller
 
         $categories = JobCategory::all();
 
-        return Inertia::render('Home/UserHome', [
+        return Inertia::render('Home/Home', [
             'locale' => $locale,
             'translations' => $translations,
             'categories' => $categories,

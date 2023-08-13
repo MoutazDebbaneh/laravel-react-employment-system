@@ -8,7 +8,7 @@ import { Link } from "@inertiajs/react";
 import { PropsWithChildren, useState } from "react";
 import UserLayout from "./UserLayout";
 
-export default function NewLayout({
+export default function DefaultLayout({
     children,
     translations,
     locale,
@@ -22,8 +22,6 @@ export default function NewLayout({
     activeLink?: string | null;
     className?: string | null;
 }>) {
-    // console.log(locale);
-
     const [mobileSearchText, setMobileSearchText] = useState("");
 
     function toggleMenu(): void {
@@ -46,7 +44,7 @@ export default function NewLayout({
                         }
                     >
                         <div className="header-left">
-                            <a href={route("new-home")}>
+                            <a href={route("home")}>
                                 <img
                                     className="w-40"
                                     src="/storage/logo.png"
@@ -66,7 +64,7 @@ export default function NewLayout({
                                                     : inactiveLinkStyle)
                                             }
                                         >
-                                            <a href={route("new-home")}>
+                                            <a href={route("home")}>
                                                 {translations.home.toString()}
                                             </a>
                                         </li>
@@ -114,13 +112,13 @@ export default function NewLayout({
                                         {locale == Locale.English ? (
                                             <>
                                                 <a
-                                                    href={route("new-login")}
+                                                    href={route("login")}
                                                     className="bg-primary-blue px-[25px] py-[10px] rounded-lg me-2 text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all"
                                                 >
                                                     {translations.login.toString()}
                                                 </a>
                                                 <a
-                                                    href={route("new-register")}
+                                                    href={route("register")}
                                                     className="bg-primary-blue px-[25px] py-[10px] rounded-lg text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all"
                                                 >
                                                     {translations.register.toString()}
@@ -129,13 +127,13 @@ export default function NewLayout({
                                         ) : (
                                             <>
                                                 <a
-                                                    href={route("new-login")}
+                                                    href={route("login")}
                                                     className="bg-primary-blue px-[10px] py-[10px] rounded-lg me-2 text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all"
                                                 >
                                                     {translations.login.toString()}
                                                 </a>
                                                 <a
-                                                    href={route("new-register")}
+                                                    href={route("register")}
                                                     className="bg-primary-blue px-[10px] py-[10px] rounded-lg text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all"
                                                 >
                                                     {translations.register.toString()}
@@ -223,7 +221,7 @@ export default function NewLayout({
                             <nav>
                                 <ul className="text-dark-blue text-[1.13rem] leading-none font-medium">
                                     <li className="py-4 transition-all hover:ml-1">
-                                        <a href={route("new-home")}>Home</a>
+                                        <a href={route("home")}>Home</a>
                                     </li>
                                     <li className="py-4 transition-all hover:ml-1">
                                         <a href={route("jobs")}>Jobs</a>

@@ -1,4 +1,4 @@
-import NewLayout from "@/Layouts/NewLayout";
+import DefaultLayout from "@/Layouts/DefaultLayout";
 import FluidContainer from "@/Utils/FluidContainer";
 import { Locale } from "@/enums/app_enums";
 import React, { PropsWithChildren } from "react";
@@ -20,7 +20,7 @@ export default function UserDashboardLayout({
 }>) {
     return (
         <>
-            <NewLayout
+            <DefaultLayout
                 translations={translations}
                 locale={locale}
                 auth={auth}
@@ -44,7 +44,7 @@ export default function UserDashboardLayout({
                         </div>
                     </div>
                 </FluidContainer>
-            </NewLayout>
+            </DefaultLayout>
         </>
     );
 }

@@ -15,19 +15,6 @@ use Inertia\Response;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): Response
-    {
-        $locale = App::getLocale();
-        $translations = Lang::get('auth', [], $locale);
-        return Inertia::render('Profile/Edit', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'translations' => $translations,
-        ]);
-    }
 
     /**
      * Update the user's profile information.

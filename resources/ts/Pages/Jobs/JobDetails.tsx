@@ -1,5 +1,5 @@
 import PageLocalizer from "@/Components/PageLocalizer";
-import NewLayout from "@/Layouts/NewLayout";
+import DefaultLayout from "@/Layouts/DefaultLayout";
 import FluidContainer from "@/Utils/FluidContainer";
 import { Locale, Role } from "@/enums/app_enums";
 import { Job } from "@/types";
@@ -112,7 +112,7 @@ export default function JobDetails({
     }
 
     return (
-        <NewLayout
+        <DefaultLayout
             locale={locale}
             translations={translations.navbar as Translations}
             auth={auth}
@@ -642,6 +642,6 @@ export default function JobDetails({
                     </div>
                 </div>
             </FluidContainer>
-        </NewLayout>
+        </DefaultLayout>
     );
 }

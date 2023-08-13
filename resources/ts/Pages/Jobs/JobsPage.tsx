@@ -1,8 +1,8 @@
 import Checkbox from "@/Components/Checkbox";
-import NewTextInput from "@/Components/NewTextInput";
+import StyledTextInput from "@/Components/StyledTextInput";
 import PageLocalizer from "@/Components/PageLocalizer";
 import Pagination from "@/Components/Pagination";
-import NewLayout from "@/Layouts/NewLayout";
+import DefaultLayout from "@/Layouts/DefaultLayout";
 import FluidContainer from "@/Utils/FluidContainer";
 import { Locale } from "@/enums/app_enums";
 import { Job } from "@/types";
@@ -162,7 +162,7 @@ export default function JobsPage({
     });
 
     return (
-        <NewLayout
+        <DefaultLayout
             locale={locale}
             translations={translations.navbar as Translations}
             auth={auth}
@@ -201,7 +201,7 @@ export default function JobsPage({
                                         icon={faSearch}
                                         className="text-[#A0ABB8]"
                                     />
-                                    <NewTextInput
+                                    <StyledTextInput
                                         id="search"
                                         type="text"
                                         name="search"
@@ -419,6 +419,6 @@ export default function JobsPage({
                     onChange={handlePageChange}
                 />
             </FluidContainer>
-        </NewLayout>
+        </DefaultLayout>
     );
 }

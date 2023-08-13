@@ -24,22 +24,13 @@ class RegisteredUserController extends Controller
     public function create(): Response
     {
         $locale = App::getLocale();
-        $translations = Lang::get('register', [], $locale);
-
-        return Inertia::render('Auth/Register', [
-            'translations' => $translations,
-        ]);
-    }
-    public function create_new(): Response
-    {
-        $locale = App::getLocale();
 
         $translations = array_merge(
             Lang::get('register', [], $locale),
             ['navbar' => Lang::get('navbar', [], $locale)]
         );
 
-        return Inertia::render('Auth/NewRegister', [
+        return Inertia::render('Auth/Register', [
             'translations' => $translations,
         ]);
     }

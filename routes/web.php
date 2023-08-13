@@ -24,16 +24,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::middleware(['notadmin'])->get('/', [HomeController::class, 'test'])->name('new-home');
+Route::middleware(['notadmin'])->get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/jobs', [JobsPageController::class, 'index'])->name('jobs');
 
 Route::get('/jobs/{id}', [JobsPageController::class, 'details'])->name('jobs.details')->whereNumber('id');
-
-Route::middleware(['auth', 'user', 'verified'])->get('/jobs/{id}/apply', [JobController::class, 'apply'])->name('jobs.apply');
-
-Route::middleware(['auth'])->post('/notifications/read', [NotificationController::class, 'markRead'])->name('notifications.markRead');
 
 Route::get('/language/set/{locale}', [LanguageController::class, 'set'])->name('language.set')->whereAlpha('locale');
 
@@ -43,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/info', [UserDashboardController::class, 'info'])->name('user.info');
     Route::get('/user/notifications', [NotificationController::class, 'index'])->name('user.notifications');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/notifications/read', [NotificationController::class, 'markRead'])->name('notifications.markRead');
 
     Route::middleware('notadmin')->group(function () {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -61,6 +57,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/user/experiences/update', [UserProfileController::class, 'updateExperiences'])->name('user.updateExperiences');
         Route::patch('/user/educations/update', [UserProfileController::class, 'updateEducations'])->name('user.updateEducations');
         Route::patch('/user/courses/update', [UserProfileController::class, 'updateCourses'])->name('user.updateCourses');
+        Route::middleware('verified')->get('/jobs/{id}/apply', [JobController::class, 'apply'])->name('jobs.apply');
     });
 
     Route::middleware('company')->prefix('company')->group(function () {
