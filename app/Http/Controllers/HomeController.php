@@ -28,4 +28,34 @@ class HomeController extends Controller
             'activeLink' => 'Home'
         ]);
     }
+    public function about()
+    {
+        $locale = App::getLocale();
+
+        $translations = array_merge(
+            Lang::get('home', [], $locale),
+            ['navbar' => Lang::get('navbar', [], $locale)],
+        );
+
+        return Inertia::render('AboutUs/AboutUs', [
+            'locale' => $locale,
+            'translations' => $translations,
+            'activeLink' => 'About'
+        ]);
+    }
+    public function terms()
+    {
+        $locale = App::getLocale();
+
+        $translations = array_merge(
+            Lang::get('home', [], $locale),
+            ['navbar' => Lang::get('navbar', [], $locale)],
+        );
+
+        return Inertia::render('Terms/Terms', [
+            'locale' => $locale,
+            'translations' => $translations,
+            'activeLink' => 'Terms'
+        ]);
+    }
 }

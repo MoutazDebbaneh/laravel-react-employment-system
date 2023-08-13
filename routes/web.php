@@ -33,6 +33,10 @@ Route::get('/jobs/{id}', [JobsPageController::class, 'details'])->name('jobs.det
 
 Route::get('/companies', [CompaniesPageController::class, 'index'])->name('companies');
 
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+
+Route::get('/terms', [HomeController::class, 'terms'])->name('terms');
+
 Route::get('/language/set/{locale}', [LanguageController::class, 'set'])->name('language.set')->whereAlpha('locale');
 
 Route::middleware('auth')->group(function () {

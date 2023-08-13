@@ -80,18 +80,39 @@ export default function DefaultLayout({
                                                 {translations.jobs.toString()}
                                             </a>
                                         </li>
-                                        <li className="inline-block mx-6 h-full hover:text-primary-blue transition hover:after:block hover:after:w-15 hover:after:h-[1.78px] hover:after:bg-primary-blue">
+                                        <li
+                                            className={
+                                                "inline-block mx-6 h-full " +
+                                                (activeLink == "Companies"
+                                                    ? activeLinkStyle
+                                                    : inactiveLinkStyle)
+                                            }
+                                        >
                                             <a href={route("companies")}>
                                                 {translations.companies.toString()}
                                             </a>
                                         </li>
-                                        <li className="inline-block mx-6 h-full hover:text-primary-blue transition hover:after:block hover:after:w-15 hover:after:h-[1.78px] hover:after:bg-primary-blue">
-                                            <a href="#">
+                                        <li
+                                            className={
+                                                "inline-block mx-6 h-full " +
+                                                (activeLink == "About"
+                                                    ? activeLinkStyle
+                                                    : inactiveLinkStyle)
+                                            }
+                                        >
+                                            <a href={route("about")}>
                                                 {translations.about.toString()}
                                             </a>
                                         </li>
-                                        <li className="inline-block mx-6 h-full hover:text-primary-blue transition hover:after:block hover:after:w-15 hover:after:h-[1.78px] hover:after:bg-primary-blue">
-                                            <a href="#">
+                                        <li
+                                            className={
+                                                "inline-block mx-6 h-full " +
+                                                (activeLink == "Terms"
+                                                    ? activeLinkStyle
+                                                    : inactiveLinkStyle)
+                                            }
+                                        >
+                                            <a href={route("terms")}>
                                                 {translations.terms.toString()}
                                             </a>
                                         </li>
@@ -227,13 +248,15 @@ export default function DefaultLayout({
                                         <a href={route("jobs")}>Jobs</a>
                                     </li>
                                     <li className="py-4 transition-all hover:ml-1">
-                                        <a href="#">Companies</a>
+                                        <a href={route("companies")}>
+                                            Companies
+                                        </a>
                                     </li>
                                     <li className="py-4 transition-all hover:ml-1">
-                                        <a href="#">About Us</a>
+                                        <a href={route("about")}>About Us</a>
                                     </li>
                                     <li className="py-4 transition-all hover:ml-1">
-                                        <a href="#">Terms</a>
+                                        <a href={route("terms")}>Terms</a>
                                     </li>
                                 </ul>
                             </nav>
