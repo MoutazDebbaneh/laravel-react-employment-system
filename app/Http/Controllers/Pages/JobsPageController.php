@@ -6,6 +6,7 @@ use App;
 use App\Enums\NotificationType;
 use App\Enums\SourceType;
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\Job;
 use App\Models\JobApplication;
 use App\Models\JobCategory;
@@ -32,6 +33,10 @@ class JobsPageController extends Controller
         // apply filters based on request parameters
         if ($request->has('category') && $request->category != 0) {
             $query->where('job_category_id', $request->category);
+        }
+
+        if ($request->has('company') && $request->company != 0) {
+            $query->where('company_id', $request->company);
         }
 
         if ($request->has('internal') && $request->internal == '1') {
@@ -75,6 +80,7 @@ class JobsPageController extends Controller
         $filters = [
             'categories' => JobCategory::all(),
             'types' => JobType::all(),
+            'companies' => Company::whereNotNull('company_verified_at')->get(),
         ];
 
         return inertia('Jobs/JobsPage', [
@@ -85,6 +91,7 @@ class JobsPageController extends Controller
             'perPage' => $perPage,
             'search' => $request->search,
             'category' => $request->category,
+            'company' => $request->company,
             'internal' => $request->internal,
             'current_order' => $order,
             'types' => $request->type,

@@ -6,7 +6,7 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import FluidContainer from "@/Utils/FluidContainer";
 import { Locale } from "@/enums/app_enums";
 import { Job } from "@/types";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faInstitution, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Head } from "@inertiajs/react";
 import { useState } from "react";
@@ -42,6 +42,7 @@ export default function JobsPage({
     perPage,
     search,
     category,
+    company,
     current_order,
     types,
     internal,
@@ -55,6 +56,7 @@ export default function JobsPage({
     perPage: number;
     search: string | null;
     category: string | null;
+    company: string | null;
     test_job: any;
     current_order: "newest" | "oldest";
     types: any;
@@ -97,6 +99,10 @@ export default function JobsPage({
         category != null ? parseInt(category) : 0
     );
 
+    const [selectedCompany, setselectedCompany] = useState<number>(
+        company != null ? parseInt(company) : 0
+    );
+
     const [selectedInternal, setSelectedInternal] = useState<boolean>(
         internal ?? false
     );
@@ -131,6 +137,7 @@ export default function JobsPage({
     function handleApplyFilterClick() {
         updateQueryParams("search", currentSearch);
         updateQueryParams("category", selectedCategory.toString());
+        updateQueryParams("company", selectedCompany.toString());
         updateQueryParams("type[]", selectedTypes);
         updateQueryParams("internal", selectedInternal ? "1" : "0");
         window.location.reload();
@@ -160,6 +167,19 @@ export default function JobsPage({
         value: 0,
         label: translations.all.toString(),
     });
+
+    const companiesOptions = filters.companies.map((c: any) => ({
+        value: c.id,
+        label: c.name,
+    }));
+
+    companiesOptions.unshift({
+        value: 0,
+        label: translations.all.toString(),
+    });
+
+    console.log(selectedCompany);
+    console.log(filters.companies);
 
     return (
         <DefaultLayout
@@ -217,6 +237,47 @@ export default function JobsPage({
                         </div>
                         <div className="filter-group mb-6">
                             <h5 className="text-dark-blue font-semibold mb-3 text-[18px] ms-1">
+                                {translations.company.toString()}
+                            </h5>
+                            <div className="company-filter border border-[#E0E6F7] flex flex-row items-center ps-3 rounded">
+                                <span>
+                                    <FontAwesomeIcon
+                                        className="text-[#A0ABB8]"
+                                        icon={faInstitution}
+                                    />
+                                </span>
+                                <Select
+                                    id="company"
+                                    name="company"
+                                    className="react-select no-border w-full py-2 !ring-0 !border-none rounded-md"
+                                    options={companiesOptions}
+                                    value={
+                                        !selectedCompany
+                                            ? null
+                                            : {
+                                                  value: selectedCompany,
+                                                  label:
+                                                      locale == Locale.English
+                                                          ? filters.companies.filter(
+                                                                (c: any) =>
+                                                                    c.id ==
+                                                                    selectedCompany
+                                                            )[0].name
+                                                          : filters.companies.filter(
+                                                                (c: any) =>
+                                                                    c.id ==
+                                                                    selectedCompany
+                                                            )[0].name,
+                                              }
+                                    }
+                                    onChange={(e) =>
+                                        setselectedCompany(e!.value)
+                                    }
+                                />
+                            </div>
+                        </div>
+                        <div className="filter-group mb-6">
+                            <h5 className="text-dark-blue font-semibold mb-3 text-[18px] ms-1">
                                 {translations.category.toString()}
                             </h5>
                             <div className="category-filter border border-[#E0E6F7] flex flex-row items-center ps-3 rounded">
@@ -260,24 +321,6 @@ export default function JobsPage({
                                         />
                                     </svg>
                                 </span>
-                                {/* <select
-                                    onChange={handleCategoryChange}
-                                    value={selectedCategory}
-                                    className="w-full block h-[50px] border-none text-[#A0ABB8] focus:text-black focus:shadow-none focus:ring-0 text-[15px]"
-                                    id="role"
-                                    name="role"
-                                >
-                                    <option key="0" value="0">
-                                        {translations.all.toString()}
-                                    </option>
-                                    {filters.categories.map((c: any) => (
-                                        <option key={c.id} value={c.id}>
-                                            {locale == Locale.English
-                                                ? c["name_en"]
-                                                : c["name_ar"]}
-                                        </option>
-                                    ))}
-                                </select> */}
                                 <Select
                                     id="category"
                                     name="category"

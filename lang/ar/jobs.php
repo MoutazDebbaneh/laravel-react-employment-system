@@ -6,6 +6,7 @@ return [
     'reset' => 'إفتراضي',
     'search' => 'البحث',
     'search_placeholder' => 'المسمى الوظيفي',
+    'company' => 'الشركة',
     'category' => 'التصنيف',
     'type' => 'نوع العمل',
     'source' => 'مصدر العمل',

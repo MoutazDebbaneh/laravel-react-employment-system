@@ -6,6 +6,7 @@ return [
     'reset' => 'Reset',
     'search' => 'Search',
     'search_placeholder' => 'Job Title',
+    'company' => 'Company',
     'category' => 'Category',
     'type' => 'Job Type',
     'source' => 'Job Source',

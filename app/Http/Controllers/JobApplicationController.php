@@ -19,7 +19,7 @@ class JobApplicationController extends Controller
      */
     public function index($job_id)
     {
-        $job = Job::find($job_id);
+        $job = Job::where(['id' => $job_id])->first();
         if (empty($job)) return abort(404);
         $company = auth()->user()->company;
         if ($job->company->id != $company->id) return abort(401);
@@ -48,18 +48,29 @@ class JobApplicationController extends Controller
      */
     public function show(string $id)
     {
-        $application = JobApplication::find($id)
+        $application = JobApplication::where(['id' => $id])
             ->with([
                 'job', 'user', 'user.userProfile',
                 'user.userProfile.languages', 'user.userProfile.courses',
                 'user.userProfile.experiences', 'user.userProfile.educations',
                 'user.userProfile.skills', 'user.userProfile.socialLink'
             ])->first();
+
         if (empty($application) || $application->accepted !== null) return abort(404);
-        $application->user->userProfile->profile_picture =
+
+        $profile = $application->user->userProfile;
+
+        $profile->profile_picture =
             Storage::url(
-                'images/users/' . $application->user->userProfile->profile_picture
+                'images/users/' . $profile->profile_picture
             );
+
+        if (!empty($profile->cv_file)) {
+            $profile->cv_file =
+                Storage::url(
+                    'cv_files/' . $profile->cv_file
+                );
+        }
         $locale = App::getLocale();
         $translations = Lang::get('navbar', [], $locale);
         return Inertia::render('Dashboard/Company/Applications/Application', [

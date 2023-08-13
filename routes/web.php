@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\Pages\CompaniesPageController;
 use App\Http\Controllers\CompanyDashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobApplicationController;
@@ -29,6 +30,8 @@ Route::middleware(['notadmin'])->get('/', [HomeController::class, 'index'])->nam
 Route::get('/jobs', [JobsPageController::class, 'index'])->name('jobs');
 
 Route::get('/jobs/{id}', [JobsPageController::class, 'details'])->name('jobs.details')->whereNumber('id');
+
+Route::get('/companies', [CompaniesPageController::class, 'index'])->name('companies');
 
 Route::get('/language/set/{locale}', [LanguageController::class, 'set'])->name('language.set')->whereAlpha('locale');
 

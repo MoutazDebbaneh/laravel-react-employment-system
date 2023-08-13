@@ -148,7 +148,9 @@ export default function UserLayout({ locale, translations }: UserLayoutProps) {
                                 href={route("user.notifications")}
                                 className="text-sm text-gray-500 hover:text-gray-800"
                             >
-                                See all
+                                {(
+                                    translations.notifications as Translations
+                                ).all.toString()}
                             </a>
                         </div>
                     </div>

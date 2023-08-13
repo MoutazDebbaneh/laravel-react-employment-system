@@ -47,8 +47,8 @@ export default function Application({
     const primaryStyle: StylesConfig<Option[], boolean> = {
         control: (provided, state) => ({
             ...provided,
-            backgroundColor: "white", // Change this to your primary color
-            borderColor: "rgb(209 213 219 / var(--tw-border-opacity))", // Change this to your primary color
+            backgroundColor: "white",
+            borderColor: "rgb(209 213 219 / var(--tw-border-opacity))",
         }),
     };
 
@@ -80,6 +80,8 @@ export default function Application({
 
     const closeDeclineModal = () => setDeclineShowModal(false);
     const openDeclineModal = () => setDeclineShowModal(true);
+
+    console.log(user.user_profile);
 
     return (
         <CompanyDashboardLayout
@@ -547,6 +549,16 @@ export default function Application({
                                         disabled
                                     />
                                 </div>
+                                {profile.cv_file && (
+                                    <div className="form-group my-5">
+                                        <a href={profile.cv_file as string}>
+                                            <InputLabel
+                                                value="Download CV File"
+                                                className="cursor-pointer"
+                                            />
+                                        </a>
+                                    </div>
+                                )}
                             </div>
                             <div className="education-info border-t border-gray-200 py-5">
                                 <h3 className="text-lg font-medium text-gray-900">

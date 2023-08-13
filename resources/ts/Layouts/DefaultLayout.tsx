@@ -81,7 +81,7 @@ export default function DefaultLayout({
                                             </a>
                                         </li>
                                         <li className="inline-block mx-6 h-full hover:text-primary-blue transition hover:after:block hover:after:w-15 hover:after:h-[1.78px] hover:after:bg-primary-blue">
-                                            <a href="#">
+                                            <a href={route("companies")}>
                                                 {translations.companies.toString()}
                                             </a>
                                         </li>

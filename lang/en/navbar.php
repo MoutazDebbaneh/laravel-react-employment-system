@@ -11,6 +11,7 @@ return [
     'terms' => 'Terms',
     'notifications' => [
         'title' => 'Notifications',
+        'all' => 'See all',
         'none' => 'You don\'t have any new notifications.',
         'type0' => [
             'heading' => 'New Job Application Submitted',

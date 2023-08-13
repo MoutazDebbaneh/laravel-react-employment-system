@@ -11,6 +11,7 @@ use App\Models\Skill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Storage;
 
 
 class UserProfileController extends Controller
@@ -18,6 +19,7 @@ class UserProfileController extends Controller
     public function updatePersonalInformation(PersonalInformationUpdateRequest $request): RedirectResponse
     {
         $data = $request->validated();
+        $user_profile = $request->user()->userProfile;
 
         // Handle Profile Picture
         if (empty($data['profile_picture'])) {
@@ -33,11 +35,13 @@ class UserProfileController extends Controller
             unset($data['cv_file']);
         } else {
             $file = $request->file('cv_file');
+            if (!empty($user_profile->cv_file)) {
+                Storage::delete('public/cv_files/' . $user_profile->cv_file);
+            }
             $savedFile = $file->store('public/cv_files');
             $data['cv_file'] = basename($savedFile);
         }
 
-        $user_profile = $request->user()->userProfile;
         $user_profile->fill($data);
 
         // Synchronize Languages
@@ -46,9 +50,9 @@ class UserProfileController extends Controller
 
         $user_profile->save();
 
-        if (!empty($data['cv_file'])) {
-            $user_profile->parseCV();
-        }
+        // if (!empty($data['cv_file'])) {
+        //     $user_profile->parseCV();
+        // }
 
         // Synchronize Skills
 
@@ -84,7 +88,6 @@ class UserProfileController extends Controller
     public function updateAbout(AboutUpdateRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        // dd($data);
         $user_profile = $request->user()->userProfile;
         if (empty($user_profile->socialLink)) {
             $user_profile->socialLink()->create($data);

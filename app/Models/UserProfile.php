@@ -83,10 +83,6 @@ class UserProfile extends Model
     {
         $filename = $this->getAttribute('cv_file');
         $path = storage_path('app/public/cv_files/0g4jqXR0i7aVLamXjQo7QONZV28COgOpXLSuQD4v.pdf');
-        // dd($path);
-        // $file_url = urlencode("https://moutaz-debbaneh.sharedwithexpose.com/storage/cv_files/0g4jqXR0i7aVLamXjQo7QONZV28COgOpXLSuQD4v.pdf");
-        // $file_url = urlencode("https://moutaz-debbaneh.sharedwithexpose.com/storage/cv_files/$filename");
-        // dd($file_url);
         $apiKey = env('API_LAYER_API_KEY');
 
         $uploadUrl = 'https://api.apilayer.com/resume_parser/upload';
