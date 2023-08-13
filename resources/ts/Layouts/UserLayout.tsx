@@ -145,7 +145,7 @@ export default function UserLayout({ locale, translations }: UserLayoutProps) {
                         )}
                         <div className="px-4 py-2 text-right">
                             <a
-                                href="#"
+                                href={route("user.notifications")}
                                 className="text-sm text-gray-500 hover:text-gray-800"
                             >
                                 See all

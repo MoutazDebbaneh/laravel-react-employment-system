@@ -3,7 +3,8 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
-        "selenium": ".\\chromedriver\\chromedriver --port=4444"
+        "selenium": ".\\chromedriver\\chromedriver --port=4444",
+        "xpose": "expose share http://localhost:8000 --subdomain=moutaz-debbaneh"
     },
     "devDependencies": {
         "@headlessui/react": "^1.4.2",

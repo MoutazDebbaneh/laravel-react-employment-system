@@ -5,6 +5,7 @@ import Experiecnces from "./Partials/Experiences";
 import Education from "./Partials/Education";
 import PersonalInformation from "./Partials/PersonalInformation";
 import Courses from "./Partials/Courses";
+import { SocialLink } from "@/types";
 
 type Experience = {
     company: string;
@@ -42,6 +43,7 @@ export default function UserProfile({
     experiences,
     educations,
     courses,
+    socialLink,
 }: {
     status?: string;
     locale: Locale;
@@ -55,6 +57,7 @@ export default function UserProfile({
     experiences: Experience[];
     educations: Education[];
     courses: Course[];
+    socialLink: SocialLink;
 }) {
     return (
         <>
@@ -76,6 +79,8 @@ export default function UserProfile({
                     />
 
                     <About
+                        socialLink={socialLink}
+                        bio={profile.bio}
                         status={status}
                         locale={locale}
                         translations={translations}

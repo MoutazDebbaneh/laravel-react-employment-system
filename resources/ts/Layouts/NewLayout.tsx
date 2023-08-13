@@ -148,7 +148,7 @@ export default function NewLayout({
                                             href={route("language.set", [
                                                 Locale.Arabic,
                                             ])}
-                                            className="ms-3 w-6 rounded"
+                                            className="lg:ms-3 w-6 rounded mx-4 mb-1"
                                         >
                                             <ArabicFlag />
                                         </Link>

@@ -111,7 +111,7 @@ class JobsPageController extends Controller
             $similar->display_image = empty($similar->source_url) ? Storage::url('images/companies/' . $similar->display_image) : Storage::url('images/external/' . $similar->display_image);
         }
 
-        $alreadyApplied = JobApplication::where(['user_id' => auth()->user()->id, 'job_id' => $id])->count() > 0;
+        $alreadyApplied = empty(auth()->user()) ? false : JobApplication::where(['user_id' => auth()->user()->id, 'job_id' => $id])->count() > 0;
 
         return inertia('Jobs/JobDetails', [
             'status' => session('status'),

@@ -40,6 +40,7 @@ class UserDashboardController extends Controller
         $experiences = $profile->experiences->toArray();
         $educations = $profile->educations->toArray();
         $courses = $profile->courses->toArray();
+        $socialLink = $profile->socialLink;
 
         return Inertia::render('Dashboard/User/Profile/UserProfile', [
             'status' => session('status'),
@@ -51,7 +52,8 @@ class UserDashboardController extends Controller
             'profile_languages' => array_column($profile_languages, 'id'),
             'experiences' => $experiences,
             'educations' => $educations,
-            'courses' => $courses
+            'courses' => $courses,
+            'socialLink' => $socialLink
         ]);
     }
     public function applications()

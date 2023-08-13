@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Models\ScrapeSourceConfiguration;
-use DateTime;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;

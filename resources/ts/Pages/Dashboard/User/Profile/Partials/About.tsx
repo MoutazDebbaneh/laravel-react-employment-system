@@ -3,16 +3,21 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Locale } from "@/enums/app_enums";
+import { SocialLink } from "@/types";
 import { Transition } from "@headlessui/react";
 import { useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 
 export default function About({
+    socialLink,
+    bio,
     status,
     locale,
     translations,
     langs,
 }: {
+    socialLink: SocialLink;
+    bio: string | undefined;
     status?: string;
     locale: Locale;
     translations: Translations;
@@ -27,12 +32,12 @@ export default function About({
             twitter: string | undefined;
             telegram: string | undefined;
         }>({
-            bio: "",
-            linkedin: "",
-            facebook: "",
-            instagram: "",
-            twitter: "",
-            telegram: "",
+            bio: bio,
+            linkedin: socialLink.linkedin ?? "",
+            facebook: socialLink.linkedin ?? "",
+            instagram: socialLink.instagram ?? "",
+            twitter: socialLink.twitter ?? "",
+            telegram: socialLink.telegram ?? "",
         });
 
     const submit: FormEventHandler = (e) => {

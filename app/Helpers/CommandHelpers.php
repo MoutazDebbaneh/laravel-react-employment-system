@@ -226,23 +226,6 @@ class CommandHelpers
                 $types = $results['type'];
             }
 
-
-            // $type = $results['type'];
-            // $types = [];
-            // if (is_string($type)) {
-            //     $sep = '';
-            //     if (str_contains($type, '-')) $sep = '-';
-            //     else if (str_contains($type, ',')) $sep = ',';
-            //     else if (str_contains($type, '/')) $sep = '/';
-            //     if ($sep == '') {
-            //         $types[] = $type;
-            //     } else {
-            //         $types = explode($sep, $type);
-            //     }
-            // } else {
-            //     $types = $type;
-            // }
-
             foreach ($normalized_types as $index => $normalized_type) {
 
                 foreach ($types as $job_type) {

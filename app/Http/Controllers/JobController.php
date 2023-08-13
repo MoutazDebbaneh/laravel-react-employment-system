@@ -132,9 +132,25 @@ class JobController extends Controller
     public function apply(string $id)
     {
         $user = auth()->user();
+        $profile = $user->userProfile;
         $job = Job::where(['id' => $id])->first();
         if (empty($job)) abort(404);
         if (JobApplication::where(['job_id' => $id, 'user_id' => $user->id])->count() > 0) abort(401);
+        $required_attributes = [
+            'bio',
+            'gender',
+            'country',
+            'city',
+            'address',
+            'current_position',
+            'education_level'
+        ];
+        foreach ($required_attributes as $att) {
+            if ($profile->getAttribute($att) === null) {
+                dd($att);
+                return abort(403);
+            }
+        }
         $application = new JobApplication();
         $application->setAttribute('user_id', $user->id);
         $application->setAttribute('job_id', $job->id);

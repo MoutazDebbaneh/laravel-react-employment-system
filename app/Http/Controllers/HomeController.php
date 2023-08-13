@@ -31,7 +31,7 @@ class HomeController extends Controller
         $categories = JobCategory::all();
 
         return Inertia::render('Home/UserHome', [
-            // 'locale' => $locale,
+            'locale' => $locale,
             'translations' => $translations,
             'categories' => $categories,
             'activeLink' => 'Home'

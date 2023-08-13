@@ -56,6 +56,16 @@ return [
             'throw' => false,
         ],
 
+        'Wasabi' => [
+            'driver' => 's3',
+            'key' => env('WASABI_ACCESS_KEY'),
+            'secret' => env('WASABI_SECRET_KEY'),
+            'region' => env('WASABI_REGION'),
+            'bucket' => env('WASABI_BUCKET'),
+            'endpoint' => 'https://s3.wasabisys.com'
+        ],
+
+
     ],
 
     /*

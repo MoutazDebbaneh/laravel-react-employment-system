@@ -18,12 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->enum('role', [
-                Role::Root_Admin->value,
-                Role::Admin->value,
-                Role::User->value,
-                Role::Company->value
-            ]);
+            $table->enum('role', array_column(Role::cases(), 'value'));
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();

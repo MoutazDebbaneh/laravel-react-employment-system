@@ -35,7 +35,7 @@ export default function ExperienceTable({
 }) {
     const parseDate = (dateStr: string) => {
         const date = new Date(dateStr);
-        return `${String(date.getMonth()).padStart(
+        return `${String(date.getMonth() + 1).padStart(
             2,
             "0"
         )}-${date.getFullYear()}`;

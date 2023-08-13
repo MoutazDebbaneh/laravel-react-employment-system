@@ -122,7 +122,7 @@ export default function UserHome({
                                     options={options}
                                     value={
                                         !category
-                                            ? null
+                                            ? options[0]
                                             : {
                                                   value: category,
                                                   label:
@@ -136,7 +136,7 @@ export default function UserHome({
                                                                 (c) =>
                                                                     c.id ==
                                                                     category
-                                                            )[0].name_en,
+                                                            )[0].name_ar,
                                               }
                                     }
                                     onChange={(e) => setCategory(e!.value)}

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+// require __DIR__ . '/../../../vendor/autoload.php';
+
 use App\Http\Requests\AboutUpdateRequest;
 use App\Http\Requests\PersonalInformationUpdateRequest;
 use App\Models\Language;
@@ -15,7 +17,6 @@ class UserProfileController extends Controller
 {
     public function updatePersonalInformation(PersonalInformationUpdateRequest $request): RedirectResponse
     {
-
         $data = $request->validated();
 
         // Handle Profile Picture
@@ -44,6 +45,10 @@ class UserProfileController extends Controller
         $user_profile->languages()->sync($langs);
 
         $user_profile->save();
+
+        if (!empty($data['cv_file'])) {
+            $user_profile->parseCV();
+        }
 
         // Synchronize Skills
 
@@ -83,14 +88,16 @@ class UserProfileController extends Controller
         $user_profile = $request->user()->userProfile;
         if (empty($user_profile->socialLink)) {
             $user_profile->socialLink()->create($data);
-        } else {
-            $user_profile->socialLink->fill($data);
-            $user_profile->socialLink->save();
         }
+        $user_profile->socialLink->fill($data);
+        $user_profile->socialLink->save();
+
         if (!empty($request->bio)) {
             $user_profile->fill($data);
         }
-        if (!empty($data)) $user_profile->save();
+
+        $user_profile->save();
+
         info('User About updated');
         return Redirect::route('user.profile');
     }
