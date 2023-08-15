@@ -212,7 +212,7 @@ export default function NewRegister({
                                     setData("role", parseInt(e.target.value))
                                 }
                                 value={data.role}
-                                className="w-full block border border-solid border-[#E0E6F7] rounded-[4px] h-[50px] pl-5 mt-2 text-[#A0ABB8] focus:text-black focus:shadow-none focus:ring-0 focus:border-[#B4C0E0] text-[15px]"
+                                className="w-full block border border-solid border-[#E0E6F7] rounded-[4px] h-[50px] ps-5 mt-2 text-[#A0ABB8] focus:text-black focus:shadow-none focus:ring-0 focus:border-[#B4C0E0] text-[15px]"
                                 id="role"
                                 name="role"
                             >

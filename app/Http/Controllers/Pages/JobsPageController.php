@@ -92,7 +92,7 @@ class JobsPageController extends Controller
             'search' => $request->search,
             'category' => $request->category,
             'company' => $request->company,
-            'internal' => $request->internal,
+            'internal' => strval($request->internal),
             'current_order' => $order,
             'types' => $request->type,
             'activeLink' => 'Jobs'

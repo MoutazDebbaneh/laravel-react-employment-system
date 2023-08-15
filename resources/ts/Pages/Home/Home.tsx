@@ -50,7 +50,7 @@ export default function Home({
                 title={(translations.navbar as Translations).title.toString()}
             />
 
-            <div className="bg-[url('/resources/images/bg-banner.svg')] bg-no-repeat bg-left-top bg-cover fixed -z-50 w-full top-0 right-0 min-h-[835px]"></div>
+            <div className="bg-[url('/resources/images/bg-banner.svg')] bg-no-repeat bg-left-top bg-cover fixed -z-50 w-full top-0 end-0 min-h-[835px]"></div>
             <Container className="max-w-full">
                 <section className="top-section mt-[4.6rem] max-w-full mx-10 lg:mx-0 grid grid-cols-1 2xl:grid-cols-2">
                     <div className="left-section">
@@ -234,21 +234,21 @@ export default function Home({
                         <div className="banner-imgs relative">
                             {locale == Locale.English ? (
                                 <>
-                                    <div className="shape-1 absolute -top-10 left-28">
+                                    <div className="shape-1 absolute -top-10 start-28">
                                         <img
                                             className="img"
                                             alt="jobBox"
                                             src={bannerImg1}
                                         />
                                     </div>
-                                    <div className="shape-2 absolute top-60 left-64">
+                                    <div className="shape-2 absolute top-60 start-64">
                                         <img
                                             className="img"
                                             alt="jobBox"
                                             src={bannerImg2}
                                         />
                                     </div>
-                                    <div className="shape-3 absolute left-[25.1rem]">
+                                    <div className="shape-3 absolute start-[25.1rem]">
                                         <img
                                             className="img"
                                             alt="jobBox"

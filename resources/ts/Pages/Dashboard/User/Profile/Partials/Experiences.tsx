@@ -149,7 +149,7 @@ const Experiecnces: React.FC<{ initialData: Experience[] }> = ({
                                             <FontAwesomeIcon icon={faEdit} />
                                         </button>
                                         <button
-                                            className="ml-3 text-red-600 hover:text-red-900"
+                                            className="ms-3 text-red-600 hover:text-red-900"
                                             onClick={handleDelete}
                                         >
                                             <span className="sr-only">
@@ -295,7 +295,7 @@ const Experiecnces: React.FC<{ initialData: Experience[] }> = ({
                                     Cancel
                                 </SecondaryButton>
 
-                                <PrimaryButton className="ml-3" type="submit">
+                                <PrimaryButton className="ms-3" type="submit">
                                     Confirm
                                 </PrimaryButton>
                             </div>

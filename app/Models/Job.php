@@ -70,5 +70,10 @@ class Job extends Model
         static::deleting(function ($job) {
             $job->jobTypes()->detach();
         });
+
+        static::created(function ($model) {
+            // Alert users who might be interested
+            event(new \App\Events\JobAdded($model));
+        });
     }
 }

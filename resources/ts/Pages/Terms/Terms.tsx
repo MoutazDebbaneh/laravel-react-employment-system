@@ -28,7 +28,7 @@ export default function Terms({
                 title={(translations.navbar as Translations).title.toString()}
             />
 
-            <div className="bg-[url('/resources/images/bg-banner.svg')] bg-no-repeat bg-left-top bg-cover fixed -z-50 w-full top-0 right-0 min-h-[835px]"></div>
+            <div className="bg-[url('/resources/images/bg-banner.svg')] bg-no-repeat bg-left-top bg-cover fixed -z-50 w-full top-0 end-0 min-h-[835px]"></div>
             <Container className="max-w-full flex justify-center flex-col !min-h-[500px]">
                 <div>
                     <h1 className="text-[1.8rem] text-dark-blue font-extrabold max-w-10">

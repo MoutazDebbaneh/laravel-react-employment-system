@@ -11,8 +11,10 @@ import DashboardLink from "../../Common/DashboardLink";
 
 export default function UserDashboardLinks({
     activeLink,
+    translations,
 }: {
     activeLink: string | null | undefined;
+    translations: Translations;
 }) {
     return (
         <>
@@ -21,28 +23,28 @@ export default function UserDashboardLinks({
                 activeLink={activeLink}
                 linkTitle="UserInfo"
                 icon={faUser}
-                title="User Info"
+                title={translations.userinfo.toString()}
             />
             <DashboardLink
                 routeName="user.profile"
                 activeLink={activeLink}
                 linkTitle="UserProfile"
                 icon={faAddressCard}
-                title="Profile"
+                title={translations.profile.toString()}
             />
             <DashboardLink
                 routeName="user.applications"
                 activeLink={activeLink}
                 linkTitle="AppliedJobs"
                 icon={faBriefcase}
-                title="Applied Jobs"
+                title={translations.applied.toString()}
             />
             <DashboardLink
                 routeName="user.notifications"
                 activeLink={activeLink}
                 linkTitle="Notifications"
                 icon={faBell}
-                title="Notifications"
+                title={translations.notificationslist.toString()}
             />
 
             <Link
@@ -51,8 +53,10 @@ export default function UserDashboardLinks({
                 as="button"
                 className="w-full flex items-center px-4 py-4 rounded-lg font-bold my-1 text-[17px] text-[#66789C]  hover:bg-primary-blue hover:text-white"
             >
-                <FontAwesomeIcon icon={faSignOutAlt} className="w-6 mr-2" />
-                <span className="hidden md:block">Log Out</span>
+                <FontAwesomeIcon icon={faSignOutAlt} className="w-6 me-2" />
+                <span className="hidden md:block">
+                    {translations.logout.toString()}
+                </span>
             </Link>
         </>
     );

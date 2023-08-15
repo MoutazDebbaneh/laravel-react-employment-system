@@ -9,6 +9,7 @@ return [
     'login' => 'Log In',
     'register' => 'Register',
     'terms' => 'Terms',
+    'search' => 'Search...',
     'notifications' => [
         'title' => 'Notifications',
         'all' => 'See all',
@@ -37,5 +38,8 @@ return [
             'heading' => 'Verification Request Accepted',
             'body' => 'Congratulations! Your company verification request was accepted.'
         ],
-    ]
+    ],
+    'dashboard' => 'Dashboard',
+    'change' => 'Change Password',
+    'logout' => 'Log Out'
 ];

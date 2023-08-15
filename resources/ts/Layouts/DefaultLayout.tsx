@@ -205,7 +205,7 @@ export default function DefaultLayout({
                     >
                         <FontAwesomeIcon
                             icon={faTimes}
-                            className="absolute right-2 top-2 text-[1.6rem] color-muted cursor-pointer"
+                            className="absolute end-2 top-2 text-[1.6rem] color-muted cursor-pointer"
                             onClick={toggleMenu}
                         />
                         <div className="mobile-search mb-10 mt-3">
@@ -215,12 +215,12 @@ export default function DefaultLayout({
                                         .getElementById("mobile-search-btn")
                                         ?.click();
                                 }}
-                                className="bg-[#f2f3f4] rounded-lg	h-12 relative pt-0 pl-4 pb-0 pr-11"
+                                className="bg-[#f2f3f4] rounded-lg	h-12 relative pt-0 ps-4 pb-0 pe-11"
                             >
                                 <input
                                     type="search"
-                                    placeholder="Search..."
-                                    className="border-0 bg-transparent w-full h-12 pl-10 pr-[2px] focus:ring-0"
+                                    placeholder={translations.search.toString()}
+                                    className="border-0 bg-transparent w-full h-12 ps-10 pr-[2px] focus:ring-0"
                                     value={mobileSearchText}
                                     onChange={(e) =>
                                         setMobileSearchText(e.target.value)
@@ -236,29 +236,37 @@ export default function DefaultLayout({
                                 />
                                 <FontAwesomeIcon
                                     icon={faSearch}
-                                    className="absolute left-4 top-3 text-[18px] color-muted"
+                                    className="absolute start-4 top-3 text-[18px] color-muted"
                                 />
                             </form>
                         </div>
                         <div className="mobile-nav ">
                             <nav>
                                 <ul className="text-dark-blue text-[1.13rem] leading-none font-medium">
-                                    <li className="py-4 transition-all hover:ml-1">
-                                        <a href={route("home")}>Home</a>
-                                    </li>
-                                    <li className="py-4 transition-all hover:ml-1">
-                                        <a href={route("jobs")}>Jobs</a>
-                                    </li>
-                                    <li className="py-4 transition-all hover:ml-1">
-                                        <a href={route("companies")}>
-                                            Companies
+                                    <li className="py-4 transition-all hover:ms-1">
+                                        <a href={route("home")}>
+                                            {translations.home.toString()}
                                         </a>
                                     </li>
-                                    <li className="py-4 transition-all hover:ml-1">
-                                        <a href={route("about")}>About Us</a>
+                                    <li className="py-4 transition-all hover:ms-1">
+                                        <a href={route("jobs")}>
+                                            {translations.jobs.toString()}
+                                        </a>
                                     </li>
-                                    <li className="py-4 transition-all hover:ml-1">
-                                        <a href={route("terms")}>Terms</a>
+                                    <li className="py-4 transition-all hover:ms-1">
+                                        <a href={route("companies")}>
+                                            {translations.companies.toString()}
+                                        </a>
+                                    </li>
+                                    <li className="py-4 transition-all hover:ms-1">
+                                        <a href={route("about")}>
+                                            {translations.about.toString()}
+                                        </a>
+                                    </li>
+                                    <li className="py-4 transition-all hover:ms-1">
+                                        <a href={route("terms")}>
+                                            {translations.terms.toString()}
+                                        </a>
                                     </li>
                                 </ul>
                             </nav>

@@ -104,13 +104,13 @@ export default function JobsPage({
     );
 
     const [selectedInternal, setSelectedInternal] = useState<boolean>(
-        internal ?? false
+        internal !== null && internal === true
     );
 
     const handleInternalChange = (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
-        setSelectedInternal(!selectedInternal);
+        setSelectedInternal(event.target.checked);
     };
 
     const [order, setOrder] = useState<"newest" | "oldest">(current_order);
@@ -177,9 +177,6 @@ export default function JobsPage({
         value: 0,
         label: translations.all.toString(),
     });
-
-    console.log(selectedCompany);
-    console.log(filters.companies);
 
     return (
         <DefaultLayout
@@ -253,7 +250,7 @@ export default function JobsPage({
                                     options={companiesOptions}
                                     value={
                                         !selectedCompany
-                                            ? null
+                                            ? companiesOptions[0]
                                             : {
                                                   value: selectedCompany,
                                                   label:
@@ -328,7 +325,7 @@ export default function JobsPage({
                                     options={options}
                                     value={
                                         !selectedCategory
-                                            ? null
+                                            ? options[0]
                                             : {
                                                   value: selectedCategory,
                                                   label:

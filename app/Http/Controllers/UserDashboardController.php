@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Models\JobApplication;
+use App\Models\JobCategory;
 use App\Models\Language;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
@@ -19,7 +20,11 @@ class UserDashboardController extends Controller
     public function info(Request $request)
     {
         $locale = App::getLocale();
-        $translations = Lang::get('navbar', [], $locale);
+        $translations = array_merge(
+            Lang::get('dashboard-links', [], $locale),
+            Lang::get('navbar', [], $locale),
+            ['content' => Lang::get('user-info', [], $locale),]
+        );
 
         return Inertia::render('Dashboard/Common/UserInfo/UserInfo', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
@@ -32,7 +37,10 @@ class UserDashboardController extends Controller
     {
         $locale = App::getLocale();
 
-        $translations = Lang::get('navbar', [], $locale);
+        $translations = array_merge(
+            Lang::get('dashboard-links', [], $locale),
+            Lang::get('navbar', [], $locale),
+        );
 
         $profile = auth()->user()->userProfile;
         $profile_skills = $profile->skills->toArray();
@@ -40,6 +48,7 @@ class UserDashboardController extends Controller
         $experiences = $profile->experiences->toArray();
         $educations = $profile->educations->toArray();
         $courses = $profile->courses->toArray();
+        $profile_categories = $profile->categories->toArray() ?? [];
         $socialLink = $profile->socialLink;
 
         return Inertia::render('Dashboard/User/Profile/UserProfile', [
@@ -53,14 +62,19 @@ class UserDashboardController extends Controller
             'experiences' => $experiences,
             'educations' => $educations,
             'courses' => $courses,
-            'socialLink' => $socialLink
+            'socialLink' => $socialLink,
+            'profile_categories' => $profile_categories,
+            'categories' => JobCategory::all()->toArray()
         ]);
     }
     public function applications()
     {
         $locale = App::getLocale();
 
-        $translations = Lang::get('navbar', [], $locale);
+        $translations = array_merge(
+            Lang::get('dashboard-links', [], $locale),
+            Lang::get('navbar', [], $locale),
+        );
 
         $applications = JobApplication::where(['user_id' => auth()->user()->id])->with(['job', 'job.company'])->get();
 

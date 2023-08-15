@@ -4,6 +4,7 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Locale } from "@/enums/app_enums";
+import { JobCategory } from "@/types";
 import { Transition } from "@headlessui/react";
 import { useForm } from "@inertiajs/react";
 import { countries } from "countries-list";
@@ -20,6 +21,8 @@ export default function PersonalInformation({
     profile,
     profile_skills,
     profile_languages,
+    profile_categories,
+    categories,
 }: {
     status?: string;
     locale: Locale;
@@ -28,6 +31,8 @@ export default function PersonalInformation({
     profile: any;
     profile_skills: any;
     profile_languages: any;
+    profile_categories: JobCategory[];
+    categories: JobCategory[];
 }) {
     const { data, setData, post, errors, processing, recentlySuccessful } =
         useForm<{
@@ -42,6 +47,7 @@ export default function PersonalInformation({
             profile_picture: any;
             cv_file: any;
             skills: string[] | undefined;
+            categories: number[] | undefined;
             parse_cv: boolean;
         }>({
             country: profile.country,
@@ -55,6 +61,7 @@ export default function PersonalInformation({
             profile_picture: null,
             cv_file: null,
             skills: profile_skills,
+            categories: profile_categories.map((c) => c.id),
             parse_cv: false,
         });
 
@@ -292,6 +299,42 @@ export default function PersonalInformation({
                                 message={errors.website}
                             />
                         </div>
+                    </div>
+
+                    <div className="form-group w-full">
+                        <InputLabel
+                            htmlFor="categories"
+                            value="Job Categories"
+                        />
+
+                        <Select
+                            id="categories"
+                            name="categories"
+                            components={animatedComponents}
+                            className="react-select mt-1 w-full !border-none rounded-md shadow-sm"
+                            options={categories.map((category) => ({
+                                value: category.id,
+                                label: category.name_en,
+                            }))}
+                            onChange={(e: any) =>
+                                setData(
+                                    "categories",
+                                    [...e].map((obj: any) => obj.value)
+                                )
+                            }
+                            value={data.categories!.map((id) => ({
+                                value: id,
+                                label: categories.filter((c) => c.id == id)[0]
+                                    .name_en,
+                            }))}
+                            isClearable
+                            isMulti
+                        />
+
+                        <InputError
+                            className="mt-2"
+                            message={errors.categories}
+                        />
                     </div>
 
                     <div className="form-group w-full">

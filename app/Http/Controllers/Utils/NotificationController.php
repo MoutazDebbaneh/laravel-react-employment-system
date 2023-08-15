@@ -33,7 +33,7 @@ class NotificationController extends Controller
                 case NotificationType::ApplicationDeclined->value:
                     $related_url = route('user.applications', $notification->related_id);
                     break;
-                case NotificationType::NewJob->value:
+                case NotificationType::JobAdded->value:
                     $related_url = route('jobs.details', $notification->related_id);
                     break;
                 case NotificationType::CompanyVerificationRequestSent->value:
@@ -47,7 +47,10 @@ class NotificationController extends Controller
         }
 
         $locale = App::getLocale();
-        $translations = Lang::get('navbar', [], $locale);
+        $translations = array_merge(
+            Lang::get('dashboard-links', [], $locale),
+            Lang::get('navbar', [], $locale),
+        );
         return Inertia::render('Dashboard/Common/Notifications/Notifications', [
             'status' => session('status'),
             'translations' => $translations,

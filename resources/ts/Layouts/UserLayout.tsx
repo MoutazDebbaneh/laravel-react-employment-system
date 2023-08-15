@@ -107,7 +107,7 @@ export default function UserLayout({ locale, translations }: UserLayoutProps) {
                         />
                     </svg>
                     {notifications.length > 0 && (
-                        <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full px-1 text-[10px]">
+                        <span className="absolute top-0 end-0 bg-red-500 text-white rounded-full px-1 text-[10px]">
                             {notifications.length}
                         </span>
                     )}
@@ -115,7 +115,7 @@ export default function UserLayout({ locale, translations }: UserLayoutProps) {
                 {isNotificationsOpen && (
                     <div
                         ref={notificationsRef}
-                        className="absolute top-10 z-50 right-0 w-64 bg-white rounded-md shadow-lg py-2 mt-2"
+                        className="absolute top-10 z-50 end-0 w-64 bg-white rounded-md shadow-lg py-2 mt-2"
                     >
                         <div className="px-4 py-2 font-bold text-gray-800">
                             {(
@@ -175,18 +175,20 @@ export default function UserLayout({ locale, translations }: UserLayoutProps) {
                         />
                     </button>
                     {isDropDownOpen && (
-                        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                        <div className="absolute end-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
                             <Dropdown.Link
                                 href={route("user.dashboard")}
                                 as="button"
+                                className="text-justify"
                             >
-                                Dashboard
+                                {translations.dashboard.toString()}
                             </Dropdown.Link>
                             <Dropdown.Link
                                 href={route("user.info") + "#password"}
                                 as="button"
+                                className="text-justify"
                             >
-                                Change Password
+                                {translations.change.toString()}
                             </Dropdown.Link>
 
                             {locale == Locale.English ? (
@@ -195,8 +197,9 @@ export default function UserLayout({ locale, translations }: UserLayoutProps) {
                                         Locale.Arabic,
                                     ])}
                                     as="button"
+                                    className="text-justify"
                                 >
-                                    العربية
+                                    Arabic
                                 </Dropdown.Link>
                             ) : (
                                 <Dropdown.Link
@@ -204,16 +207,18 @@ export default function UserLayout({ locale, translations }: UserLayoutProps) {
                                         Locale.English,
                                     ])}
                                     as="button"
+                                    className="text-justify"
                                 >
-                                    English
+                                    الإنكليزية
                                 </Dropdown.Link>
                             )}
                             <Dropdown.Link
                                 href={route("logout")}
                                 method="post"
                                 as="button"
+                                className="text-justify"
                             >
-                                Log Out
+                                {translations.logout.toString()}
                             </Dropdown.Link>
                         </div>
                     )}

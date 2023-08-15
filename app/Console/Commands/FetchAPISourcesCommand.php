@@ -188,7 +188,7 @@ class FetchapiSourcesCommand extends Command
             $job_ids = [];
             $stop = false;
 
-            while (!$stop) {
+            while (!$stop && $page < 2) { // TODO
 
                 $form_data = array(
                     $config->getAttribute('search_variable') => '',

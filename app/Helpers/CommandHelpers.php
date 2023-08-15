@@ -258,7 +258,7 @@ class CommandHelpers
             $url = $results['display_image'];
             $image = file_get_contents($url);
             $filename = basename($url);
-            Storage::put("public/images/$filename", $image);
+            Storage::put("public/images/external/$filename", $image);
             $results['display_image'] = $filename;
         }
 

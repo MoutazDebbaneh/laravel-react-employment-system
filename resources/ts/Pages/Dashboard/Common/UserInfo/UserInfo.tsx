@@ -34,15 +34,28 @@ export default function UserInfo({
                                 mustVerifyEmail={true}
                                 status={status}
                                 className="max-w-xl"
+                                translations={
+                                    translations.content as Translations
+                                }
                             />
                         </div>
 
                         <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                            <UpdatePasswordForm className="max-w-xl" />
+                            <UpdatePasswordForm
+                                className="max-w-xl"
+                                translations={
+                                    translations.content as Translations
+                                }
+                            />
                         </div>
 
                         <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                            <DeleteUserForm className="max-w-xl" />
+                            <DeleteUserForm
+                                className="max-w-xl"
+                                translations={
+                                    translations.content as Translations
+                                }
+                            />
                         </div>
                     </div>
                 </UserDashboardLayout>
@@ -60,15 +73,28 @@ export default function UserInfo({
                                 mustVerifyEmail={false}
                                 status={status}
                                 className="max-w-xl"
+                                translations={
+                                    translations.content as Translations
+                                }
                             />
                         </div>
 
                         <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                            <UpdatePasswordForm className="max-w-xl" />
+                            <UpdatePasswordForm
+                                className="max-w-xl"
+                                translations={
+                                    translations.content as Translations
+                                }
+                            />
                         </div>
 
                         <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                            <DeleteUserForm className="max-w-xl" />
+                            <DeleteUserForm
+                                className="max-w-xl"
+                                translations={
+                                    translations.content as Translations
+                                }
+                            />
                         </div>
                     </div>
                 </CompanyDashboardLayout>
@@ -87,11 +113,19 @@ export default function UserInfo({
                                     mustVerifyEmail={false}
                                     status={status}
                                     className="max-w-xl"
+                                    translations={
+                                        translations.content as Translations
+                                    }
                                 />
                             </div>
 
                             <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                                <UpdatePasswordForm className="max-w-xl" />
+                                <UpdatePasswordForm
+                                    className="max-w-xl"
+                                    translations={
+                                        translations.content as Translations
+                                    }
+                                />
                             </div>
                         </div>
                     </AdminDashboardLayout>

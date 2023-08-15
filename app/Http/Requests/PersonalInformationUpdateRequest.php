@@ -287,9 +287,10 @@ class PersonalInformationUpdateRequest extends FormRequest
             "gender" => ['nullable', new Enum(Gender::class)],
             "languages" => ['nullable', 'array'],
             "languages.*" => [Rule::in($valid_languages)],
+            "categories" => ['nullable', 'array'],
             "skills" => ['nullable', 'array'],
             "skills.*" => ['string'],
-            "parse_cv" => ['nullable', 'boolean']
+            "parse_cv" => ['nullable', 'boolean'],
         ];
     }
 }

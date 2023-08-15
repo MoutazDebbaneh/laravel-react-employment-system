@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-// require __DIR__ . '/../../../vendor/autoload.php';
-
 use App\Http\Requests\AboutUpdateRequest;
 use App\Http\Requests\PersonalInformationUpdateRequest;
 use App\Models\Language;
@@ -47,12 +45,16 @@ class UserProfileController extends Controller
         // Synchronize Languages
         $langs = Language::whereIn('id', $data['languages'] ?? [])->get();
         $user_profile->languages()->sync($langs);
-
         $user_profile->save();
 
         if (!empty($data['cv_file']) && $data['parse_cv']) {
             $user_profile->parseCV();
         }
+
+        // Synchronize Categories
+        $categories = Language::whereIn('id', $data['categories'] ?? [])->get();
+        $user_profile->categories()->sync($categories);
+        $user_profile->save();
 
         // Synchronize Skills
 
