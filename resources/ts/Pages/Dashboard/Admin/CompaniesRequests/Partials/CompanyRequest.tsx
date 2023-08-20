@@ -9,6 +9,7 @@ import {
 import { countries } from "countries-list";
 import DeclineModal from "./DeclineModal";
 import AcceptModal from "./AcceptModal";
+import { Link } from "@inertiajs/react";
 
 interface CompanyData {
     logo: string;
@@ -86,14 +87,14 @@ const CompanyRequest: React.FC<CompanyData> = ({
                     <p>
                         <span className="font-bold">Name:</span> {name}
                     </p>
-                    <a href={`mailto:${email}`}>
+                    <Link href={`mailto:${email}`}>
                         <span className="font-bold">Email:</span> {email}
-                    </a>
+                    </Link>
                     <p>
-                        <a href={website} target="_blank">
+                        <Link href={website} target="_blank">
                             <span className="font-bold">Website:</span>{" "}
                             {website}
-                        </a>
+                        </Link>
                     </p>
                     <p>
                         <span className="font-bold">Location:</span>{" "}

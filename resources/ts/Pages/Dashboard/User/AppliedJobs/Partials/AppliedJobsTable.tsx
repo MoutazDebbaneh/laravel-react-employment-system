@@ -1,4 +1,5 @@
 import { JobApplication } from "@/types";
+import { Link } from "@inertiajs/react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -61,7 +62,7 @@ export default function AppliedJobsTable({
                 <TableBody>
                     {applications.map((row, index) => (
                         <StyledTableRow key={index}>
-                            <a
+                            <Link
                                 href={route("jobs.details", row.job_id)}
                                 className="contents"
                             >
@@ -95,7 +96,7 @@ export default function AppliedJobsTable({
                                         </span>
                                     )}
                                 </StyledTableCell>
-                            </a>
+                            </Link>
                         </StyledTableRow>
                     ))}
                 </TableBody>

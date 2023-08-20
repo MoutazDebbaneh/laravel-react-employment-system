@@ -111,6 +111,9 @@ export default function JobDetails({
         });
     }
 
+    const expiry = job.expiration_date ? new Date(job.expiration_date) : null;
+    const today = new Date();
+
     return (
         <DefaultLayout
             locale={locale}
@@ -149,43 +152,46 @@ export default function JobDetails({
                                 </span>
                             </div>
                         </div>
-                        {(!auth.user || auth.user.role == Role.User) && (
-                            <a
-                                href={
-                                    job.source_type! == 2
-                                        ? job.source_url!
-                                        : job.source_type == 3
-                                        ? new URL(job.source_url!).origin
-                                        : route("jobs.apply", job.id!)
-                                }
-                                className={
-                                    !alreadyApplied
-                                        ? "bg-primary-blue px-7 rounded-md text-white hover:bg-dark-blue hover:-translate-y-0.5 transition-all flex items-center gap-1"
-                                        : "bg-green-600 px-7 rounded-md text-white transition-all flex items-center gap-1 pointer-events-none"
-                                }
-                            >
-                                <div className="apply-icon">
-                                    <svg
-                                        width="16"
-                                        height="16"
-                                        viewBox="0 0 16 16"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M5.75001 8.00001L7.25001 9.50001L10.25 6.50001M4.87626 2.52276C5.41424 2.47982 5.92497 2.26829 6.33576 1.91826C6.79994 1.52246 7.38999 1.30505 8.00001 1.30505C8.61003 1.30505 9.20008 1.52246 9.66426 1.91826C10.0751 2.26829 10.5858 2.47982 11.1238 2.52276C11.7318 2.57114 12.3027 2.83463 12.7341 3.26595C13.1654 3.69728 13.4289 4.2682 13.4773 4.87626C13.5202 5.41424 13.7317 5.92497 14.0818 6.33576C14.4776 6.79994 14.695 7.38999 14.695 8.00001C14.695 8.61003 14.4776 9.20008 14.0818 9.66426C13.7317 10.0751 13.5202 10.5858 13.4773 11.1238C13.4289 11.7318 13.1654 12.3027 12.7341 12.7341C12.3027 13.1654 11.7318 13.4289 11.1238 13.4773C10.5858 13.5202 10.0751 13.7317 9.66426 14.0818C9.20008 14.4776 8.61003 14.695 8.00001 14.695C7.38999 14.695 6.79994 14.4776 6.33576 14.0818C5.92497 13.7317 5.41424 13.5202 4.87626 13.4773C4.2682 13.4289 3.69728 13.1654 3.26595 12.7341C2.83463 12.3027 2.57114 11.7318 2.52276 11.1238C2.47982 10.5858 2.26829 10.0751 1.91826 9.66426C1.52246 9.20008 1.30505 8.61003 1.30505 8.00001C1.30505 7.38999 1.52246 6.79994 1.91826 6.33576C2.26829 5.92497 2.47982 5.41424 2.52276 4.87626C2.57114 4.2682 2.83463 3.69728 3.26595 3.26595C3.69728 2.83463 4.2682 2.57114 4.87626 2.52276V2.52276Z"
-                                            stroke="white"
-                                            strokeWidth="1.58333"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                    </svg>
-                                </div>
-                                <p className="apply-text">
-                                    {!alreadyApplied ? "Apply Now" : "Applied"}
-                                </p>
-                            </a>
-                        )}
+                        {(!auth.user || auth.user.role == Role.User) &&
+                            (!expiry || expiry.getTime() > today.getTime()) && (
+                                <Link
+                                    href={
+                                        job.source_type! == 2
+                                            ? job.source_url!
+                                            : job.source_type == 3
+                                            ? new URL(job.source_url!).origin
+                                            : route("jobs.apply", job.id!)
+                                    }
+                                    className={
+                                        !alreadyApplied
+                                            ? "bg-primary-blue px-7 rounded-md text-white hover:bg-dark-blue hover:-translate-y-0.5 transition-all flex items-center gap-1"
+                                            : "bg-green-600 px-7 rounded-md text-white transition-all flex items-center gap-1 pointer-events-none"
+                                    }
+                                >
+                                    <div className="apply-icon">
+                                        <svg
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 16 16"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M5.75001 8.00001L7.25001 9.50001L10.25 6.50001M4.87626 2.52276C5.41424 2.47982 5.92497 2.26829 6.33576 1.91826C6.79994 1.52246 7.38999 1.30505 8.00001 1.30505C8.61003 1.30505 9.20008 1.52246 9.66426 1.91826C10.0751 2.26829 10.5858 2.47982 11.1238 2.52276C11.7318 2.57114 12.3027 2.83463 12.7341 3.26595C13.1654 3.69728 13.4289 4.2682 13.4773 4.87626C13.5202 5.41424 13.7317 5.92497 14.0818 6.33576C14.4776 6.79994 14.695 7.38999 14.695 8.00001C14.695 8.61003 14.4776 9.20008 14.0818 9.66426C13.7317 10.0751 13.5202 10.5858 13.4773 11.1238C13.4289 11.7318 13.1654 12.3027 12.7341 12.7341C12.3027 13.1654 11.7318 13.4289 11.1238 13.4773C10.5858 13.5202 10.0751 13.7317 9.66426 14.0818C9.20008 14.4776 8.61003 14.695 8.00001 14.695C7.38999 14.695 6.79994 14.4776 6.33576 14.0818C5.92497 13.7317 5.41424 13.5202 4.87626 13.4773C4.2682 13.4289 3.69728 13.1654 3.26595 12.7341C2.83463 12.3027 2.57114 11.7318 2.52276 11.1238C2.47982 10.5858 2.26829 10.0751 1.91826 9.66426C1.52246 9.20008 1.30505 8.61003 1.30505 8.00001C1.30505 7.38999 1.52246 6.79994 1.91826 6.33576C2.26829 5.92497 2.47982 5.41424 2.52276 4.87626C2.57114 4.2682 2.83463 3.69728 3.26595 3.26595C3.69728 2.83463 4.2682 2.57114 4.87626 2.52276V2.52276Z"
+                                                stroke="white"
+                                                strokeWidth="1.58333"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <p className="apply-text">
+                                        {!alreadyApplied
+                                            ? "Apply Now"
+                                            : "Applied"}
+                                    </p>
+                                </Link>
+                            )}
                     </div>
                 </div>
                 <div className="job-body mt-14 flex flex-col md:flex-row gap-2 md:gap-6">
@@ -569,14 +575,14 @@ export default function JobDetails({
                                             Email
                                         </span>
                                         <span>
-                                            <a
+                                            <Link
                                                 href={
                                                     "mailto:" +
                                                     job.company.email
                                                 }
                                             >
                                                 {job.company.email}
-                                            </a>
+                                            </Link>
                                         </span>
                                     </div>
                                     <div className="company-details-row flex flex-col mb-3">
@@ -584,9 +590,9 @@ export default function JobDetails({
                                             Website
                                         </span>
                                         <span>
-                                            <a href={job.company.website!}>
+                                            <Link href={job.company.website!}>
                                                 {job.company.website}
-                                            </a>
+                                            </Link>
                                         </span>
                                     </div>
                                     <div className="company-details-row flex flex-col">
@@ -594,13 +600,13 @@ export default function JobDetails({
                                             Phone
                                         </span>
                                         <span>
-                                            <a
+                                            <Link
                                                 href={
                                                     "tel:+" + job.company.phone!
                                                 }
                                             >
                                                 {job.company.phone}
-                                            </a>
+                                            </Link>
                                         </span>
                                     </div>
                                 </div>
@@ -613,30 +619,39 @@ export default function JobDetails({
                                 <h4 className="text-dark-blue text-xl font-bold capitalize border-b border-gray-200 pb-3">
                                     Similar Jobs
                                 </h4>
-                                {similars.map((j, i) => (
-                                    <div
-                                        key={i}
-                                        className={
-                                            "flex flex-row items-center relative hover:-translate-y-0.5 transition-all" +
-                                            (i < similars.length - 1
-                                                ? " border-b border-gray-200 py-5"
-                                                : " mb-3")
-                                        }
-                                    >
-                                        <img
-                                            src={j.display_image! as string}
-                                            alt="logo"
-                                            className="w-1/5 me-6"
-                                        />
-                                        <Link
-                                            href={route("jobs.details", j.id!)}
+                                {similars.length ? (
+                                    similars.map((j, i) => (
+                                        <div
+                                            key={i}
+                                            className={
+                                                "flex flex-row items-center relative hover:-translate-y-0.5 transition-all" +
+                                                (i < similars.length - 1
+                                                    ? " border-b border-gray-200 py-5"
+                                                    : " mb-3")
+                                            }
                                         >
-                                            <h4 className="text-dark-blue text-base font-bold capitalize">
-                                                {j.title!.split(" --- ")[0]}
-                                            </h4>
-                                        </Link>
-                                    </div>
-                                ))}
+                                            <img
+                                                src={j.display_image! as string}
+                                                alt="logo"
+                                                className="w-1/5 me-6"
+                                            />
+                                            <Link
+                                                href={route(
+                                                    "jobs.details",
+                                                    j.id!
+                                                )}
+                                            >
+                                                <h4 className="text-dark-blue text-base font-bold capitalize">
+                                                    {j.title!.split(" --- ")[0]}
+                                                </h4>
+                                            </Link>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p className="py-4">
+                                        There aren't any similar jobs right now.
+                                    </p>
+                                )}
                             </div>
                         )}
                     </div>

@@ -3,7 +3,7 @@ import { Locale } from "@/enums/app_enums";
 import { PageProps } from "@/types";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useForm, usePage } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 
 interface UserLayoutProps {
@@ -29,6 +29,7 @@ export default function UserLayout({ locale, translations }: UserLayoutProps) {
                         `type${notification.type}`
                     ] as Translations
                 ).body.toString(),
+                link: notification.related_url!,
             };
         })
     );
@@ -84,6 +85,8 @@ export default function UserLayout({ locale, translations }: UserLayoutProps) {
         };
     }, []);
 
+    console.log(notifications);
+
     return (
         <nav className="flex items-center justify-between flex-wrap p-6">
             <div className="flex items-center relative">
@@ -132,10 +135,12 @@ export default function UserLayout({ locale, translations }: UserLayoutProps) {
                             notifications.map((notification) => (
                                 <div
                                     key={notification.id}
-                                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                    className="px-4 py-2 hover:bg-gray-100"
                                 >
                                     <div className="font-bold">
-                                        {notification.title}
+                                        <Link href={notification.link}>
+                                            {notification.title}
+                                        </Link>
                                     </div>
                                     <div className="text-sm text-gray-700">
                                         {notification.description}
@@ -144,14 +149,14 @@ export default function UserLayout({ locale, translations }: UserLayoutProps) {
                             ))
                         )}
                         <div className="px-4 py-2 text-right">
-                            <a
+                            <Link
                                 href={route("user.notifications")}
                                 className="text-sm text-gray-500 hover:text-gray-800"
                             >
                                 {(
                                     translations.notifications as Translations
                                 ).all.toString()}
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 )}

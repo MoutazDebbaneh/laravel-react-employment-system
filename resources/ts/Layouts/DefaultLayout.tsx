@@ -44,13 +44,13 @@ export default function DefaultLayout({
                         }
                     >
                         <div className="header-left">
-                            <a href={route("home")}>
+                            <Link href={route("home")}>
                                 <img
                                     className="w-40"
                                     src="/storage/logo.png"
                                     alt="JSeek"
                                 />
-                            </a>
+                            </Link>
                         </div>
                         {(!auth.user ||
                             auth.user.role == Role.User ||
@@ -66,9 +66,9 @@ export default function DefaultLayout({
                                                     : inactiveLinkStyle)
                                             }
                                         >
-                                            <a href={route("home")}>
+                                            <Link href={route("home")}>
                                                 {translations.home.toString()}
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li
                                             className={
@@ -78,9 +78,9 @@ export default function DefaultLayout({
                                                     : inactiveLinkStyle)
                                             }
                                         >
-                                            <a href={route("jobs")}>
+                                            <Link href={route("jobs")}>
                                                 {translations.jobs.toString()}
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li
                                             className={
@@ -90,9 +90,9 @@ export default function DefaultLayout({
                                                     : inactiveLinkStyle)
                                             }
                                         >
-                                            <a href={route("companies")}>
+                                            <Link href={route("companies")}>
                                                 {translations.companies.toString()}
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li
                                             className={
@@ -102,9 +102,9 @@ export default function DefaultLayout({
                                                     : inactiveLinkStyle)
                                             }
                                         >
-                                            <a href={route("about")}>
+                                            <Link href={route("about")}>
                                                 {translations.about.toString()}
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li
                                             className={
@@ -114,9 +114,9 @@ export default function DefaultLayout({
                                                     : inactiveLinkStyle)
                                             }
                                         >
-                                            <a href={route("terms")}>
+                                            <Link href={route("terms")}>
                                                 {translations.terms.toString()}
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </nav>
@@ -134,33 +134,33 @@ export default function DefaultLayout({
                                     <div className="hidden 2xl:flex w-fit h-fit">
                                         {locale == Locale.English ? (
                                             <>
-                                                <a
+                                                <Link
                                                     href={route("login")}
                                                     className="bg-primary-blue px-[25px] py-[10px] rounded-lg me-2 text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all"
                                                 >
                                                     {translations.login.toString()}
-                                                </a>
-                                                <a
+                                                </Link>
+                                                <Link
                                                     href={route("register")}
                                                     className="bg-primary-blue px-[25px] py-[10px] rounded-lg text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all"
                                                 >
                                                     {translations.register.toString()}
-                                                </a>
+                                                </Link>
                                             </>
                                         ) : (
                                             <>
-                                                <a
+                                                <Link
                                                     href={route("login")}
                                                     className="bg-primary-blue px-[10px] py-[10px] rounded-lg me-2 text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all"
                                                 >
                                                     {translations.login.toString()}
-                                                </a>
-                                                <a
+                                                </Link>
+                                                <Link
                                                     href={route("register")}
                                                     className="bg-primary-blue px-[10px] py-[10px] rounded-lg text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all"
                                                 >
                                                     {translations.register.toString()}
-                                                </a>
+                                                </Link>
                                             </>
                                         )}
                                     </div>
@@ -244,29 +244,29 @@ export default function DefaultLayout({
                             <nav>
                                 <ul className="text-dark-blue text-[1.13rem] leading-none font-medium">
                                     <li className="py-4 transition-all hover:ms-1">
-                                        <a href={route("home")}>
+                                        <Link href={route("home")}>
                                             {translations.home.toString()}
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li className="py-4 transition-all hover:ms-1">
-                                        <a href={route("jobs")}>
+                                        <Link href={route("jobs")}>
                                             {translations.jobs.toString()}
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li className="py-4 transition-all hover:ms-1">
-                                        <a href={route("companies")}>
+                                        <Link href={route("companies")}>
                                             {translations.companies.toString()}
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li className="py-4 transition-all hover:ms-1">
-                                        <a href={route("about")}>
+                                        <Link href={route("about")}>
                                             {translations.about.toString()}
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li className="py-4 transition-all hover:ms-1">
-                                        <a href={route("terms")}>
+                                        <Link href={route("terms")}>
                                             {translations.terms.toString()}
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </nav>

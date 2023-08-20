@@ -8,7 +8,7 @@ import { Locale } from "@/enums/app_enums";
 import { Job } from "@/types";
 import { faInstitution, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import { useState } from "react";
 import Select, { SingleValue } from "react-select";
 import "../../../css/animation.css";
@@ -194,7 +194,7 @@ export default function JobsPage({
                             <h5 className="text-dark-blue font-bold text-2xl">
                                 {translations.filter.toString()}
                             </h5>
-                            <a
+                            <Link
                                 className={
                                     "link-reset text-[0.9rem] text-[#66789C] " +
                                         locale ==
@@ -206,7 +206,7 @@ export default function JobsPage({
                                 onClick={handleResetClick}
                             >
                                 {translations.reset.toString()}
-                            </a>
+                            </Link>
                         </div>
                         <div className="filter-group mb-6">
                             <h5 className="text-dark-blue font-semibold mb-3 text-[18px] ms-1">

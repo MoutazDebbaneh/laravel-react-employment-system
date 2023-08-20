@@ -4,6 +4,7 @@ import AdminDashboardLayout from "../../Admin/Partials/AdminDashboardLayout";
 import ScrapeSourceRow from "./Partials/ScrapeSourceRow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "@inertiajs/react";
 
 interface scrapeSourcesProps {
     locale: Locale;
@@ -33,12 +34,12 @@ export default function ScrapeSources({
                         <header>
                             <h2 className="text-lg font-medium text-gray-900">
                                 Scrape Sources
-                                <a href={route("admin.scrapeSources.add")}>
+                                <Link href={route("admin.scrapeSources.add")}>
                                     <FontAwesomeIcon
                                         icon={faPlusCircle}
                                         className="text-green-700 ms-2 text-base"
                                     />
-                                </a>
+                                </Link>
                             </h2>
 
                             <p className="mt-1 text-sm text-gray-600">

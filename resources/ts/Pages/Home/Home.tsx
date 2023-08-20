@@ -217,7 +217,7 @@ export default function Home({
                                     }
                                 />
                                 <span>
-                                    <a
+                                    <Link
                                         href={route("jobs", {
                                             search: searchText,
                                             category: category,
@@ -225,7 +225,7 @@ export default function Home({
                                         className="bg-primary-blue px-[25px] py-[10px] rounded-lg me-2 text-white hover:bg-dark-blue block hover:-translate-y-0.5 transition-all"
                                     >
                                         {translations.search.toString()}
-                                    </a>
+                                    </Link>
                                 </span>
                             </div>
                         </div>

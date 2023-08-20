@@ -63,7 +63,7 @@ export default function NotificationTable({
                 <TableBody>
                     {notifications.map((row, index) => (
                         <StyledTableRow key={index}>
-                            <a href={row.related_url!} className="contents">
+                            <Link href={row.related_url!} className="contents">
                                 <StyledTableCell
                                     component="th"
                                     scope="row"
@@ -86,7 +86,7 @@ export default function NotificationTable({
                                         ] as Translations
                                     ).body.toString()}
                                 </StyledTableCell>
-                            </a>
+                            </Link>
                         </StyledTableRow>
                     ))}
                 </TableBody>

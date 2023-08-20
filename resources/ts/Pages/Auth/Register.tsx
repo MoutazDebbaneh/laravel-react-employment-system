@@ -241,9 +241,9 @@ export default function NewRegister({
                                 <span className="ms-2 text-dark-blue text-[15px]">
                                     {translations.agree1.toString()}
                                     <span>
-                                        <a href="">
+                                        <Link href={route("terms")}>
                                             {translations.agree2.toString()}
-                                        </a>
+                                        </Link>
                                     </span>
                                 </span>
                             </label>

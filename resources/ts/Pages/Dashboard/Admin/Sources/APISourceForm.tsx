@@ -7,6 +7,7 @@ import { Transition } from "@headlessui/react";
 import { useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 import AdminDashboardLayout from "../Partials/AdminDashboardLayout";
+import Select from "react-select";
 
 interface apiSourcesProps {
     locale: Locale;
@@ -77,6 +78,17 @@ export default function APISourceForm({
         if (editMode) post(route("admin.apiSources.editSource", source.id));
         else post(route("admin.apiSources.addSource"));
     };
+
+    const passTypes = [
+        { label: "Query", value: "Query" },
+        { label: "Path", value: "Path" },
+        { label: "Form", value: "Form" },
+    ];
+
+    const HTTPMethods = [
+        { label: "GET", value: "GET" },
+        { label: "POST", value: "POST" },
+    ];
 
     return (
         <AdminDashboardLayout
@@ -206,14 +218,24 @@ export default function APISourceForm({
                                             value="Jobs List Method"
                                         />
 
-                                        <TextInput
+                                        <Select
                                             id="jobs_list_method"
-                                            className="mt-1 block w-full"
+                                            className="react-select mt-1 block w-full"
                                             value={
-                                                data.editableSource
-                                                    .api_source_configuration!
-                                                    .jobs_list_method
+                                                !data.editableSource
+                                                    .api_source_configuration
+                                                    ?.jobs_list_method
+                                                    ? null
+                                                    : HTTPMethods.filter(
+                                                          (o) =>
+                                                              o.value ==
+                                                              data
+                                                                  .editableSource
+                                                                  .api_source_configuration
+                                                                  ?.jobs_list_method
+                                                      )[0]
                                             }
+                                            options={HTTPMethods}
                                             onChange={(e) =>
                                                 setData("editableSource", {
                                                     ...data.editableSource,
@@ -221,7 +243,7 @@ export default function APISourceForm({
                                                         ...data.editableSource
                                                             .api_source_configuration!,
                                                         jobs_list_method:
-                                                            e.target.value,
+                                                            e!.value,
                                                     },
                                                 })
                                             }
@@ -234,14 +256,24 @@ export default function APISourceForm({
                                             value="Pagination Pass Type"
                                         />
 
-                                        <TextInput
+                                        <Select
                                             id="pagination_pass_type"
-                                            className="mt-1 block w-full"
+                                            className="react-select mt-1 block w-full"
                                             value={
-                                                data.editableSource
-                                                    .api_source_configuration!
-                                                    .pagination_pass_type
+                                                !data.editableSource
+                                                    .api_source_configuration
+                                                    ?.pagination_pass_type
+                                                    ? null
+                                                    : passTypes.filter(
+                                                          (o) =>
+                                                              o.value ==
+                                                              data
+                                                                  .editableSource
+                                                                  .api_source_configuration
+                                                                  ?.pagination_pass_type
+                                                      )[0]
                                             }
+                                            options={passTypes}
                                             onChange={(e) =>
                                                 setData("editableSource", {
                                                     ...data.editableSource,
@@ -249,7 +281,7 @@ export default function APISourceForm({
                                                         ...data.editableSource
                                                             .api_source_configuration!,
                                                         pagination_pass_type:
-                                                            e.target.value,
+                                                            e!.value,
                                                     },
                                                 })
                                             }
@@ -383,14 +415,24 @@ export default function APISourceForm({
                                             value="Jobs Link Method"
                                         />
 
-                                        <TextInput
+                                        <Select
                                             id="jobs_link_method"
-                                            className="mt-1 block w-full"
+                                            className="react-select mt-1 block w-full"
                                             value={
-                                                data.editableSource
-                                                    .api_source_configuration!
-                                                    .jobs_link_method
+                                                !data.editableSource
+                                                    .api_source_configuration
+                                                    ?.jobs_link_method
+                                                    ? null
+                                                    : HTTPMethods.filter(
+                                                          (o) =>
+                                                              o.value ==
+                                                              data
+                                                                  .editableSource
+                                                                  .api_source_configuration
+                                                                  ?.jobs_link_method
+                                                      )[0]
                                             }
+                                            options={HTTPMethods}
                                             onChange={(e) =>
                                                 setData("editableSource", {
                                                     ...data.editableSource,
@@ -398,7 +440,7 @@ export default function APISourceForm({
                                                         ...data.editableSource
                                                             .api_source_configuration!,
                                                         jobs_link_method:
-                                                            e.target.value,
+                                                            e!.value,
                                                     },
                                                 })
                                             }
@@ -411,14 +453,24 @@ export default function APISourceForm({
                                             value="Jobs Id Pass Type"
                                         />
 
-                                        <TextInput
+                                        <Select
                                             id="job_id_pass_type"
-                                            className="mt-1 block w-full"
+                                            className="react-select mt-1 block w-full"
                                             value={
-                                                data.editableSource
-                                                    .api_source_configuration!
-                                                    .job_id_pass_type
+                                                !data.editableSource
+                                                    .api_source_configuration
+                                                    ?.job_id_pass_type
+                                                    ? null
+                                                    : passTypes.filter(
+                                                          (o) =>
+                                                              o.value ==
+                                                              data
+                                                                  .editableSource
+                                                                  .api_source_configuration
+                                                                  ?.job_id_pass_type
+                                                      )[0]
                                             }
+                                            options={passTypes}
                                             onChange={(e) =>
                                                 setData("editableSource", {
                                                     ...data.editableSource,
@@ -426,7 +478,7 @@ export default function APISourceForm({
                                                         ...data.editableSource
                                                             .api_source_configuration!,
                                                         job_id_pass_type:
-                                                            e.target.value,
+                                                            e!.value,
                                                     },
                                                 })
                                             }

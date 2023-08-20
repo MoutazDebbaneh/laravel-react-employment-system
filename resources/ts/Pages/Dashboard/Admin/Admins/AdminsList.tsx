@@ -4,6 +4,7 @@ import AdminDashboardLayout from "../Partials/AdminDashboardLayout";
 import AdminListRow from "./Partials/AdminListRow";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "@inertiajs/react";
 
 interface adminsListProps {
     locale: Locale;
@@ -33,12 +34,12 @@ export default function AdminsList({
                         <header>
                             <h2 className="text-lg font-medium text-gray-900">
                                 Admins
-                                <a href={route("admin.add")}>
+                                <Link href={route("admin.add")}>
                                     <FontAwesomeIcon
                                         icon={faPlusCircle}
                                         className="text-green-700 ms-2 text-base"
                                     />
-                                </a>
+                                </Link>
                             </h2>
 
                             <p className="mt-1 text-sm text-gray-600">

@@ -6,6 +6,7 @@ import {
     faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "@inertiajs/react";
 import { countries } from "countries-list";
 
 export default function JobCard({
@@ -61,7 +62,7 @@ export default function JobCard({
                         />
                     </div>
                     <div className="company-location flex flex-col content-between gap-1">
-                        <a href="#">
+                        <Link href="#">
                             <h5 className="text-dark-blue font-bold text-lg">
                                 {job.company
                                     ? job.company.name
@@ -69,7 +70,7 @@ export default function JobCard({
                                     ? job.title!.split(" --- ")[1]
                                     : translations.unknown.toString()}
                             </h5>
-                        </a>
+                        </Link>
                         <span className="text-[12px] text-muted">
                             <FontAwesomeIcon
                                 icon={faLocationDot}
@@ -156,7 +157,7 @@ export default function JobCard({
                 ) : (
                     ""
                 )}
-                <a
+                <Link
                     href={route("jobs.details", job.id)}
                     className={
                         "details-btn bg-[#E0E6F7] py-2 px-5 rounded text-primary-blue text-sm group-hover:bg-primary-blue group-hover:text-white " +
@@ -166,7 +167,7 @@ export default function JobCard({
                     }
                 >
                     {translations.details.toString()}
-                </a>
+                </Link>
             </div>
         </div>
     );

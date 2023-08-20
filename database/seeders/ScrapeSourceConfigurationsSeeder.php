@@ -17,7 +17,7 @@ class ScrapeSourceConfigurationsSeeder extends Seeder
         $source = ScrapeSource::where('name', 'Career.sy')->first();
 
         $config = new ScrapeSourceConfiguration([
-            'title_selector' => '//meta[@property="og:title"][1]/@content',
+            'title_selector' => '//meta[@property="og:title"][1]',
             'company_selector' => '//div[@class="company-title"]//h5[1]',
             'location_selector' => '//ul[@class="job-overview"][1]//h5[contains(., "Location")]/following-sibling::*[1]',
             'description_selector' => '//div[@class="job-detail-outer"][1]//div[@class="job-detail"][1]',

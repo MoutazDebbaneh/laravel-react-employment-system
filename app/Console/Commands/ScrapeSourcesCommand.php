@@ -115,10 +115,35 @@ class ScrapeSourcesCommand extends Command
                 if (!empty($config->getAttribute('display_image_selector')))
                     $results['display_image'] = $driver->findElement(WebDriverBy::xpath($config->getAttribute('display_image_selector')))->getAttribute('src');
 
+                // $x = $driver->findElement(WebDriverBy::xpath('//meta[@property="og:title"][1]'));
+                // $value = $x->getAttribute('content');
+
+                // $y =
+                //     $driver->findElement(WebDriverBy::xpath('//h4/a[@class="profile-link"]/preceding-sibling::text()'));
+
+                // $x->
+
+                // dd('x : ' . gettype($x) . ' y : ' . gettype($y));
+                // dd(trim(
+                //     $driver->findElement(WebDriverBy::xpath('//div[@class="job-block-seven"]//h4[1]'))->getText(),
+                //     " \t\n\r\0\x0B-"
+                // ));
+
                 foreach (self::$signle_text_selectors as $selector_key) {
                     $selector = $config->getAttribute($selector_key);
 
                     if (empty($selector)) continue;
+
+                    if ($selector_key == 'title_selector') {
+                        $elm =
+                            $driver->findElement(WebDriverBy::xpath($selector));
+                        $value = trim(
+                            $elm->getAttribute('content'),
+                            " \t\n\r\0\x0B-"
+                        );
+                        $results[substr($selector_key, 0, -9)] = $value;
+                        continue;
+                    }
 
                     try {
                         $value = trim(

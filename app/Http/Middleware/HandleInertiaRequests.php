@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\NotificationType;
 use App\Enums\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
@@ -41,6 +42,31 @@ class HandleInertiaRequests extends Middleware
             Storage::url('images/companies/' . $user->company->logo) :
             Storage::url('images/users/' . $user->userProfile->profile_picture)
         );
+
+        foreach ($user_notifications as $notification) {
+            $related_url = '#';
+            switch ($notification->type) {
+                case NotificationType::ApplicationSubmitted->value:
+                    $related_url = route('company.application.show', $notification->related_id);
+                    break;
+                case NotificationType::ApplicationAccepted->value:
+                    $related_url = route('user.applications', $notification->related_id);
+                    break;
+                case NotificationType::ApplicationDeclined->value:
+                    $related_url = route('user.applications', $notification->related_id);
+                    break;
+                case NotificationType::JobAdded->value:
+                    $related_url = route('jobs.details', $notification->related_id);
+                    break;
+                case NotificationType::CompanyVerificationRequestSent->value:
+                    $related_url = route('admin.requests');
+                    break;
+                case NotificationType::CompanyVerificationRequestAccepted->value:
+                    $related_url = route('company.info');
+                    break;
+            }
+            $notification->related_url = $related_url;
+        }
 
         return array_merge(parent::share($request), [
             'auth' => [

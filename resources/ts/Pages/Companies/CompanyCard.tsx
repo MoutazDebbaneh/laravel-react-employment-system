@@ -2,6 +2,7 @@ import { Locale } from "@/enums/app_enums";
 import { Company } from "@/types";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "@inertiajs/react";
 import { countries } from "countries-list";
 
 export default function CompanyCard({
@@ -24,7 +25,9 @@ export default function CompanyCard({
         return formattedDate;
     };
 
-    console.log(company);
+    console.log(
+        countries[company.headquarters! as keyof typeof countries].name
+    );
 
     return (
         <div className="company-card w-full border border-[#E0E6F7] rounded-lg mb-6 bg-[#F8FAFF] p-8 hover:border-[#B4C0E0] hover:bg-white transition-all hover:-translate-y-0.5 group">
@@ -38,17 +41,21 @@ export default function CompanyCard({
                         />
                     </div>
                     <div className="company-location flex flex-col content-between gap-1">
-                        <a href="#">
+                        <Link href="#">
                             <h5 className="text-dark-blue font-bold text-lg">
                                 {company.name}
                             </h5>
-                        </a>
+                        </Link>
                         <span className="text-[12px] text-muted">
                             <FontAwesomeIcon
                                 icon={faLocationDot}
                                 className="me-1"
                             />
-                            {company.headquarters!}
+                            {
+                                countries[
+                                    company.headquarters! as keyof typeof countries
+                                ].name
+                            }
                         </span>
                     </div>
                 </div>
@@ -75,22 +82,28 @@ export default function CompanyCard({
             <div className="card-body mt-7">
                 <div className="details-row mb-4">
                     <p className="font-bold">{translations.email.toString()}</p>{" "}
-                    <a href={`mailto:${company.email}`}>{company.email}</a>
+                    <Link href={`mailto:${company.email}`}>
+                        {company.email}
+                    </Link>
                 </div>
 
                 <div className="details-row mb-4">
-                    <a href={company.website!} target="_blank">
+                    <Link href={company.website!} target="_blank">
                         <p className="font-bold">
                             {translations.website.toString()}
                         </p>{" "}
                         {company.website}
-                    </a>
+                    </Link>
                 </div>
                 <div className="details-row mb-4">
                     <p className="font-bold">
                         {translations.location.toString()}
                     </p>{" "}
-                    {company.headquarters}
+                    {
+                        countries[
+                            company.headquarters! as keyof typeof countries
+                        ].name
+                    }
                 </div>
                 <div className="details-row mb-4">
                     <p className="font-bold">{translations.phone.toString()}</p>{" "}
@@ -98,7 +111,7 @@ export default function CompanyCard({
                 </div>
             </div>
             <div className="card-footer mt-6 mb-12">
-                <a
+                <Link
                     href={route("jobs", {
                         company: company.id.toString(),
                     })}
@@ -110,7 +123,7 @@ export default function CompanyCard({
                     }
                 >
                     {translations.jobs.toString()}
-                </a>
+                </Link>
             </div>
         </div>
     );

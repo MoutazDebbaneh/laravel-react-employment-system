@@ -551,12 +551,12 @@ export default function Application({
                                 </div>
                                 {profile.cv_file && (
                                     <div className="form-group my-5">
-                                        <a href={profile.cv_file as string}>
+                                        <Link href={profile.cv_file as string}>
                                             <InputLabel
                                                 value="Download CV File"
                                                 className="cursor-pointer"
                                             />
-                                        </a>
+                                        </Link>
                                     </div>
                                 )}
                             </div>

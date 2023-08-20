@@ -1,5 +1,6 @@
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "@inertiajs/react";
 
 export default function DashboardLink({
     routeName,
@@ -15,7 +16,7 @@ export default function DashboardLink({
     title: string;
 }) {
     return (
-        <a
+        <Link
             href={route(routeName)}
             className={
                 "w-full flex items-center px-4 py-4 rounded-lg font-bold my-1 text-[17px]" +
@@ -26,6 +27,6 @@ export default function DashboardLink({
         >
             <FontAwesomeIcon icon={icon} className="w-6 me-2" />
             <span className="hidden md:block">{title}</span>
-        </a>
+        </Link>
     );
 }

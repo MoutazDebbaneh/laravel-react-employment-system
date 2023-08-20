@@ -77,9 +77,9 @@ export default function AdminListRow({ admin }: AdminListRowData) {
                         <span className="font-bold">Last Name:</span>{" "}
                         {admin.last_name}
                     </p>
-                    <a href={`mailto:${admin.email}`}>
+                    <Link href={`mailto:${admin.email}`}>
                         <span className="font-bold">Email:</span> {admin.email}
-                    </a>
+                    </Link>
                 </div>
             </div>
             <DeleteModal

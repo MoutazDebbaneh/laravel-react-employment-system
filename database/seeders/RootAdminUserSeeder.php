@@ -18,13 +18,13 @@ class RootAdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        if (config('root_admin.admin_email')) {
+        if (config('admin.root_admin_email')) {
             $user = User::firstOrCreate(
-                ['email' => config('root_admin.admin_email')],
+                ['email' => config('admin.root_admin_email')],
                 [
-                    'first_name' => config('root_admin.admin_first_name'),
-                    'last_name' => config('root_admin.admin_last_name'),
-                    'password' => bcrypt(config('root_admin.admin_password')),
+                    'first_name' => config('admin.root_admin_first_name'),
+                    'last_name' => config('admin.root_admin_last_name'),
+                    'password' => bcrypt(config('admin.root_admin_password')),
                     'role' => Role::Root_Admin,
                     'email_verified_at' => now()
                 ]

@@ -4,6 +4,7 @@ import AdminDashboardLayout from "../Partials/AdminDashboardLayout";
 import APISourceRow from "./Partials/APISourceRow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "@inertiajs/react";
 
 interface apiSourcesProps {
     locale: Locale;
@@ -33,12 +34,12 @@ export default function APISources({
                         <header>
                             <h2 className="text-lg font-medium text-gray-900">
                                 API Sources
-                                <a href={route("admin.apiSources.add")}>
+                                <Link href={route("admin.apiSources.add")}>
                                     <FontAwesomeIcon
                                         icon={faPlusCircle}
                                         className="text-green-700 ms-2 text-base"
                                     />
-                                </a>
+                                </Link>
                             </h2>
 
                             <p className="mt-1 text-sm text-gray-600">
