@@ -38,10 +38,25 @@ class HandleInertiaRequests extends Middleware
         $user = $request->user();
         $role = empty($user) ? null : $request->user()->role;
         $user_notifications = empty($user) ? [] : $user->notifications()->where('is_read', 0)->get();
-        $profile_picture = empty($user) ? '' : ($role == Role::Company->value ?
-            Storage::url('images/companies/' . $user->company->logo) :
-            Storage::url('images/users/' . $user->userProfile->profile_picture)
-        );
+        $profile_picture = '';
+
+        if (!empty($user)) {
+            switch ($role) {
+                case strval(Role::User->value):
+                    $profile_picture = Storage::url('images/users/' . $user->userProfile->profile_picture);
+                    break;
+                case strval(Role::Company->value):
+                    $profile_picture = Storage::url('images/companies/' . $user->company->logo);
+                    break;
+                default:
+                    $profile_picture = Storage::url('images/users/default_user.png');
+                    break;
+            }
+        }
+        // $profile_picture = empty($user) ? '' : ($role == Role::Company->value ?
+        //     Storage::url('images/companies/' . $user->company->logo) : ($role = Role::User->value ?
+        //         Storage::url('images/users/' . $user->userProfile->profile_picture) : Storage::url('images/users/default_user.png'))
+        // );
 
         foreach ($user_notifications as $notification) {
             $related_url = '#';

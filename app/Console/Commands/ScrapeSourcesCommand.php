@@ -173,8 +173,8 @@ class ScrapeSourcesCommand extends Command
                     }
                 }
 
-                Log::channel('scraplog')->info("$url raw results:");
-                Log::channel('scraplog')->info(json_encode($results));
+                // Log::channel('scraplog')->info("$url raw results:");
+                // Log::channel('scraplog')->info(json_encode($results));
 
 
                 CommandHelpers::normalizeJobData(
@@ -187,8 +187,8 @@ class ScrapeSourcesCommand extends Command
                     'scraplog'
                 );
 
-                Log::channel('scraplog')->info("$url normalized results:");
-                Log::channel('scraplog')->info(json_encode($results));
+                // Log::channel('scraplog')->info("$url normalized results:");
+                // Log::channel('scraplog')->info(json_encode($results));
 
                 $results['source_url'] = $url;
                 $results['source_type'] = SourceType::Scrape->value;

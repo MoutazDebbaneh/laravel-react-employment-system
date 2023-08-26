@@ -61,19 +61,23 @@ class JobsPageController extends Controller
         $jobs = $query->orderBy('created_at', $order === 'newest' ? 'desc' : 'asc')->paginate($perPage, ['*'], 'page', $page);
 
         foreach ($jobs as $job) {
-            if (!empty($job->display_image)) {
-                $job->display_image = (empty($job->source_url) ? Storage::url('images/companies/' . $job->display_image) : Storage::url('images/external/' . $job->display_image));
-            }
-            if (!empty($job->source_url)) {
-                $logo = '#';
-                if ($job->source_type == SourceType::API->value) {
-                    $logo = Storage::url('images/sources/' . $job->apiSource->logo);
-                    $job->source = $job->apiSource;
-                } else {
-                    $logo = Storage::url('images/sources/' . $job->scrapeSource->logo);
-                    $job->source = $job->scrapeSource;
+            if (!empty($job->company_id) && !empty($job->company->logo)) {
+                $job->display_image = Storage::url('images/companies/' . $job->company->logo);
+            } else {
+                if (!empty($job->display_image)) {
+                    $job->display_image = (empty($job->source_url) ? Storage::url('images/companies/' . $job->display_image) : Storage::url('images/external/' . $job->display_image));
                 }
-                $job->source_logo = $logo;
+                if (!empty($job->source_url)) {
+                    $logo = '#';
+                    if ($job->source_type == SourceType::API->value) {
+                        $logo = Storage::url('images/sources/' . $job->apiSource->logo);
+                        $job->source = $job->apiSource;
+                    } else {
+                        $logo = Storage::url('images/sources/' . $job->scrapeSource->logo);
+                        $job->source = $job->scrapeSource;
+                    }
+                    $job->source_logo = $logo;
+                }
             }
         }
 
@@ -111,7 +115,26 @@ class JobsPageController extends Controller
 
         if (empty($job)) abort(404);
 
-        $job->display_image = empty($job->source_url) ? Storage::url('images/companies/' . $job->display_image) : Storage::url('images/external/' . $job->display_image);
+        // $job->display_image = empty($job->source_url) ? Storage::url('images/companies/' . $job->display_image) : Storage::url('images/external/' . $job->display_image);
+        if (!empty($job->company_id) && !empty($job->company->logo)) {
+            $job->display_image = Storage::url('images/companies/' . $job->company->logo);
+        } else {
+            if (!empty($job->display_image)) {
+                $job->display_image = (empty($job->source_url) ? Storage::url('images/companies/' . $job->display_image) : Storage::url('images/external/' . $job->display_image));
+            }
+            if (!empty($job->source_url)) {
+                $logo = '#';
+                if ($job->source_type == SourceType::API->value) {
+                    $logo = Storage::url('images/sources/' . $job->apiSource->logo);
+                    $job->source = $job->apiSource;
+                } else {
+                    $logo = Storage::url('images/sources/' . $job->scrapeSource->logo);
+                    $job->source = $job->scrapeSource;
+                }
+                $job->source_logo = $logo;
+            }
+        }
+
         $similars = Job::latest()->where(['job_category_id' => $job->job_category_id])->whereNot('id', $id)->limit(6)->get();
 
         foreach ($similars as $similar) {

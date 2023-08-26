@@ -167,7 +167,7 @@ class FetchapiSourcesCommand extends Command
                 $results[str_replace('_path', '', $path_key)] = $value;
             }
 
-            Log::channel('apifetchlog')->info(json_encode($results));
+            // Log::channel('apifetchlog')->info(json_encode($results));
 
             curl_close($curl);
 
@@ -350,8 +350,9 @@ class FetchapiSourcesCommand extends Command
 
                 $source->jobs()->save($job);
 
-                Log::channel('apifetchlog')->info('Job saved:');
-                Log::channel('apifetchlog')->info(json_encode($job));
+                $title = $job->title;
+                Log::channel('apifetchlog')->info("Job Saved: $title");
+                // Log::channel('apifetchlog')->info(json_encode($job));
 
                 if (isset($job_details['matched_types_ids']))
                     $job->jobTypes()->sync($job_details['matched_types_ids']);
